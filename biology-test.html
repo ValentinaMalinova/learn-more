@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>НАУЧИ+ | Тест по биология</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a472a 0%, #2d5a3d 100%);
+            color: #fff;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+        
+        header {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 20px 0;
+            border-bottom: 3px solid #4CAF50;
+        }
+        
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+        
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #4CAF50;
+        }
+        
+        .nav {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+        
+        .nav a {
+            color: #fff;
+            text-decoration: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            transition: all 0.3s;
+            font-size: 0.95rem;
+        }
+        
+        .nav a:hover {
+            background: rgba(76, 175, 80, 0.3);
+            color: #4CAF50;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #4CAF50;
+            margin-bottom: 30px;
+            font-size: 2.5rem;
+        }
+        
+        .quiz-container {
+            background: rgba(76, 175, 80, 0.1);
+            padding: 30px;
+            border-radius: 15px;
+            border: 2px solid #4CAF50;
+        }
+
+        .quiz-description {
+            margin: -12px 0 24px;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.85);
+        }
+        
+        .question {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            border-left: 5px solid #4CAF50;
+        }
+        
+        .question-number {
+            font-size: 0.9rem;
+            color: #4CAF50;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .question-text {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #fff;
+        }
+        
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .option {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 15px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+            font-size: 1rem;
+        }
+        
+        .option:hover {
+            background: rgba(76, 175, 80, 0.3);
+            border-color: #4CAF50;
+        }
+        
+        .option.selected {
+            background: rgba(76, 175, 80, 0.5);
+            border-color: #4CAF50;
+        }
+        
+        .option.correct {
+            background: rgba(76, 175, 80, 0.7);
+            border-color: #4CAF50;
+            color: #fff;
+        }
+        
+        .option.incorrect {
+            background: rgba(244, 67, 54, 0.7);
+            border-color: #F44336;
+            color: #fff;
+        }
+        
+        .explanation {
+            background: rgba(76, 175, 80, 0.2);
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            border-left: 4px solid #4CAF50;
+            display: none;
+            font-size: 0.95rem;
+        }
+        
+        .explanation.show {
+            display: block;
+        }
+        
+        .button-group {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        
+        button {
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            color: #fff;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            transition: all 0.3s;
+            flex: 1;
+            min-width: 150px;
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(76, 175, 80, 0.4);
+        }
+        
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .results {
+            background: rgba(76, 175, 80, 0.2);
+            padding: 30px;
+            border-radius: 12px;
+            text-align: center;
+            margin-top: 30px;
+            display: none;
+            border: 2px solid #4CAF50;
+        }
+        
+        .results.show {
+            display: block;
+        }
+        
+        .score-display {
+            font-size: 3rem;
+            color: #4CAF50;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+
+        .review-controls {
+            display: grid;
+            gap: 8px;
+            max-width: 360px;
+            margin: 24px auto 16px;
+            text-align: left;
+        }
+
+        .review-controls label {
+            font-weight: bold;
+        }
+
+        .review-controls select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #4CAF50;
+            border-radius: 8px;
+            background: #1a472a;
+            color: #fff;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+
+        .review-controls select option {
+            background: #fff;
+            color: #222;
+        }
+
+        .question-review {
+            display: grid;
+            gap: 12px;
+            margin: 20px 0;
+            text-align: left;
+        }
+
+        .review-question,
+        .review-empty {
+            padding: 16px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 8px;
+            border-left: 4px solid #4CAF50;
+        }
+
+        .review-question.incorrect {
+            border-left-color: #F44336;
+        }
+
+        .review-question h3 {
+            margin-bottom: 8px;
+            font-size: 1.05rem;
+        }
+
+        .review-question p + p {
+            margin-top: 5px;
+        }
+        
+        .footer {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 20px;
+            text-align: center;
+            margin-top: 50px;
+            border-top: 2px solid #4CAF50;
+        }
+    </style>
+    <link rel="stylesheet" href="biology-theme.css">
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="logo">🧬 НАУЧИ+</div>
+            <nav class="nav">
+                <a href="index.html">Начало</a>
+                <a href="biology.html">Биология</a>
+                <a href="chemistry.html">Химия</a>
+                <a href="physics.html">Физика</a>
+                <a href="games.html">Игри</a>
+                <a href="quests.html">Мисии</a>
+                <a href="about.html">За нас</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <h1>🧬 Тест по Биология</h1>
+        <p class="quiz-description">Всеки опит включва 10 случайни въпроса от общо 30.</p>
+        
+        <div class="quiz-container">
+            <div id="quizContent">
+                <!-- Въпросите ще бъдат добавени тук от JavaScript -->
+            </div>
+            
+            <div class="button-group">
+                <button id="submitBtn" onclick="checkAnswers()">Преглед отговори</button>
+                <button id="resetBtn" onclick="resetQuiz()" style="background: linear-gradient(135deg, #666, #555);">Нов тест</button>
+            </div>
+            
+            <div id="results" class="results">
+                <h2>Резултати</h2>
+                <div class="score-display" id="scoreDisplay">0/10</div>
+                <p id="scoreMessage" style="font-size: 1.2rem; margin-top: 20px;"></p>
+                <div class="review-controls">
+                    <label for="reviewFilter">Покажи въпросите:</label>
+                    <select id="reviewFilter" onchange="renderQuestionReview()">
+                        <option value="all">Всички въпроси</option>
+                        <option value="incorrect">Сгрешени въпроси</option>
+                        <option value="correct">Верни въпроси</option>
+                    </select>
+                </div>
+                <div id="questionReview" class="question-review" aria-live="polite"></div>
+                <button onclick="goBack()" style="margin-top: 20px;">Обратно към биологията</button>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>Любопитството е първата стъпка към откритието.</p>
+        <small style="display: block; margin-top: 15px; border-top: 1px solid rgba(100,113,138,0.3); padding-top: 10px;">
+            Сайтът е създаден за НЕТИТ "Джон Атанасов" София 2026
+        </small>
+        <small style="display: block;">
+            Автори: Йордан Божков и Иван Варников, ПМГ "Константин Величков" Пазарджик
+        </small>
+    </footer>
+
+    <script>
+        const questionBank = [
+            ["Кое е най-характерно за едноклетъчния организъм?", ["Състои се от една клетка", "Състои се само от органи", "Винаги се вижда с просто око", "Няма наследствен материал"], 0, "Едноклетъчният организъм изпълнява жизнените си функции с една клетка."],
+            ["Коя е разликата между едноклетъчни и многоклетъчни организми?", ["Броят на клетките", "Цветът на клетките", "Наличието на вода", "Мястото им в природата"], 0, "Едноклетъчните са изградени от една клетка, а многоклетъчните — от много клетки."],
+            ["Защо учените класифицират организмите?", ["За да ги подреждат и сравняват", "За да променят наследствеността им", "За да ги превръщат в други видове", "За да измерват само възрастта им"], 0, "Класификацията подрежда организмите и улеснява изучаването на сходствата и разликите им."],
+            ["На какво се основава класифицирането на организмите?", ["На общи белези", "На еднакъв размер", "На еднакво място на живот", "На еднаква продължителност на живота"], 0, "Организмите се групират според общи белези."],
+            ["Коя поредица подрежда таксономичните категории от по-обща към по-конкретна?", ["Царство, тип, клас, разред, семейство, род, вид", "Вид, род, царство, клас, тип, семейство, разред", "Клетка, орган, вид, царство, тъкан", "Род, вид, орган, семейство, клетка"], 0, "Таксономичните категории подреждат организмите от големи групи към по-малки."],
+            ["Коя е основната единица в класификацията на организмите?", ["Видът", "Клетката", "Органът", "Екосистемата"], 0, "Видът е основна единица на класификацията."],
+            ["Какво отличава прокариотната клетка?", ["Няма обособено ядро", "Има оформено ядро", "Има хлоропласти", "Няма клетъчна мембрана"], 0, "Прокариотните клетки нямат ядро, оградено с мембрана."],
+            ["Към кое царство в учебника се отнасят бактериите?", ["Монера", "Растения", "Гъби", "Животни"], 0, "В учебника бактериите се изучават в царство Монера."],
+            ["Кои части има бактериалната клетка?", ["Мембрана, цитоплазма, рибозоми и наследствено вещество (ДНК)", "Ядро, хлоропласти и вакуола", "Само ядро и клетъчна стена", "Хлорофил, цветове и семена"], 0, "Бактериалната клетка има мембрана, цитоплазма, рибозоми и наследствено вещество — ДНК."],
+            ["Какво има повечето бактерии извън клетъчната мембрана?", ["Клетъчна стена", "Хлоропласт", "Цветна обвивка", "Гръбначен стълб"], 0, "Повечето бактерии имат клетъчна стена около мембраната си."],
+            ["Каква роля имат разграждащите бактерии в природата?", ["Разграждат органични останки", "Създават слънчева светлина", "Образуват животински органи", "Превръщат се в минерали"], 0, "Разграждайки останките, бактериите връщат вещества в природните кръговрати."],
+            ["Как някои бактерии помагат на растенията?", ["Свързват азот в почвата", "Образуват им цветове", "Превръщат корените в семена", "Спират фотосинтезата"], 0, "Някои бактерии свързват азот и така допринасят за снабдяването на растенията с важни вещества."],
+            ["Кои бактерии помагат при приготвянето на кисело мляко?", ["Млечнокисели бактерии", "Болестотворни бактерии", "Почвени червеи", "Водорасли"], 0, "Млечнокиселите бактерии участват във ферментацията на млякото."],
+            ["Как могат да повлияят болестотворните бактерии на човека?", ["Да причинят инфекция", "Да образуват хлоропласти", "Да създадат кости", "Да превърнат клетките в растения"], 0, "Някои бактерии причиняват инфекциозни заболявания."],
+            ["Кое твърдение за бактериите е вярно?", ["Има полезни и болестотворни видове", "Всички бактерии са вредни", "Всички бактерии са безвредни", "Всички бактерии са многоклетъчни"], 0, "Бактериите са разнообразни: много са полезни или безвредни, а някои причиняват болести."],
+            ["Какъв тип клетки имат протистите?", ["Еукариотни", "Прокариотни", "Без мембрана", "Без наследствен материал"], 0, "Протистите са еукариоти и имат обособено ядро."],
+            ["Как са устроени повечето протисти?", ["Едноклетъчни са", "Изградени са само от органи", "Нямат клетъчна мембрана", "Всички са животни"], 0, "Повечето протисти са едноклетъчни, макар че групата включва и многоклетъчни форми."],
+            ["Коя група се разглежда сред протистите?", ["Водорасли", "Бозайници", "Мекотели", "Папрати"], 0, "Водораслите са сред организмите, изучавани при многообразието на протистите."],
+            ["Как се придвижва амебата?", ["С временни израстъци", "С реснички", "С перки", "С крака"], 0, "Амебата образува временни израстъци, с които се придвижва и улавя храна."],
+            ["С какво се придвижва чехълчето?", ["С реснички", "С корени", "С перки", "С крила"], 0, "Чехълчето се придвижва с множество къси реснички."],
+            ["С какво се придвижва евглената?", ["С камшиче", "С корени", "С крака", "С плавници"], 0, "Евглената използва камшиче за движение."],
+            ["Как може евглената да си набавя хранителни вещества при светлина?", ["Чрез фотосинтеза", "Като лови риби", "Като разгражда кости", "Чрез корените си"], 0, "При наличие на светлина евглената може да фотосинтезира."],
+            ["Какво е фитопланктонът във водните хранителни вериги?", ["Храна за много водни организми", "Група водни бозайници", "Съвкупност от минерали", "Вид клетъчно ядро"], 0, "Фотосинтезиращите едноклетъчни организми са важна храна за много водни животни."],
+            ["Какво отделят фотосинтезиращите протисти като страничен продукт?", ["Кислород", "Азот", "Почва", "Клетъчни стени"], 0, "При фотосинтезата се отделя кислород."],
+            ["Как могат някои протисти да повлияят на хората и животните?", ["Да причинят заболявания", "Да създадат гръбначен стълб", "Да образуват семена", "Да заменят всички бактерии"], 0, "Някои протисти са причинители на заболявания."],
+            ["Коя структура придава форма и защитава растителната клетка?", ["Клетъчната стена", "Клетъчната уста", "Ресничките", "Камшичето"], 0, "Клетъчната стена поддържа формата на растителната клетка и я предпазва."],
+            ["Къде се извършва фотосинтезата в растителната клетка?", ["В хлоропластите", "В рибозомите", "В клетъчната мембрана", "В цитоплазмата"], 0, "Хлоропластите съдържат хлорофил и са мястото на фотосинтезата."],
+            ["Каква е ролята на голямата вакуола в растителната клетка?", ["Съхранява вода и разтворени вещества", "Произвежда наследствен материал", "Движи клетката", "Разгражда клетъчната стена"], 0, "Голямата вакуола съхранява вода и разтворени вещества в клетката."],
+            ["Коя е основната разлика между Монера и Протиста?", ["Монера са прокариоти, а протистите — еукариоти", "Монера са растения, а протистите — животни", "Монера имат ядро, а протистите нямат", "Монера са многоклетъчни, а протистите са минерали"], 0, "Бактериите от Монера нямат оформено ядро, докато протистите имат."],
+            ["Какво общо имат много организми от царствата Монера и Протиста?", ["Много от тях са едноклетъчни", "Всички имат цветове", "Всички са многоклетъчни животни", "Всички живеят само на сушата"], 0, "Много представители на двете царства са едноклетъчни."]
+        ].map(([question, options, correct, explanation]) => ({
+            question,
+            options,
+            correct,
+            explanation
+        }));
+
+        let questions = [];
+        let userAnswers = [];
+        let lastQuestionSet = '';
+
+        function selectRandomQuestions() {
+            let selectedIndexes;
+            let selectionKey;
+
+            do {
+                const shuffledIndexes = questionBank.map((question, index) => index);
+                for (let i = shuffledIndexes.length - 1; i > 0; i--) {
+                    const randomIndex = Math.floor(Math.random() * (i + 1));
+                    [shuffledIndexes[i], shuffledIndexes[randomIndex]] =
+                        [shuffledIndexes[randomIndex], shuffledIndexes[i]];
+                }
+
+                selectedIndexes = shuffledIndexes.slice(0, 10);
+                selectionKey = selectedIndexes.slice().sort((a, b) => a - b).join(',');
+            } while (selectionKey === lastQuestionSet);
+
+            lastQuestionSet = selectionKey;
+            questions = selectedIndexes.map(index => {
+                const question = questionBank[index];
+                const options = question.options.slice();
+                for (let i = options.length - 1; i > 0; i--) {
+                    const randomIndex = Math.floor(Math.random() * (i + 1));
+                    [options[i], options[randomIndex]] = [options[randomIndex], options[i]];
+                }
+
+                return {
+                    ...question,
+                    options,
+                    correct: options.indexOf(question.options[question.correct])
+                };
+            });
+            userAnswers = new Array(questions.length).fill(null);
+        }
+        
+        function initQuiz() {
+            const quizContent = document.getElementById('quizContent');
+            quizContent.innerHTML = '';
+            
+            questions.forEach((q, index) => {
+                const questionDiv = document.createElement('div');
+                questionDiv.className = 'question';
+                questionDiv.id = `question-${index}`;
+                
+                let optionsHTML = '';
+                q.options.forEach((option, optIndex) => {
+                    optionsHTML += `
+                        <div class="option" onclick="selectAnswer(${index}, ${optIndex})">
+                            ${String.fromCharCode(65 + optIndex)}. ${option}
+                        </div>
+                    `;
+                });
+                
+                questionDiv.innerHTML = `
+                    <div class="question-number">Въпрос ${index + 1} / ${questions.length}</div>
+                    <div class="question-text">${q.question}</div>
+                    <div class="options">${optionsHTML}</div>
+                    <div class="explanation" id="explanation-${index}">
+                        <strong>Обяснение:</strong> ${q.explanation}
+                    </div>
+                `;
+                
+                quizContent.appendChild(questionDiv);
+            });
+        }
+        
+        function selectAnswer(questionIndex, optionIndex) {
+            userAnswers[questionIndex] = optionIndex;
+            
+            const question = document.getElementById(`question-${questionIndex}`);
+            const options = question.querySelectorAll('.option');
+            options.forEach(opt => opt.classList.remove('selected'));
+            options[optionIndex].classList.add('selected');
+        }
+        
+        function checkAnswers() {
+            if (userAnswers.includes(null)) {
+                alert('Моля, отговори на всички въпроси!');
+                return;
+            }
+            
+            let score = 0;
+            userAnswers.forEach((answer, index) => {
+                const question = document.getElementById(`question-${index}`);
+                const options = question.querySelectorAll('.option');
+                const explanation = document.getElementById(`explanation-${index}`);
+                
+                if (answer === questions[index].correct) {
+                    score++;
+                    options[answer].classList.remove('selected');
+                    options[answer].classList.add('correct');
+                } else {
+                    options[answer].classList.remove('selected');
+                    options[answer].classList.add('incorrect');
+                    options[questions[index].correct].classList.add('correct');
+                }
+                
+                explanation.classList.add('show');
+            });
+            
+            showResults(score);
+        }
+        
+        function showResults(score) {
+            document.getElementById('quizContent').style.display = 'none';
+            document.getElementById('submitBtn').style.display = 'none';
+            document.getElementById('reviewFilter').value = 'all';
+            
+            const percentage = Math.round((score / questions.length) * 100);
+            const resultsDiv = document.getElementById('results');
+            const scoreDisplay = document.getElementById('scoreDisplay');
+            const scoreMessage = document.getElementById('scoreMessage');
+            
+            scoreDisplay.textContent = `${score}/${questions.length}`;
+            
+            if (percentage >= 80) {
+                scoreMessage.textContent = `🌟 Отличен резултат! Получи +50 точки!`;
+            } else if (percentage >= 60) {
+                scoreMessage.textContent = `✨ Добър резултат! Получи +30 точки!`;
+            } else if (percentage >= 40) {
+                scoreMessage.textContent = `📚 Приемлив резултат. Повтори и опитай пак!`;
+            } else {
+                scoreMessage.textContent = `💪 Не се отказвай! Прегледай въпросите и опитай отново.`;
+            }
+            
+            renderQuestionReview();
+            resultsDiv.classList.add('show');
+        }
+
+        function renderQuestionReview() {
+            const filter = document.getElementById('reviewFilter').value;
+            const review = document.getElementById('questionReview');
+            review.textContent = '';
+
+            const matchingQuestions = questions
+                .map((question, index) => ({
+                    question,
+                    index,
+                    isCorrect: userAnswers[index] === question.correct
+                }))
+                .filter(item => filter === 'all' || (filter === 'correct') === item.isCorrect);
+
+            if (matchingQuestions.length === 0) {
+                const emptyMessage = document.createElement('p');
+                emptyMessage.className = 'review-empty';
+                emptyMessage.textContent = filter === 'incorrect'
+                    ? 'Няма сгрешени въпроси. Браво!'
+                    : 'Няма въпроси в тази категория.';
+                review.appendChild(emptyMessage);
+                return;
+            }
+
+            matchingQuestions.forEach(({ question, index, isCorrect }) => {
+                const item = document.createElement('div');
+                item.className = `review-question ${isCorrect ? 'correct' : 'incorrect'}`;
+
+                const title = document.createElement('h3');
+                title.textContent = `Въпрос ${index + 1} — ${isCorrect ? 'Верен' : 'Сгрешен'}`;
+
+                const questionText = document.createElement('p');
+                questionText.textContent = question.question;
+
+                const userAnswer = document.createElement('p');
+                userAnswer.textContent = `Твоят отговор: ${question.options[userAnswers[index]]}`;
+
+                const correctAnswer = document.createElement('p');
+                correctAnswer.textContent = `Верен отговор: ${question.options[question.correct]}`;
+
+                const explanation = document.createElement('p');
+                explanation.textContent = `Обяснение: ${question.explanation}`;
+
+                item.append(title, questionText, userAnswer, correctAnswer, explanation);
+                review.appendChild(item);
+            });
+        }
+        
+        function resetQuiz() {
+            selectRandomQuestions();
+            document.getElementById('quizContent').style.display = 'block';
+            document.getElementById('submitBtn').style.display = 'inline-block';
+            document.getElementById('results').classList.remove('show');
+            document.getElementById('reviewFilter').value = 'all';
+            document.getElementById('questionReview').textContent = '';
+            initQuiz();
+        }
+        
+        function goBack() {
+            window.location.href = 'biology.html';
+        }
+        
+        // Инициализиране при зареждане
+        window.onload = resetQuiz;
+    </script>
+</body>
+</html>

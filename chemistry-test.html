@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>НАУЧИ+ | Тест по химия</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #2d1a3d 0%, #3d2d4d 100%);
+            color: #fff;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+        
+        header {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 20px 0;
+            border-bottom: 3px solid #9C27B0;
+        }
+        
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+        
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #9C27B0;
+        }
+        
+        .nav {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+        
+        .nav a {
+            color: #fff;
+            text-decoration: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            transition: all 0.3s;
+            font-size: 0.95rem;
+        }
+        
+        .nav a:hover {
+            background: rgba(156, 39, 176, 0.3);
+            color: #9C27B0;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #9C27B0;
+            margin-bottom: 30px;
+            font-size: 2.5rem;
+        }
+        
+        .quiz-container {
+            background: rgba(156, 39, 176, 0.1);
+            padding: 30px;
+            border-radius: 15px;
+            border: 2px solid #9C27B0;
+        }
+
+        .quiz-description {
+            margin: -12px 0 24px;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.85);
+        }
+        
+        .question {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            border-left: 5px solid #9C27B0;
+        }
+        
+        .question-number {
+            font-size: 0.9rem;
+            color: #9C27B0;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .question-text {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #fff;
+        }
+        
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .option {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 15px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+            font-size: 1rem;
+        }
+        
+        .option:hover {
+            background: rgba(156, 39, 176, 0.3);
+            border-color: #9C27B0;
+        }
+        
+        .option.selected {
+            background: rgba(156, 39, 176, 0.5);
+            border-color: #9C27B0;
+        }
+        
+        .option.correct {
+            background: rgba(76, 175, 80, 0.7);
+            border-color: #4CAF50;
+            color: #fff;
+        }
+        
+        .option.incorrect {
+            background: rgba(244, 67, 54, 0.7);
+            border-color: #F44336;
+            color: #fff;
+        }
+        
+        .explanation {
+            background: rgba(156, 39, 176, 0.2);
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            border-left: 4px solid #9C27B0;
+            display: none;
+            font-size: 0.95rem;
+        }
+        
+        .explanation.show {
+            display: block;
+        }
+        
+        .button-group {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        
+        button {
+            background: linear-gradient(135deg, #9C27B0, #7B1FA2);
+            color: #fff;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            transition: all 0.3s;
+            flex: 1;
+            min-width: 150px;
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(156, 39, 176, 0.4);
+        }
+        
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .results {
+            background: rgba(156, 39, 176, 0.2);
+            padding: 30px;
+            border-radius: 12px;
+            text-align: center;
+            margin-top: 30px;
+            display: none;
+            border: 2px solid #9C27B0;
+        }
+        
+        .results.show {
+            display: block;
+        }
+        
+        .score-display {
+            font-size: 3rem;
+            color: #9C27B0;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+
+        .review-controls {
+            display: grid;
+            gap: 8px;
+            max-width: 360px;
+            margin: 24px auto 16px;
+            text-align: left;
+        }
+
+        .review-controls label {
+            font-weight: bold;
+        }
+
+        .review-controls select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #9C27B0;
+            border-radius: 8px;
+            background: #351b42;
+            color: #fff;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+
+        .review-controls select option {
+            background: #fff;
+            color: #222;
+        }
+
+        .question-review {
+            display: grid;
+            gap: 12px;
+            margin: 20px 0;
+            text-align: left;
+        }
+
+        .review-question,
+        .review-empty {
+            padding: 16px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 8px;
+            border-left: 4px solid #9C27B0;
+        }
+
+        .review-question.incorrect {
+            border-left-color: #F44336;
+        }
+
+        .review-question h3 {
+            margin-bottom: 8px;
+            font-size: 1.05rem;
+        }
+
+        .review-question p + p {
+            margin-top: 5px;
+        }
+        
+        .footer {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 20px;
+            text-align: center;
+            margin-top: 50px;
+            border-top: 2px solid #9C27B0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="logo">🧪 НАУЧИ+</div>
+            <nav class="nav">
+                <a href="index.html">Начало</a>
+                <a href="biology.html">Биология</a>
+                <a href="chemistry.html">Химия</a>
+                <a href="physics.html">Физика</a>
+                <a href="games.html">Игри</a>
+                <a href="quests.html">Мисии</a>
+                <a href="about.html">За нас</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <h1>🧪 Тест по Химия</h1>
+        <p class="quiz-description">Всеки опит включва 10 случайни въпроса от общо 30.</p>
+        
+        <div class="quiz-container">
+            <div id="quizContent">
+                <!-- Въпросите ще бъдат добавени тук от JavaScript -->
+            </div>
+            
+            <div class="button-group">
+                <button id="submitBtn" onclick="checkAnswers()">Преглед отговори</button>
+                <button id="resetBtn" onclick="resetQuiz()" style="background: linear-gradient(135deg, #666, #555);">Нов тест</button>
+            </div>
+            
+            <div id="results" class="results">
+                <h2>Резултати</h2>
+                <div class="score-display" id="scoreDisplay">0/10</div>
+                <p id="scoreMessage" style="font-size: 1.2rem; margin-top: 20px;"></p>
+                <div class="review-controls">
+                    <label for="reviewFilter">Покажи въпросите:</label>
+                    <select id="reviewFilter" onchange="renderQuestionReview()">
+                        <option value="all">Всички въпроси</option>
+                        <option value="incorrect">Сгрешени въпроси</option>
+                        <option value="correct">Верни въпроси</option>
+                    </select>
+                </div>
+                <div id="questionReview" class="question-review" aria-live="polite"></div>
+                <button onclick="goBack()" style="margin-top: 20px;">Обратно към химията</button>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>Любопитството е първата стъпка към откритието.</p>
+        <small style="display: block; margin-top: 15px; border-top: 1px solid rgba(100,113,138,0.3); padding-top: 10px;">
+            Сайтът е създаден за НЕТИТ "Джон Атанасов" София 2026
+        </small>
+        <small style="display: block;">
+            Автори: Йордан Божков и Иван Варников, ПМГ "Константин Величков" Пазарджик
+        </small>
+    </footer>
+
+    <script>
+        const questionBank = [
+            ["Коя е най-малката градивна частица на веществото според материала?", ["Атомът", "Екосистемата", "Органът", "Смесицата"], 0, "Атомът е основен градивен блок на веществата."],
+            ["Кои частици изграждат атома?", ["Протони, неутрони и електрони", "Само молекули вода", "Клетки и тъкани", "Светлина и топлина"], 0, "Атомите съдържат протони, неутрони и електрони."],
+            ["Кои частици са посочени като съставни части на атома?", ["Протони, неутрони и електрони", "Молекули вода и клетки", "Само молекули", "Светлина и топлина"], 0, "Материалът посочва протони, неутрони и електрони като частици в атома."],
+            ["Кое от изброените е част от атома според материала?", ["Електрон", "Екосистема", "Орган", "Популация"], 0, "Електроните са сред частиците, които изграждат атома."],
+            ["Колко вида частици са изброени в описанието на атома?", ["Три", "Един", "Два", "Пет"], 0, "Описани са три вида частици: протони, неутрони и електрони."],
+            ["Кое описание съответства на атома от урока?", ["Съдържа протони, неутрони и електрони", "Състои се от органи и тъкани", "Представлява група организми", "Състои се само от светлина"], 0, "Атомите съдържат протони, неутрони и електрони."],
+            ["Какво представлява молекулата?", ["Два или повече свързани атома", "Един протон", "Група от организми", "Една клетка"], 0, "Молекулата се състои от два или повече атома, свързани помежду си."],
+            ["Каква е химичната формула на водата?", ["H₂O", "CO₂", "O₂", "NaCl"], 0, "Водата има формула H₂O."],
+            ["Колко атома има една молекула вода?", ["Три", "Един", "Два", "Четири"], 0, "Водната молекула съдържа два водородни атома и един кислороден атом, общо три."],
+            ["Кои атоми изграждат водната молекула?", ["Два водородни и един кислороден", "Два кислородни и един водороден", "Само водородни", "Само въглеродни"], 0, "Формулата H₂O показва два атома водород и един атом кислород."],
+            ["Какво свързва атомите в една молекула?", ["Химична връзка", "Екосистема", "Популация", "Клетъчно ядро"], 0, "Молекулите са изградени от атоми, свързани помежду си."],
+            ["Какво се случва при химична реакция?", ["Едни вещества се преобразуват в други", "Атомите изчезват напълно", "Всички вещества стават вода", "Не настъпва никаква промяна"], 0, "Химичната реакция преобразува едни вещества в други."],
+            ["Какво се пренарежда при химична реакция според теорията?", ["Атомите", "Организмите", "Екосистемите", "Светлинните лъчи"], 0, "При реакция атомите се преустройват и образуват нови вещества."],
+            ["Какво може да се образува, когато атомите се пренаредят при реакция?", ["Нови молекули и вещества", "Нови планети", "Само клетки", "Само електрони"], 0, "Пренаредените атоми могат да образуват нови молекули и вещества."],
+            ["Кое твърдение за атомите при химична реакция е най-точно?", ["Те се преустройват в нови комбинации", "Те се превръщат в клетки", "Те винаги изчезват", "Те спират да съществуват като частици"], 0, "При химична реакция атомите се пренареждат, за да образуват нови вещества."],
+            ["Какво може да стане с енергията при химична реакция?", ["Може да се освободи или погълне", "Винаги изчезва", "Винаги се превръща в атоми", "Не може да се променя"], 0, "Химичните реакции могат да освобождават или да поглъщат енергия."],
+            ["Какво става с енергията при реакция, която я освобождава?", ["Енергията се отделя към околната среда", "Енергията изчезва", "Атомите престават да съществуват", "Водата става молекула кислород"], 0, "При някои химични реакции енергията се освобождава към околната среда."],
+            ["Какво става с енергията при реакция, която я поглъща?", ["Енергията постъпва в реагиращата система", "Енергията се превръща в популация", "Атомите изчезват", "Не се извършва реакция"], 0, "Някои химични реакции поглъщат енергия от околната среда."],
+            ["Кой процес е пример за химична реакция, при която се отделя енергия?", ["Горенето", "Замръзването на водата", "Нарязването на хартия", "Раздробяването на камък"], 0, "Горенето е химична реакция, при която се отделя енергия."],
+            ["Огънят при горене е свързан най-вече с:", ["Освобождаване на енергия при реакция", "Образуване на клетки", "Промяна на популация", "Изчезване на атомите"], 0, "При горене протича химична реакция и се освобождава енергия."],
+            ["Какво се образува, когато атомите се свържат в нова подредба?", ["Нови молекули", "Нови протони от нищото", "Екосистеми", "Органи"], 0, "Свързването и пренареждането на атоми може да образува нови молекули."],
+            ["Кое е вярно за молекулата на водата?", ["Състои се от свързани атоми", "Състои се само от един протон", "Представлява група от организми", "Няма атоми"], 0, "Водната молекула е изградена от свързани водородни и кислородни атоми."],
+            ["Колко водородни атома има във формулата H₂O?", ["Два", "Един", "Три", "Нула"], 0, "Индексът 2 след H показва два водородни атома във водната молекула."],
+            ["Колко кислородни атома има във формулата H₂O?", ["Един", "Два", "Три", "Нула"], 0, "Във формулата H₂O няма индекс след O, което означава един кислороден атом."],
+            ["Колко различни химични елемента има във водната молекула?", ["Два", "Три", "Един", "Четири"], 0, "Водата съдържа атоми от два елемента: водород и кислород."],
+            ["Кое е вярно за атомите във веществата?", ["Те са градивни частици на веществата", "Те са видове екосистеми", "Те са органи на тялото", "Те са само форма на енергия"], 0, "Атомите са основни градивни частици на веществата."],
+            ["Кое твърдение най-добре описва химична реакция?", ["Преобразуване на вещества чрез пренареждане на атоми", "Събиране на организми в популация", "Промяна на позицията на тяло", "Образуване на клетъчно ядро"], 0, "При химична реакция атомите се преустройват и се образуват други вещества."],
+            ["Могат ли химичните реакции да протичат с поглъщане на енергия?", ["Да", "Не, винаги само отделят енергия", "Само ако няма атоми", "Не, защото молекулите не се променят"], 0, "Някои реакции поглъщат енергия, а други я освобождават."],
+            ["Могат ли химичните реакции да протичат с освобождаване на енергия?", ["Да", "Не, никога", "Само при образуване на клетки", "Само при промяна на агрегатното състояние"], 0, "Енергията може да се освобождава при химична реакция, както при горенето."],
+            ["Кое твърдение за градивните частици на водата е вярно?", ["Водородните и кислородните атоми са свързани в молекула", "Водата е един-единствен атом", "Водата няма молекули", "Всяка водна молекула съдържа само кислород"], 0, "Водата е молекула, съставена от два водородни и един кислороден атом."]
+        ].map(([question, options, correct, explanation]) => ({
+            question,
+            options,
+            correct,
+            explanation
+        }));
+
+        let questions = [];
+        let userAnswers = [];
+        let lastQuestionSet = '';
+
+        function selectRandomQuestions() {
+            let selectedIndexes;
+            let selectionKey;
+
+            do {
+                const shuffledIndexes = questionBank.map((question, index) => index);
+                for (let i = shuffledIndexes.length - 1; i > 0; i--) {
+                    const randomIndex = Math.floor(Math.random() * (i + 1));
+                    [shuffledIndexes[i], shuffledIndexes[randomIndex]] =
+                        [shuffledIndexes[randomIndex], shuffledIndexes[i]];
+                }
+
+                selectedIndexes = shuffledIndexes.slice(0, 10);
+                selectionKey = selectedIndexes.slice().sort((a, b) => a - b).join(',');
+            } while (selectionKey === lastQuestionSet);
+
+            lastQuestionSet = selectionKey;
+            questions = selectedIndexes.map(index => {
+                const question = questionBank[index];
+                const options = question.options.slice();
+                for (let i = options.length - 1; i > 0; i--) {
+                    const randomIndex = Math.floor(Math.random() * (i + 1));
+                    [options[i], options[randomIndex]] = [options[randomIndex], options[i]];
+                }
+
+                return {
+                    ...question,
+                    options,
+                    correct: options.indexOf(question.options[question.correct])
+                };
+            });
+            userAnswers = new Array(questions.length).fill(null);
+        }
+        
+        function initQuiz() {
+            const quizContent = document.getElementById('quizContent');
+            quizContent.innerHTML = '';
+            
+            questions.forEach((q, index) => {
+                const questionDiv = document.createElement('div');
+                questionDiv.className = 'question';
+                questionDiv.id = `question-${index}`;
+                
+                let optionsHTML = '';
+                q.options.forEach((option, optIndex) => {
+                    optionsHTML += `
+                        <div class="option" onclick="selectAnswer(${index}, ${optIndex})">
+                            ${String.fromCharCode(65 + optIndex)}. ${option}
+                        </div>
+                    `;
+                });
+                
+                questionDiv.innerHTML = `
+                    <div class="question-number">Въпрос ${index + 1} / ${questions.length}</div>
+                    <div class="question-text">${q.question}</div>
+                    <div class="options">${optionsHTML}</div>
+                    <div class="explanation" id="explanation-${index}">
+                        <strong>Обяснение:</strong> ${q.explanation}
+                    </div>
+                `;
+                
+                quizContent.appendChild(questionDiv);
+            });
+        }
+        
+        function selectAnswer(questionIndex, optionIndex) {
+            userAnswers[questionIndex] = optionIndex;
+            
+            const question = document.getElementById(`question-${questionIndex}`);
+            const options = question.querySelectorAll('.option');
+            options.forEach(opt => opt.classList.remove('selected'));
+            options[optionIndex].classList.add('selected');
+        }
+        
+        function checkAnswers() {
+            if (userAnswers.includes(null)) {
+                alert('Моля, отговори на всички въпроси!');
+                return;
+            }
+            
+            let score = 0;
+            userAnswers.forEach((answer, index) => {
+                const question = document.getElementById(`question-${index}`);
+                const options = question.querySelectorAll('.option');
+                const explanation = document.getElementById(`explanation-${index}`);
+                
+                if (answer === questions[index].correct) {
+                    score++;
+                    options[answer].classList.remove('selected');
+                    options[answer].classList.add('correct');
+                } else {
+                    options[answer].classList.remove('selected');
+                    options[answer].classList.add('incorrect');
+                    options[questions[index].correct].classList.add('correct');
+                }
+                
+                explanation.classList.add('show');
+            });
+            
+            showResults(score);
+        }
+        
+        function showResults(score) {
+            document.getElementById('quizContent').style.display = 'none';
+            document.getElementById('submitBtn').style.display = 'none';
+            document.getElementById('reviewFilter').value = 'all';
+            
+            const percentage = Math.round((score / questions.length) * 100);
+            const resultsDiv = document.getElementById('results');
+            const scoreDisplay = document.getElementById('scoreDisplay');
+            const scoreMessage = document.getElementById('scoreMessage');
+            
+            scoreDisplay.textContent = `${score}/${questions.length}`;
+            
+            if (percentage >= 80) {
+                scoreMessage.textContent = `🌟 Отличен резултат! Получи +50 точки!`;
+            } else if (percentage >= 60) {
+                scoreMessage.textContent = `✨ Добър резултат! Получи +30 точки!`;
+            } else if (percentage >= 40) {
+                scoreMessage.textContent = `📚 Приемлив резултат. Повтори и опитай пак!`;
+            } else {
+                scoreMessage.textContent = `💪 Не се отказвай! Прегледай въпросите и опитай отново.`;
+            }
+            
+            renderQuestionReview();
+            resultsDiv.classList.add('show');
+        }
+
+        function renderQuestionReview() {
+            const filter = document.getElementById('reviewFilter').value;
+            const review = document.getElementById('questionReview');
+            review.textContent = '';
+
+            const matchingQuestions = questions
+                .map((question, index) => ({
+                    question,
+                    index,
+                    isCorrect: userAnswers[index] === question.correct
+                }))
+                .filter(item => filter === 'all' || (filter === 'correct') === item.isCorrect);
+
+            if (matchingQuestions.length === 0) {
+                const emptyMessage = document.createElement('p');
+                emptyMessage.className = 'review-empty';
+                emptyMessage.textContent = filter === 'incorrect'
+                    ? 'Няма сгрешени въпроси. Браво!'
+                    : 'Няма въпроси в тази категория.';
+                review.appendChild(emptyMessage);
+                return;
+            }
+
+            matchingQuestions.forEach(({ question, index, isCorrect }) => {
+                const item = document.createElement('div');
+                item.className = `review-question ${isCorrect ? 'correct' : 'incorrect'}`;
+
+                const title = document.createElement('h3');
+                title.textContent = `Въпрос ${index + 1} — ${isCorrect ? 'Верен' : 'Сгрешен'}`;
+
+                const questionText = document.createElement('p');
+                questionText.textContent = question.question;
+
+                const userAnswer = document.createElement('p');
+                userAnswer.textContent = `Твоят отговор: ${question.options[userAnswers[index]]}`;
+
+                const correctAnswer = document.createElement('p');
+                correctAnswer.textContent = `Верен отговор: ${question.options[question.correct]}`;
+
+                const explanation = document.createElement('p');
+                explanation.textContent = `Обяснение: ${question.explanation}`;
+
+                item.append(title, questionText, userAnswer, correctAnswer, explanation);
+                review.appendChild(item);
+            });
+        }
+        
+        function resetQuiz() {
+            selectRandomQuestions();
+            document.getElementById('quizContent').style.display = 'block';
+            document.getElementById('submitBtn').style.display = 'inline-block';
+            document.getElementById('results').classList.remove('show');
+            document.getElementById('reviewFilter').value = 'all';
+            document.getElementById('questionReview').textContent = '';
+            initQuiz();
+        }
+        
+        function goBack() {
+            window.location.href = 'chemistry.html';
+        }
+        
+        // Инициализиране при зареждане
+        window.onload = resetQuiz;
+    </script>
+</body>
+</html>

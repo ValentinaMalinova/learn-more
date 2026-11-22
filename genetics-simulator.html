@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>НАУЧИ+ | Генетична лаборатория</title>
+    <link rel="stylesheet" href="biology-theme.css">
+    <style>
+        .container { max-width: 1200px; }
+
+        .genetics-lab {
+            padding: 30px;
+            background: linear-gradient(145deg, rgba(255,255,255,0.12), rgba(31,91,57,0.22));
+            border: 1px solid rgba(168,237,189,0.38);
+            border-radius: 22px;
+            box-shadow: 0 22px 55px rgba(5,28,17,0.28);
+        }
+
+        .lab-intro {
+            max-width: 820px;
+            margin: 0 auto 24px;
+            text-align: center;
+            color: #dbeade;
+        }
+
+        .parents-grid {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            align-items: stretch;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .parent-card,
+        .punnett-panel,
+        .results-panel,
+        .guide-panel,
+        .preset-panel {
+            background: linear-gradient(145deg, rgba(255,255,255,0.16), rgba(255,255,255,0.07));
+            border: 1px solid rgba(168,237,189,0.22);
+            border-top: 4px solid #70d49a;
+            border-radius: 14px;
+        }
+
+        .parent-card {
+            display: grid;
+            grid-template-columns: 76px 1fr;
+            align-items: center;
+            gap: 14px;
+            padding: 16px;
+        }
+
+        .flower-preview {
+            width: 76px;
+            height: 76px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: rgba(9,49,31,0.55);
+            font-size: 3.2rem;
+        }
+
+        .parent-card label {
+            display: block;
+            color: #a8edbd;
+            font-weight: 800;
+            margin-bottom: 7px;
+        }
+
+        .parent-card select {
+            width: 100%;
+            padding: 10px 12px;
+            border: 2px solid #70d49a;
+            border-radius: 9px;
+            background: #123d2a;
+            color: #fff;
+            font: inherit;
+            cursor: pointer;
+        }
+
+        .parent-description {
+            min-height: 24px;
+            margin-top: 7px;
+            color: #dbeade;
+            font-size: 0.88rem;
+        }
+
+        .cross-sign {
+            align-self: center;
+            width: 52px;
+            height: 52px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: #70d49a;
+            color: #123d2a;
+            font-size: 1.8rem;
+            font-weight: 900;
+        }
+
+        .preset-panel {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            padding: 12px;
+            margin-bottom: 20px;
+        }
+
+        .preset-panel span {
+            color: #dbeade;
+            font-weight: 700;
+        }
+
+        .preset-panel button,
+        .lab-actions button {
+            margin: 0;
+        }
+
+        .simulator-grid {
+            display: grid;
+            grid-template-columns: minmax(390px, 0.9fr) minmax(330px, 1.1fr);
+            gap: 20px;
+        }
+
+        .punnett-panel,
+        .results-panel,
+        .guide-panel,
+        .preset-panel {
+            padding: 20px;
+        }
+
+        .punnett-panel h2,
+        .results-panel h2,
+        .guide-panel h2 {
+            color: #a8edbd;
+            margin-bottom: 14px;
+        }
+
+        .punnett-table {
+            display: grid;
+            grid-template-columns: 54px repeat(2, minmax(82px, 1fr));
+            grid-template-rows: 54px repeat(2, 92px);
+            gap: 6px;
+            max-width: 370px;
+            margin: 12px auto 16px;
+        }
+
+        .punnett-cell {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(168,237,189,0.22);
+            color: #fff;
+            font-weight: 800;
+        }
+
+        .punnett-cell.header {
+            background: rgba(112,212,154,0.24);
+            color: #fff1a8;
+            font-size: 1.15rem;
+        }
+
+        .punnett-cell.corner {
+            background: transparent;
+            border: 0;
+        }
+
+        .punnett-cell.result {
+            flex-direction: column;
+            gap: 4px;
+            font-size: 1.35rem;
+            cursor: pointer;
+            transition: transform 0.2s, filter 0.2s;
+        }
+
+        .punnett-cell.result:hover {
+            transform: translateY(-3px);
+            filter: brightness(1.12);
+        }
+
+        .punnett-cell.result span {
+            font-size: 1.6rem;
+        }
+
+        .table-help {
+            text-align: center;
+            color: #dbeade;
+            font-size: 0.88rem;
+        }
+
+        .genotype-results {
+            display: grid;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .genotype-row {
+            display: grid;
+            grid-template-columns: 70px 1fr 58px;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .genotype-code {
+            font-weight: 900;
+            color: #fff1a8;
+            font-size: 1.08rem;
+        }
+
+        .percentage-track {
+            height: 18px;
+            overflow: hidden;
+            border-radius: 999px;
+            background: rgba(255,255,255,0.1);
+        }
+
+        .percentage-fill {
+            height: 100%;
+            border-radius: inherit;
+            background: linear-gradient(90deg, #49ba74, #9ce8af);
+            transition: width 0.35s;
+        }
+
+        .percentage-value {
+            text-align: right;
+            font-weight: 800;
+        }
+
+        .phenotype-cards {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .phenotype-card {
+            min-height: 130px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            border: 1px solid rgba(168,237,189,0.24);
+            border-radius: 12px;
+            background: rgba(9,49,31,0.45);
+        }
+
+        .phenotype-card .flower {
+            font-size: 3.2rem;
+        }
+
+        .phenotype-card strong {
+            margin: 5px 0 3px;
+        }
+
+        .phenotype-card span {
+            color: #dbeade;
+            font-size: 0.88rem;
+        }
+
+        .lab-actions {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 18px;
+        }
+
+        .guide-panel {
+            margin-top: 20px;
+        }
+
+        .guide-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+
+        .guide-card {
+            min-height: 118px;
+            padding: 14px;
+            border-radius: 10px;
+            background: rgba(9,49,31,0.45);
+        }
+
+        .guide-card strong {
+            display: block;
+            color: #fff1a8;
+            margin-bottom: 7px;
+        }
+
+        .guide-card p {
+            color: #dbeade;
+            font-size: 0.9rem;
+        }
+
+        .selected-explanation {
+            min-height: 58px;
+            margin-top: 14px;
+            padding: 12px;
+            border-left: 4px solid #70d49a;
+            border-radius: 8px;
+            background: rgba(255,255,255,0.07);
+            color: #dbeade;
+        }
+
+        @media (max-width: 900px) {
+            .parents-grid { grid-template-columns: 1fr; }
+            .cross-sign { width: 42px; height: 42px; margin: 0 auto; }
+            .simulator-grid { grid-template-columns: 1fr; }
+            .guide-grid { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 600px) {
+            .genetics-lab { padding: 18px; }
+            .parent-card { grid-template-columns: 60px 1fr; }
+            .flower-preview { width: 60px; height: 60px; font-size: 2.5rem; }
+            .punnett-table {
+                grid-template-columns: 44px repeat(2, minmax(70px, 1fr));
+                grid-template-rows: 44px repeat(2, 80px);
+            }
+            .phenotype-cards { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="logo">🔬 НАУЧИ+</div>
+            <nav class="nav">
+                <a href="index.html">Начало</a>
+                <a href="biology.html">Биология</a>
+                <a href="chemistry.html">Химия</a>
+                <a href="physics.html">Физика</a>
+                <a href="games.html">Игри</a>
+                <a href="quests.html">Мисии</a>
+                <a href="about.html">За нас</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <h1>🌼 Генетична лаборатория</h1>
+
+        <section class="genetics-lab">
+            <p class="lab-intro">
+                Избери генотипите на двата родителя и виж как алелите се комбинират в потомството.
+                Натисни всяка клетка от таблицата, за да научиш какво означава нейният генотип.
+            </p>
+
+            <div class="parents-grid">
+                <div class="parent-card">
+                    <div class="flower-preview" id="parent1Flower">🌼</div>
+                    <div>
+                        <label for="parent1">1. Родител — майка</label>
+                        <select id="parent1" onchange="updateCross()">
+                            <option value="AA">AA — жълти цветя</option>
+                            <option value="Aa" selected>Aa — жълти цветя, носител</option>
+                            <option value="aa">aa — бели цветя</option>
+                        </select>
+                        <div class="parent-description" id="parent1Description">Жълти цветя — носи алела за бяло</div>
+                    </div>
+                </div>
+
+                <div class="cross-sign">×</div>
+
+                <div class="parent-card">
+                    <div class="flower-preview" id="parent2Flower">🌼</div>
+                    <div>
+                        <label for="parent2">2. Родител — баща</label>
+                        <select id="parent2" onchange="updateCross()">
+                            <option value="AA">AA — жълти цветя</option>
+                            <option value="Aa" selected>Aa — жълти цветя, носител</option>
+                            <option value="aa">aa — бели цветя</option>
+                        </select>
+                        <div class="parent-description" id="parent2Description">Жълти цветя — носи алела за бяло</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="preset-panel">
+                <span>Бързи примери:</span>
+                <button type="button" onclick="setCross('AA','AA')">AA × AA</button>
+                <button type="button" onclick="setCross('Aa','Aa')">Aa × Aa</button>
+                <button type="button" onclick="setCross('Aa','aa')">Aa × aa</button>
+                <button type="button" onclick="setCross('aa','aa')">aa × aa</button>
+            </div>
+
+            <div class="simulator-grid">
+                <section class="punnett-panel">
+                    <h2>3. Таблица на кръстосване</h2>
+                    <div class="punnett-table" id="punnettTable"></div>
+                    <p class="table-help">
+                        Горните букви са алели от единия родител. Левите — от другия.
+                    </p>
+                </section>
+
+                <section class="results-panel">
+                    <h2>4. Какво вероятно ще се роди?</h2>
+                    <div class="genotype-results" id="genotypeResults"></div>
+
+                    <h2 style="margin-top:18px;">5. Видими признаци</h2>
+                    <div class="phenotype-cards" id="phenotypeCards"></div>
+
+                    <div class="lab-actions">
+                        <button type="button" onclick="randomCross()">🎲 Случайна кръстоска</button>
+                        <button type="button" onclick="setCross('Aa','Aa')">↺ Класически пример</button>
+                    </div>
+                </section>
+            </div>
+
+            <div class="selected-explanation" id="selectedExplanation" aria-live="polite">
+                Натисни клетка от таблицата, за да видиш обяснение за нейния генотип.
+            </div>
+
+            <div class="guide-panel">
+                <h2>📚 Какво означават буквите?</h2>
+                <div class="guide-grid">
+                    <div class="guide-card">
+                        <strong>A — доминантен алел</strong>
+                        <p>Дава жълт цвят при AA или Aa. Една буква A е достатъчна за проявяване.</p>
+                    </div>
+                    <div class="guide-card">
+                        <strong>a — рецесивен алел</strong>
+                        <p>Дава бял цвят само при комбинация aa. При Aa белият признак остава скрит.</p>
+                    </div>
+                    <div class="guide-card">
+                        <strong>Генотип и фенотип</strong>
+                        <p>Генотипът са буквите AA, Aa или aa. Фенотипът е видимият признак — жълто или бяло цвете.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>Любопитството е първата стъпка към откритието.</p>
+        <small style="display:block;margin-top:15px;border-top:1px solid rgba(100,113,138,0.3);padding-top:10px;">
+            Сайтът е създаден за НЕТИТ "Джон Атанасов" София 2026
+        </small>
+        <small style="display:block;">
+            Автори: Йордан Божков и Иван Варников, ПМГ "Константин Величков" Пазарджик
+        </small>
+    </footer>
+
+    <script>
+        function getAlleles(genotype) {
+            if (genotype === 'AA') return ['A', 'A'];
+            if (genotype === 'Aa') return ['A', 'a'];
+            return ['a', 'a'];
+        }
+
+        function normalizeGenotype(child) {
+            if (child.includes('A') && child.includes('a')) return 'Aa';
+            if (child.includes('A')) return 'AA';
+            return 'aa';
+        }
+
+        function describeParent(genotype) {
+            if (genotype === 'AA') return 'Жълти цветя — чиста доминантна линия';
+            if (genotype === 'Aa') return 'Жълти цветя — носи алела за бяло';
+            return 'Бели цветя — чиста рецесивна линия';
+        }
+
+        function setCross(parent1, parent2) {
+            document.getElementById('parent1').value = parent1;
+            document.getElementById('parent2').value = parent2;
+            updateCross();
+        }
+
+        function randomCross() {
+            const genotypes = ['AA', 'Aa', 'aa'];
+            setCross(
+                genotypes[Math.floor(Math.random() * genotypes.length)],
+                genotypes[Math.floor(Math.random() * genotypes.length)]
+            );
+        }
+
+        function explainGenotype(genotype) {
+            const explanations = {
+                'AA': 'AA — два доминантни алела: цветето ще бъде жълто.',
+                'Aa': '                Aa — един доминантен и един рецесивен алел: цветето ще бъде жълто, а алелът за бяло ще остане скрит.',
+                'aa': 'aa — два рецесивни алела: цветето ще бъде бяло.'
+            };
+            document.getElementById('selectedExplanation').textContent = explanations[genotype];
+        }
+
+        function updateCross() {
+            const parent1 = document.getElementById('parent1').value;
+            const parent2 = document.getElementById('parent2').value;
+            const alleles1 = getAlleles(parent1);
+            const alleles2 = getAlleles(parent2);
+
+            document.getElementById('parent1Description').textContent = describeParent(parent1);
+            document.getElementById('parent2Description').textContent = describeParent(parent2);
+            document.getElementById('parent1Flower').textContent = parent1 === 'aa' ? '🤍' : '🌼';
+            document.getElementById('parent2Flower').textContent = parent2 === 'aa' ? '🤍' : '🌼';
+
+            const offspring = [];
+            for (let i = 0; i < 2; i++) {
+                for (let j = 0; j < 2; j++) {
+                    offspring.push(normalizeGenotype(alleles1[i] + alleles2[j]));
+                }
+            }
+
+            renderTable(alleles1, alleles2, offspring);
+            renderGenotypes(offspring);
+            renderPhenotypes(offspring);
+        }
+
+        function renderTable(alleles1, alleles2, offspring) {
+            const table = document.getElementById('punnettTable');
+            let html = '<div class="punnett-cell corner"></div>';
+            alleles2.forEach(allele => {
+                html += `<div class="punnett-cell header">${allele}</div>`;
+            });
+
+            let index = 0;
+            alleles1.forEach(allele => {
+                html += `<div class="punnett-cell header">${allele}</div>`;
+                for (let j = 0; j < 2; j++) {
+                    const genotype = offspring[index++];
+                    const flower = genotype === 'aa' ? '🤍' : '🌼';
+                    html += `<button type="button" class="punnett-cell result" onclick="explainGenotype('${genotype}')">
+                        <span>${flower}</span>${genotype}
+                    </button>`;
+                }
+            });
+            table.innerHTML = html;
+        }
+
+        function renderGenotypes(offspring) {
+            const counts = { AA: 0, Aa: 0, aa: 0 };
+            offspring.forEach(genotype => counts[genotype]++);
+
+            document.getElementById('genotypeResults').innerHTML = ['AA', 'Aa', 'aa'].map(genotype => {
+                const percent = counts[genotype] * 25;
+                return `<div class="genotype-row">
+                    <div class="genotype-code">${genotype}</div>
+                    <div class="percentage-track"><div class="percentage-fill" style="width:${percent}%"></div></div>
+                    <div class="percentage-value">${percent}%</div>
+                </div>`;
+            }).join('');
+        }
+
+        function renderPhenotypes(offspring) {
+            const yellow = offspring.filter(genotype => genotype !== 'aa').length * 25;
+            const white = 100 - yellow;
+
+            document.getElementById('phenotypeCards').innerHTML = `
+                <div class="phenotype-card">
+                    <div class="flower">🌼</div>
+                    <strong>Жълти цветя</strong>
+                    <span>${yellow}% вероятност</span>
+                </div>
+                <div class="phenotype-card">
+                    <div class="flower">🤍</div>
+                    <strong>Бели цветя</strong>
+                    <span>${white}% вероятност</span>
+                </div>`;
+        }
+
+        updateCross();
+    </script>
+</body>
+</html>

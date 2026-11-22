@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>НАУЧИ+ | Научни мисии</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #fff;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+        
+        header {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 20px 0;
+            border-bottom: 3px solid #0f3460;
+        }
+        
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+        
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #00d4ff;
+        }
+        
+        .nav {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+        
+        .nav a {
+            color: #fff;
+            text-decoration: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            transition: all 0.3s;
+            font-size: 0.95rem;
+        }
+        
+        .nav a:hover {
+            background: rgba(0, 212, 255, 0.2);
+            color: #00d4ff;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 30px;
+            text-align: center;
+            color: #00d4ff;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        .intro-section {
+            background: rgba(0, 212, 255, 0.1);
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 50px;
+            border-left: 5px solid #00d4ff;
+        }
+        
+        .quest-card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            border: 2px solid rgba(0, 212, 255, 0.3);
+            transition: all 0.3s;
+        }
+        
+        .quest-card:hover {
+            background: rgba(0, 212, 255, 0.15);
+            border-color: #00d4ff;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.2);
+        }
+        
+        .quest-card h3 {
+            color: #00d4ff;
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+        
+        .difficulty {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .difficulty.easy {
+            background: rgba(76, 175, 80, 0.3);
+            color: #4CAF50;
+        }
+        
+        .difficulty.medium {
+            background: rgba(255, 193, 7, 0.3);
+            color: #FFC107;
+        }
+        
+        .difficulty.hard {
+            background: rgba(244, 67, 54, 0.3);
+            color: #F44336;
+        }
+        
+        .quest-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
+        }
+        
+        button {
+            background: linear-gradient(135deg, #00d4ff, #0099cc);
+            color: #000;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            transition: all 0.3s;
+            margin-top: 10px;
+        }
+        
+        button:hover {
+            transform: scale(1.08);
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.4);
+        }
+        
+        .stats-box {
+            background: rgba(0, 212, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            border: 2px solid #00d4ff;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            text-align: center;
+        }
+        
+        .stat-item strong {
+            color: #00d4ff;
+            font-size: 1.5rem;
+            display: block;
+            margin-bottom: 5px;
+        }
+        
+        .footer {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            text-align: center;
+            margin-top: 50px;
+            border-top: 2px solid #0f3460;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="logo">🎯 НАУЧИ+</div>
+            <nav class="nav">
+                <a href="index.html">Начало</a>
+                <a href="biology.html">Биология</a>
+                <a href="chemistry.html">Химия</a>
+                <a href="physics.html">Физика</a>
+                <a href="games.html">Игри</a>
+                <a href="quests.html">Мисии</a>
+                <a href="about.html">За нас</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <h1>🎯 Научни мисии и предизвикателства</h1>
+
+        <div class="intro-section">
+            <h2 style="color: #00d4ff; margin-bottom: 15px;">Завършете поредица от мисии!</h2>
+            <p>
+                Научните мисии са поредици от задачи, които те водят през цялостното изучаване на тема.
+                Всяка завършена мисия ти дава награди и те приближава до освоенството в дадена наука.
+            </p>
+        </div>
+
+        <div class="stats-box">
+            <div class="stat-item">
+                <strong id="total">0</strong>
+                <span>Всичко мисии</span>
+            </div>
+            <div class="stat-item">
+                <strong id="active">0</strong>
+                <span>Активни мисии</span>
+            </div>
+            <div class="stat-item">
+                <strong id="completed">0</strong>
+                <span>Завършени мисии</span>
+            </div>
+            <div class="stat-item">
+                <strong id="points">0</strong>
+                <span>Получени точки</span>
+            </div>
+        </div>
+
+        <h2 style="color: #00d4ff; margin: 40px 0 25px 0;">🧬 Биологични мисии</h2>
+
+        <div class="quest-grid">
+            <div class="quest-card">
+                <span class="difficulty easy">Лесна</span>
+                <h3>Мисия 1: Клетката - Строителният блок</h3>
+                <p>Научи за устройството на животинската клетка. Посети биология симулаторите и завърши викторина.</p>
+                <button onclick="startQuest('quest1')">Започни мисия →</button>
+            </div>
+
+            <div class="quest-card">
+                <span class="difficulty medium">Средна</span>
+                <h3>Мисия 2: Генетика и наследственост</h3>
+                <p>Разбери как се наследяват признаци. Използвай генетичния симулатор и докажи знанията си.</p>
+                <button onclick="startQuest('quest2')">Започни мисия →</button>
+            </div>
+
+            <div class="quest-card">
+                <span class="difficulty hard">Сложна</span>
+                <h3>Мисия 3: Екосистеми и еволюция</h3>
+                <p>Изследвай екосистемите и естественото подбиране. Работи с екосистемния симулатор.</p>
+                <button onclick="startQuest('quest3')">Започни мисия →</button>
+            </div>
+        </div>
+
+        <h2 style="color: #00d4ff; margin: 40px 0 25px 0;">🧪 Химични мисии</h2>
+
+        <div class="quest-grid">
+            <div class="quest-card">
+                <span class="difficulty easy">Лесна</span>
+                <h3>Мисия 4: Атоми и молекули</h3>
+                <p>Разбери строението на атомите. Визуализирай молекулите чрез симулатора.</p>
+                <button onclick="startQuest('quest4')">Започни мисия →</button>
+            </div>
+
+            <div class="quest-card">
+                <span class="difficulty medium">Средна</span>
+                <h3>Мисия 5: Периодична таблица</h3>
+                <p>Научи за елементите и техните свойства. Използвай интерактивната периодична таблица.</p>
+                <button onclick="startQuest('quest5')">Започни мисия →</button>
+            </div>
+
+            <div class="quest-card">
+                <span class="difficulty hard">Сложна</span>
+                <h3>Мисия 6: Химични реакции</h3>
+                <p>Овладей химичните реакции. Експериментирай с реакционния симулатор.</p>
+                <button onclick="startQuest('quest6')">Започни мисия →</button>
+            </div>
+        </div>
+
+        <h2 style="color: #00d4ff; margin: 40px 0 25px 0;">⚡ Физични мисии</h2>
+
+        <div class="quest-grid">
+            <div class="quest-card">
+                <span class="difficulty easy">Лесна</span>
+                <h3>Мисия 7: Сили и движение</h3>
+                <p>Разбери Нютоновите закони. Използвай симулатора за сили.</p>
+                <button onclick="startQuest('quest7')">Започни мисия →</button>
+            </div>
+
+            <div class="quest-card">
+                <span class="difficulty medium">Средна</span>
+                <h3>Мисия 8: Гравитация и орбити</h3>
+                <p>Научи за гравитацията. Симулирай орбити с планетата симулатор.</p>
+                <button onclick="startQuest('quest8')">Започни мисия →</button>
+            </div>
+
+            <div class="quest-card">
+                <span class="difficulty hard">Сложна</span>
+                <h3>Мисия 9: Електричество</h3>
+                <p>Овладей електричеството. Работи с електричните вериги симулатор.</p>
+                <button onclick="startQuest('quest9')">Започни мисия →</button>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>Любопитството е първата стъпка към откритието.</p>
+        <small style="display: block; margin-top: 15px; border-top: 1px solid rgba(100,113,138,0.3); padding-top: 10px;">
+            Сайтът е създаден за НЕТИТ "Джон Атанасов" София 2026
+        </small>
+        <small style="display: block;">
+            Автори: Йордан Божков и Иван Варников, ПМГ "Константин Величков" Пазарджик
+        </small>
+    </footer>
+
+    <script>
+        // Quest data with links to simulators
+        const quests = {
+            quest1: {
+                title: 'Мисия 1: Клетката - Строителният блок',
+                difficulty: 'easy',
+                points: 50,
+                tasks: [
+                    { text: 'Изучи 3 различни клетъчни органела', link: 'biology.html', linkText: 'Към симулатора на клетката' },
+                    { text: 'Визуализирай животинската клетка', link: 'biology.html', linkText: 'Към визуализацията' },
+                    { text: 'Завърши викторина с 8/10 вярни отговори', link: 'biology-test.html', linkText: 'Към викторината' }
+                ]
+            },
+            quest2: {
+                title: 'Мисия 2: Генетика и наследственост',
+                difficulty: 'medium',
+                points: 100,
+                tasks: [
+                    { text: 'Завърши генетичния симулатор', link: 'genetics-simulator.html', linkText: 'Към симулатора' },
+                    { text: 'Научи за доминантни и рецесивни признаци', link: 'biology.html', linkText: 'Към учебното съдържание' },
+                    { text: 'Решай 5 генетични кръстоски', link: 'genetics-simulator.html', linkText: 'Към симулатора' }
+                ]
+            },
+            quest3: {
+                title: 'Мисия 3: Екосистеми и еволюция',
+                difficulty: 'hard',
+                points: 150,
+                tasks: [
+                    { text: 'Симулирай екосистема 5 минути', link: 'ecosystem-simulator.html', linkText: 'Към симулатора' },
+                    { text: 'Разбери естествения подбор', link: 'evolution-simulator.html', linkText: 'Към симулатора' },
+                    { text: 'Завърши еволюционния тест', link: 'biology-test.html', linkText: 'Към теста' }
+                ]
+            },
+            quest4: {
+                title: 'Мисия 4: Атоми и молекули',
+                difficulty: 'easy',
+                points: 50,
+                tasks: [
+                    { text: 'Научи за атомната структура', link: 'chemistry.html', linkText: 'Към учебното съдържание' },
+                    { text: 'Визуализирай 5 различни молекули', link: 'molecules-simulator.html', linkText: 'Към симулатора' },
+                    { text: 'Завърши викторина с 7/10 вярни', link: 'chemistry-test.html', linkText: 'Към викторината' }
+                ]
+            },
+            quest5: {
+                title: 'Мисия 5: Периодична таблица',
+                difficulty: 'medium',
+                points: 100,
+                tasks: [
+                    { text: 'Изучи 10 елемента от таблицата', link: 'periodic-table.html', linkText: 'Към периодичната таблица' },
+                    { text: 'Научи техните основни свойства', link: 'periodic-table.html', linkText: 'Към таблицата' },
+                    { text: 'Завърши периодичния тест', link: 'chemistry-test.html', linkText: 'Към теста' }
+                ]
+            },
+            quest6: {
+                title: 'Мисия 6: Химични реакции',
+                difficulty: 'hard',
+                points: 150,
+                tasks: [
+                    { text: 'Овладей симулатора на химични реакции', link: 'reactions-simulator.html', linkText: 'Към симулатора' },
+                    { text: 'Експериментирай с 8 реакции', link: 'reactions-simulator.html', linkText: 'Към симулатора' },
+                    { text: 'Разбери баланса на реакциите', link: 'chemistry.html', linkText: 'Към учебното съдържание' }
+                ]
+            },
+            quest7: {
+                title: 'Мисия 7: Сили и движение',
+                difficulty: 'easy',
+                points: 50,
+                tasks: [
+                    { text: 'Научи Нютоновите закони', link: 'physics.html', linkText: 'Към учебното съдържание' },
+                    { text: 'Използвай симулатора на силите', link: 'forces-simulator.html', linkText: 'Към симулатора' },
+                    { text: 'Завърши физичния тест', link: 'physics-test.html', linkText: 'Към теста' }
+                ]
+            },
+            quest8: {
+                title: 'Мисия 8: Гравитация и орбити',
+                difficulty: 'medium',
+                points: 100,
+                tasks: [
+                    { text: 'Разбери гравитацията', link: 'physics.html', linkText: 'Към учебното съдържание' },
+                    { text: 'Симулирай 3 различни орбити', link: 'gravity-simulator.html', linkText: 'Към симулатора' },
+                    { text: 'Завърши орбиталния тест', link: 'physics-test.html', linkText: 'Към теста' }
+                ]
+            },
+            quest9: {
+                title: 'Мисия 9: Електричество',
+                difficulty: 'hard',
+                points: 150,
+                tasks: [
+                    { text: 'Овладей електричните вериги', link: 'circuits-simulator.html', linkText: 'Към симулатора' },
+                    { text: 'Експериментирай с 5 вериги', link: 'circuits-simulator.html', linkText: 'Към симулатора' },
+                    { text: 'Разбери съпротивлението и тока', link: 'physics.html', linkText: 'Към учебното съдържание' }
+                ]
+            }
+        };
+
+        // Load progress from localStorage
+        let activeQuests = JSON.parse(localStorage.getItem('activeQuests')) || [];
+        let completedQuests = JSON.parse(localStorage.getItem('completedQuests')) || [];
+        let totalPoints = JSON.parse(localStorage.getItem('totalPoints')) || 0;
+
+        // Start a quest
+        function startQuest(questId) {
+            if (!activeQuests.includes(questId) && !completedQuests.includes(questId)) {
+                activeQuests.push(questId);
+                localStorage.setItem('activeQuests', JSON.stringify(activeQuests));
+                showQuestModal(questId);
+            } else if (completedQuests.includes(questId)) {
+                // Quest is completed - allow to view/repeat for practice
+                showQuestModal(questId);
+            } else {
+                showQuestModal(questId);
+            }
+        }
+
+        // Show quest details in modal
+        function showQuestModal(questId) {
+            const quest = quests[questId];
+            const isCompleted = completedQuests.includes(questId);
+            const isActive = activeQuests.includes(questId);
+            const questProgress = JSON.parse(localStorage.getItem(`quest_${questId}_progress`)) || {};
+            
+            let modal = `<div style="background: rgba(0,0,0,0.9); padding: 30px; border-radius: 15px; border: 2px solid #00d4ff; max-width: 700px; color: #fff; max-height: 80vh; overflow-y: auto;">
+                <h2 style="color: #00d4ff; margin-bottom: 15px;">${quest.title}</h2>
+                <p style="margin-bottom: 20px; font-size: 1.1rem;">Награда: <strong>${quest.points} точки</strong></p>
+                <h3 style="color: #00d4ff; margin: 15px 0;">Задачи (отметни когда са готови):</h3>
+                <div id="tasksContainer" style="margin-left: 20px; margin-bottom: 20px;">`;
+            
+            let completedCount = 0;
+            quest.tasks.forEach((task, index) => {
+                const isTaskDone = questProgress[index] || false;
+                if (isTaskDone) completedCount++;
+                
+                modal += `<div style="margin-bottom: 20px; padding: 15px; background: rgba(0, 212, 255, 0.1); border-radius: 8px; border-left: 3px solid #00d4ff;">
+                    <div style="display: flex; align-items: flex-start; gap: 15px;">
+                        <input type="checkbox" id="task_${index}" ${isTaskDone ? 'checked' : ''} 
+                            onchange="updateTaskProgress('${questId}', ${index}, this.checked)"
+                            style="width: 20px; height: 20px; margin-top: 2px; cursor: pointer; flex-shrink: 0;">
+                        <div style="flex: 1;">
+                            <label for="task_${index}" style="cursor: pointer; display: block; ${isTaskDone ? 'text-decoration: line-through; opacity: 0.6;' : 'font-weight: 500;'} margin-bottom: 10px;">
+                                ${typeof task === 'string' ? task : task.text}
+                            </label>
+                            ${typeof task === 'string' ? '' : `<a href="${task.link}" target="_blank" style="display: inline-block; background: #00d4ff; color: #000; padding: 8px 15px; border-radius: 5px; text-decoration: none; font-weight: bold; cursor: pointer; font-size: 0.9rem;">
+                                🔗 ${task.linkText}
+                            </a>`}
+                        </div>
+                    </div>
+                </div>`;
+            });
+            
+            modal += `</div>`;
+            modal += `<div style="background: rgba(0, 212, 255, 0.2); padding: 15px; border-radius: 8px; margin-bottom: 20px; text-align: center;">
+                <p style="margin: 0; font-size: 1.1rem;">Прогрес: <strong style="color: #00d4ff;">${completedCount}/${quest.tasks.length}</strong> задачи завършени</p>
+            </div>`;
+            
+            if (isCompleted) {
+                modal += `<p style="color: #4CAF50; font-weight: bold; margin-bottom: 15px; text-align: center;">✅ Мисия завършена!</p>`;
+                const allCompleted = completedCount === quest.tasks.length;
+                modal += `<button onclick="repeatQuest('${questId}')" 
+                    style="background: #00d4ff; width: 100%; padding: 12px; font-weight: bold; cursor: pointer; border-radius: 8px; border: none; color: #000; font-size: 1rem; margin-bottom: 10px;">
+                    🔄 Повтори мисия за практика</button>`;
+            } else if (isActive) {
+                const allCompleted = completedCount === quest.tasks.length;
+                modal += `<button onclick="completeQuest('${questId}')" 
+                    style="background: ${allCompleted ? '#4CAF50' : '#999'}; width: 100%; padding: 12px; font-weight: bold; cursor: ${allCompleted ? 'pointer' : 'not-allowed'}; border-radius: 8px; border: none; color: white; font-size: 1rem; margin-bottom: 10px; opacity: ${allCompleted ? '1' : '0.5'};"
+                    ${!allCompleted ? 'disabled' : ''}>
+                    ${allCompleted ? '✅ Завърши мисия' : '⏳ Завършете всички задачи'}</button>`;
+            }
+            
+            modal += `<button onclick="this.closest('div').style.display='none'" style="background: #666; width: 100%; padding: 12px; font-weight: bold; cursor: pointer; border-radius: 8px; border: none; color: white; font-size: 1rem;">Затвори</button>
+            </div>`;
+            
+            
+            const modalDiv = document.createElement('div');
+            modalDiv.style.cssText = "position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; z-index: 9999;";
+            modalDiv.innerHTML = modal;
+            document.body.appendChild(modalDiv);
+            
+            modalDiv.onclick = function(e) {
+                if (e.target === this) this.remove();
+            };
+        }
+
+        // Update task progress
+        function updateTaskProgress(questId, taskIndex, completed) {
+            let questProgress = JSON.parse(localStorage.getItem(`quest_${questId}_progress`)) || {};
+            questProgress[taskIndex] = completed;
+            localStorage.setItem(`quest_${questId}_progress`, JSON.stringify(questProgress));
+            
+            // Update the display styling
+            const label = document.querySelector(`label[for="task_${taskIndex}"]`);
+            if (label) {
+                if (completed) {
+                    label.style.textDecoration = 'line-through';
+                    label.style.opacity = '0.6';
+                } else {
+                    label.style.textDecoration = 'none';
+                    label.style.opacity = '1';
+                }
+            }
+            
+            // Update progress counter
+            const quest = quests[questId];
+            let completedCount = 0;
+            quest.tasks.forEach((task, index) => {
+                if (questProgress[index]) completedCount++;
+            });
+            
+            // Update progress display
+            const progressElements = document.querySelectorAll('strong');
+            progressElements.forEach(el => {
+                if (el.textContent.includes(`${completedCount}/${quest.tasks.length}`)) {
+                    el.textContent = `${completedCount}/${quest.tasks.length}`;
+                }
+            });
+            
+            // Update button state
+            const allCompleted = completedCount === quest.tasks.length;
+            const completeButton = document.querySelector('button[onclick*="completeQuest"]');
+            if (completeButton) {
+                if (allCompleted) {
+                    completeButton.style.background = '#4CAF50';
+                    completeButton.style.cursor = 'pointer';
+                    completeButton.style.opacity = '1';
+                    completeButton.disabled = false;
+                    completeButton.textContent = '✅ Завърши мисия';
+                } else {
+                    completeButton.style.background = '#999';
+                    completeButton.style.cursor = 'not-allowed';
+                    completeButton.style.opacity = '0.5';
+                    completeButton.disabled = true;
+                    completeButton.textContent = '⏳ Завършете всички задачи';
+                }
+            }
+        }
+
+        // Repeat a completed quest for practice (no additional points)
+        function repeatQuest(questId) {
+            // Clear the progress for this quest
+            localStorage.removeItem(`quest_${questId}_progress`);
+            
+            // Remove from active quests if it's there
+            activeQuests = activeQuests.filter(q => q !== questId);
+            localStorage.setItem('activeQuests', JSON.stringify(activeQuests));
+            
+            // Add back to active for practice
+            activeQuests.push(questId);
+            localStorage.setItem('activeQuests', JSON.stringify(activeQuests));
+            
+            // Show updated modal
+            showQuestModal(questId);
+        }
+
+        // Complete a quest
+        function completeQuest(questId) {
+            if (!completedQuests.includes(questId)) {
+                completedQuests.push(questId);
+                activeQuests = activeQuests.filter(q => q !== questId);
+                totalPoints += quests[questId].points;
+                
+                localStorage.setItem('completedQuests', JSON.stringify(completedQuests));
+                localStorage.setItem('activeQuests', JSON.stringify(activeQuests));
+                localStorage.setItem('totalPoints', totalPoints);
+                
+                alert(`🎉 Браво! Завършихте мисия "${quests[questId].title}" и спечелихте ${quests[questId].points} точки!`);
+                location.reload();
+            }
+        }
+
+        // Initialize stats on page load
+        function initStats() {
+            const totalQuests = Object.keys(quests).length;
+            const activeCount = activeQuests.length;
+            const completedCount = completedQuests.length;
+            
+            document.getElementById('total').textContent = totalQuests;
+            document.getElementById('active').textContent = activeCount;
+            document.getElementById('completed').textContent = completedCount;
+            document.getElementById('points').textContent = totalPoints;
+        }
+
+        // Update quest card appearance when complete
+        function updateQuestCards() {
+            completedQuests.forEach(questId => {
+                const cards = document.querySelectorAll('.quest-card');
+                cards.forEach(card => {
+                    if (card.textContent.includes(quests[questId].title)) {
+                        card.style.opacity = '0.6';
+                        card.style.borderColor = '#4CAF50';
+                        const button = card.querySelector('button');
+                        button.textContent = '✅ Завършена';
+                        button.disabled = false;
+                        button.style.cursor = 'pointer';
+                    }
+                });
+            });
+        }
+
+        window.addEventListener('load', () => {
+            initStats();
+            updateQuestCards();
+        });
+    </script>
+</body>
+</html>

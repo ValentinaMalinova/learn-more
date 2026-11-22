@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>НАУЧИ+ | За нас</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #fff;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+        
+        header {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 20px 0;
+            border-bottom: 3px solid #0f3460;
+        }
+        
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+        
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #00d4ff;
+        }
+        
+        .nav {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+        
+        .nav a {
+            color: #fff;
+            text-decoration: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            transition: all 0.3s;
+            font-size: 0.95rem;
+        }
+        
+        .nav a:hover {
+            background: rgba(0, 212, 255, 0.2);
+            color: #00d4ff;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 30px;
+            text-align: center;
+            color: #00d4ff;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        .intro-section {
+            background: rgba(0, 212, 255, 0.1);
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 50px;
+            border-left: 5px solid #00d4ff;
+        }
+        
+        .info-box {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            border: 2px solid rgba(0, 212, 255, 0.3);
+        }
+        
+        .info-box h3 {
+            color: #00d4ff;
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
+        }
+        
+        .feature-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 25px;
+            border-radius: 12px;
+            border-left: 4px solid #00d4ff;
+            transition: all 0.3s;
+        }
+        
+        .feature-card:hover {
+            background: rgba(0, 212, 255, 0.1);
+            transform: translateY(-5px);
+        }
+        
+        .feature-card h4 {
+            color: #00d4ff;
+            margin-bottom: 10px;
+            font-size: 1.3rem;
+        }
+        
+        .team {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
+        }
+        
+        .team-member {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            border: 2px solid rgba(0, 212, 255, 0.3);
+        }
+        
+        .team-member .name {
+            color: #00d4ff;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        
+        .footer {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            text-align: center;
+            margin-top: 50px;
+            border-top: 2px solid #0f3460;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="logo">ℹ️ НАУЧИ+</div>
+            <nav class="nav">
+                <a href="index.html">Начало</a>
+                <a href="biology.html">Биология</a>
+                <a href="chemistry.html">Химия</a>
+                <a href="physics.html">Физика</a>
+                <a href="games.html">Игри</a>
+                <a href="quests.html">Мисии</a>
+                <a href="about.html">За нас</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <h1>🔬 За проекта НАУЧИ+</h1>
+
+        <div class="intro-section">
+            <h2 style="color: #00d4ff; margin-bottom: 15px;">Любопитството събира света</h2>
+            <p>
+                НАУЧИ+ е образователен проект, създаден за ученици от прогимназиален етап (7-8 клас). 
+                Комбинира природните науки - биология, химия и физика - със заразителен интерес 
+                и интерактивни виртуални лаборатории.
+            </p>
+        </div>
+
+        <div class="info-box">
+            <h3>📌 Мисията на НАУЧИ+</h3>
+            <p>
+                Нашата цел е да направим науката достъпна, визуална и забавна. Вярваме, че всеки ученик 
+                може да станат учен, когато са дадени правилните инструменти и вдъхновение. 
+                Чрез интерактивни симулации и викторини, ние помагаме на младежите да разберат 
+                сложните концепции на естественозознанието.
+            </p>
+        </div>
+
+        <h2 style="color: #00d4ff; margin: 40px 0 25px 0;">✨ Защо е специална НАУЧИ+?</h2>
+
+        <div class="features">
+            <div class="feature-card">
+                <h4>🎮 Интерактивни симулации</h4>
+                <p>Всеки концепт е визуализиран чрез работещи симулатори, където можеш да експериментираш.</p>
+            </div>
+
+            <div class="feature-card">
+                <h4>📚 Образователен съдържаж</h4>
+                <p>Всеки материал е специално адаптиран за 7-8 клас, лесен за разбиране.</p>
+            </div>
+
+            <div class="feature-card">
+                <h4>🏆 Система от награди</h4>
+                <p>Собирай точки, отключвай нива и генерирай свои научни сертификати.</p>
+            </div>
+
+            <div class="feature-card">
+                <h4>🌍 Трите предмета</h4>
+                <p>Биология, химия и физика - всички в един място, със своите симулатори.</p>
+            </div>
+
+            <div class="feature-card">
+                <h4>📖 Забавни факти</h4>
+                <p>Всеки раздел съдържа любопитни факти, които развиват интереса към науката.</p>
+            </div>
+
+            <div class="feature-card">
+                <h4>🔄 Непрекъснато развитие</h4>
+                <p>Регулярно добавяме нови симулатори, тестове и образователни съдържания.</p>
+            </div>
+        </div>
+
+        <h2 style="color: #00d4ff; margin: 40px 0 25px 0;">👥 Екипът зад проекта</h2>
+
+        <div class="team">
+            <div class="team-member">
+                <span style="font-size: 2.5rem;">👨‍💻</span>
+                <div class="name">Всички ученици от 7-8 клас</div>
+                <p>НОИТ, 2024</p>
+            </div>
+            <div class="team-member">
+                <span style="font-size: 2.5rem;">🎓</span>
+                <div class="name">Преподаватели</div>
+                <p>Менторство и одобрение</p>
+            </div>
+            <div class="team-member">
+                <span style="font-size: 2.5rem;">🚀</span>
+                <div class="name">Технология</div>
+                <p>Вебтехнологии: HTML5, CSS, JavaScript</p>
+            </div>
+        </div>
+
+        <div class="info-box">
+            <h3>🎯 Как е разработена НАУЧИ+?</h3>
+            <p>
+                Проектът е разработен от ученици от НОИТ по време на учебния 2024 год. 
+                Всеки симулатор е внимателно планиран, за да преподаде отделен научен концепт. 
+                Дизайнът е одобрен от учители по природни науки, за да гарантира образователната ценност.
+            </p>
+        </div>
+
+        <div class="info-box">
+            <h3>🌟 Технологиите зад НАУЧИ+</h3>
+            <ul style="margin-left: 20px; margin-top: 15px; line-height: 2;">
+                <li><strong>HTML5</strong> - Структура и семантика</li>
+                <li><strong>CSS3</strong> - Дизайн и анимации</li>
+                <li><strong>JavaScript</strong> - Интерактивност и симулации</li>
+                <li><strong>Canvas API</strong> - Визуализация и графики</li>
+                <li><strong>Responsive Design</strong> - Работи на всички устройства</li>
+            </ul>
+        </div>
+
+        <div class="info-box">
+            <h3>📧 Свързване с нас</h3>
+            <p>
+                Имаш ли въпроси, предложения или забележки? 
+                Отправи ни съобщение или влез в контакт чрез училищната ни мрежа. 
+                Всяко мнение ни помага да подобрим НАУЧИ+!
+            </p>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>Любопитството е първата стъпка към откритието.</p>
+        <small style="display: block; margin-top: 15px; border-top: 1px solid rgba(100,113,138,0.3); padding-top: 10px;">
+            Сайтът е създаден за НЕТИТ "Джон Атанасов" София 2026
+        </small>
+        <small style="display: block;">
+            Автори: Йордан Божков и Иван Варников, ПМГ "Константин Величков" Пазарджик
+        </small>
+        <p style="margin-top: 10px; opacity: 0.8;">Развит с любов към науката 🔬</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>НАУЧИ+ | Химични реакции</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #2d1a3d 0%, #3d2d4d 100%);
+            color: #fff;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+        
+        header {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 20px 0;
+            border-bottom: 3px solid #9C27B0;
+        }
+        
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+        
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #9C27B0;
+        }
+        
+        .nav {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+        
+        .nav a {
+            color: #fff;
+            text-decoration: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            transition: all 0.3s;
+            font-size: 0.95rem;
+        }
+        
+        .nav a:hover {
+            background: rgba(156, 39, 176, 0.3);
+            color: #9C27B0;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            text-align: center;
+            color: #9C27B0;
+        }
+        
+        .simulator-box {
+            background: rgba(156, 39, 176, 0.1);
+            padding: 30px;
+            border-radius: 15px;
+            border: 2px solid #9C27B0;
+            margin-bottom: 30px;
+        }
+        
+        .simulator-controls {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        button {
+            background: #9C27B0;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+        
+        button:hover {
+            background: #7B1FA2;
+            transform: scale(1.05);
+        }
+        
+        .reaction-option {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 8px;
+            border: 2px solid #9C27B0;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .reaction-option:hover {
+            background: rgba(156, 39, 176, 0.3);
+            transform: scale(1.05);
+        }
+        
+        .reaction-option.active {
+            background: rgba(156, 39, 176, 0.5);
+            border-color: #E91E63;
+        }
+        
+        canvas {
+            border: 2px solid #9C27B0;
+            border-radius: 10px;
+            background: rgba(0, 0, 0, 0.3);
+            display: block;
+            margin: 20px auto;
+            width: 100%;
+            height: auto;
+            max-width: 600px;
+        }
+        
+        .results {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 30px;
+        }
+        
+        .results h3 {
+            color: #9C27B0;
+            margin-bottom: 15px;
+        }
+        
+        .result-item {
+            padding: 10px;
+            margin: 10px 0;
+            background: rgba(156, 39, 176, 0.2);
+            border-radius: 5px;
+            border-left: 4px solid #9C27B0;
+        }
+        
+        .info-section {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 30px;
+            border-left: 4px solid #9C27B0;
+        }
+        
+        .info-section h3 {
+            color: #9C27B0;
+            margin-bottom: 15px;
+        }
+        
+        .footer {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            text-align: center;
+            margin-top: 50px;
+            border-top: 2px solid #9C27B0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="logo">🔬 НАУЧИ+</div>
+            <nav class="nav">
+                <a href="index.html">Начало</a>
+                <a href="biology.html">Биология</a>
+                <a href="chemistry.html">Химия</a>
+                <a href="physics.html">Физика</a>
+                <a href="games.html">Игри</a>
+                <a href="quests.html">Мисии</a>
+                <a href="about.html">За нас</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <h1>⚗️ Химични реакции</h1>
+
+        <div class="simulator-box">
+            <h2 style="margin-bottom: 20px; text-align: center;">Експеримент с химични реакции</h2>
+            
+            <h3 style="color: #9C27B0; margin: 20px 0;">Избери тип реакция:</h3>
+            <div style="display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; margin: 20px 0;">
+                <div class="reaction-option active" onclick="selectReaction('combustion')">
+                    <strong>🔥 Горене</strong><br>
+                    <small>Вещество + кислород</small>
+                </div>
+                <div class="reaction-option" onclick="selectReaction('acid-base')">
+                    <strong>🧪 Киселина-база</strong><br>
+                    <small>Неутрализация</small>
+                </div>
+                <div class="reaction-option" onclick="selectReaction('synthesis')">
+                    <strong>⚛️ Синтез</strong><br>
+                    <small>Две вещества=одно</small>
+                </div>
+            </div>
+
+            <canvas id="canvas" width="600" height="400"></canvas>
+
+            <div class="simulator-controls">
+                <button onclick="startReaction()">▶ Начало</button>
+                <button onclick="resetReaction()">🔄 Рестарт</button>
+                <button onclick="increaseIntensity()">⚡ Усили реакцията</button>
+            </div>
+
+            <div class="results">
+                <h3>Информация за реакцията</h3>
+                <div class="result-item">
+                    <strong>Тип реакция:</strong> <span id="reactionType">Горене</span>
+                </div>
+                <div class="result-item">
+                    <strong>Молекули произведени:</strong> <span id="moleculesProduced">0</span>
+                </div>
+                <div class="result-item">
+                    <strong>Енергия освободена:</strong> <span id="energyReleased">0</span> kJ
+                </div>
+            </div>
+        </div>
+
+        <div class="info-section">
+            <h3>📚 Типове химични реакции</h3>
+            <p><strong>Комбинирана реакция (горене):</strong> Дво или повече вещества се комбинират, за да образуват едно ново вещество. Пример: углерод + кислород = въглероден диоксид.</p>
+            <p style="margin-top: 15px;"><strong>Киселина-база реакция (неутрализация):</strong> Киселина и база реагират, за да образуват сол и вода. Пример: HCl + NaOH = NaCl + H₂O</p>
+            <p style="margin-top: 15px;"><strong>Синтезна реакция:</strong> Едно вещество се разлага на две или повече нови вещества. Пример: H₂O = H₂ + O₂</p>
+            <p style="margin-top: 15px;"><strong>Екзотермни реакции:</strong> Реакции, които освобождават топлина и енергия (горене, неутрализация).</p>
+            <p style="margin-top: 15px;"><strong>Ендотермни реакции:</strong> Реакции, които абсорбират топлина и енергия от околната среда.</p>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>Любопитството е първата стъпка към откритието.</p>
+        <small style="display: block; margin-top: 15px; border-top: 1px solid rgba(100,113,138,0.3); padding-top: 10px;">
+            Сайтът е създаден за НЕТИТ "Джон Атанасов" София 2026
+        </small>
+        <small style="display: block;">
+            Автори: Йордан Божков и Иван Варников, ПМГ "Константин Величков" Пазарджик
+        </small>
+    </footer>
+
+    <script>
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        
+        let currentReaction = 'combustion';
+        let moleculesCount = 0;
+        let energyReleased = 0;
+        let intensity = 1;
+        let isReacting = false;
+        
+        const reactions = {
+            combustion: {
+                name: 'Горене',
+                reactants: 'C + O₂',
+                products: 'CO₂',
+                energy: 393
+            },
+            'acid-base': {
+                name: 'Киселина-база',
+                reactants: 'HCl + NaOH',
+                products: 'NaCl + H₂O',
+                energy: 57
+            },
+            synthesis: {
+                name: 'Синтез',
+                reactants: 'H₂ + Cl₂',
+                products: '2HCl',
+                energy: 184
+            }
+        };
+        
+        function selectReaction(type) {
+            currentReaction = type;
+            document.querySelectorAll('.reaction-option').forEach(opt => opt.classList.remove('active'));
+            event.target.closest('.reaction-option').classList.add('active');
+            
+            document.getElementById('reactionType').textContent = reactions[type].name;
+            resetReaction();
+        }
+        
+        function startReaction() {
+            if (!isReacting) {
+                isReacting = true;
+                animateReaction();
+            }
+        }
+        
+        function animateReaction() {
+            if (!isReacting) return;
+            
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // Draw background
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.3)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Reactants (left side)
+            ctx.fillStyle = '#FF6B6B';
+            ctx.font = '20px Arial';
+            ctx.fillText(reactions[currentReaction].reactants, 50, 50);
+            
+            // Draw molecule particles for reactants
+            for (let i = 0; i < 15; i++) {
+                const x = 50 + Math.sin(Date.now() * 0.001 + i) * 60 + i * 5;
+                const y = 150 + Math.cos(Date.now() * 0.0008 + i) * 60;
+                
+                ctx.fillStyle = '#FF6B6B';
+                ctx.beginPath();
+                ctx.arc(x, y, 5, 0, Math.PI * 2);
+                ctx.fill();
+            }
+            
+            // Arrow
+            ctx.strokeStyle = '#FFD700';
+            ctx.lineWidth = 3;
+            ctx.beginPath();
+            ctx.moveTo(200, 100);
+            ctx.lineTo(350, 100);
+            ctx.stroke();
+            
+            ctx.fillStyle = '#FFD700';
+            ctx.beginPath();
+            ctx.moveTo(350, 100);
+            ctx.lineTo(340, 95);
+            ctx.lineTo(340, 105);
+            ctx.closePath();
+            ctx.fill();
+            
+            // Products (right side)
+            ctx.fillStyle = '#4CAF50';
+            ctx.fillText(reactions[currentReaction].products, 400, 50);
+            
+            // Draw molecule particles for products
+            moleculesCount += intensity;
+            for (let i = 0; i < moleculesCount * 0.1; i++) {
+                const x = 400 + Math.sin(Date.now() * 0.0012 + i) * 60 + i * 3;
+                const y = 150 + Math.cos(Date.now() * 0.001 + i) * 60;
+                
+                ctx.fillStyle = '#4CAF50';
+                ctx.beginPath();
+                ctx.arc(x, y, 5, 0, Math.PI * 2);
+                ctx.fill();
+            }
+            
+            // Energy indicator
+            energyReleased = reactions[currentReaction].energy * intensity;
+            ctx.fillStyle = '#FFA500';
+            ctx.font = '16px Arial';
+            ctx.fillText(`Енергия: ${energyReleased.toFixed(0)} kJ`, 100, 350);
+            
+            // Heat animation
+            const heatIntensity = Math.sin(Date.now() * 0.003) * 50 + 50;
+            ctx.fillStyle = `rgba(255, 100, 0, ${heatIntensity / 100})`;
+            ctx.fillRect(0, 300, canvas.width, 100);
+            
+            // Update stats
+            document.getElementById('moleculesProduced').textContent = Math.floor(moleculesCount * 0.1);
+            document.getElementById('energyReleased').textContent = energyReleased.toFixed(0);
+            
+            if (moleculesCount < 500) {
+                requestAnimationFrame(animateReaction);
+            } else {
+                isReacting = false;
+            }
+        }
+        
+        function resetReaction() {
+            isReacting = false;
+            moleculesCount = 0;
+            energyReleased = 0;
+            intensity = 1;
+            
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.3)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            ctx.fillStyle = '#9C27B0';
+            ctx.font = '18px Arial';
+            ctx.textAlign = 'center';
+            ctx.fillText('Натиснете "Начало" за да начнете реакцията', canvas.width / 2, canvas.height / 2);
+            
+            document.getElementById('moleculesProduced').textContent = '0';
+            document.getElementById('energyReleased').textContent = '0';
+        }
+        
+        function increaseIntensity() {
+            intensity += 0.5;
+            alert(`Интензитет на реакцията: ${intensity.toFixed(1)}x`);
+        }
+        
+        // Initialize
+        resetReaction();
+    </script>
+</body>
+</html>

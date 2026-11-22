@@ -1,0 +1,1404 @@
+<!DOCTYPE html>
+<html lang="bg" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Екосистеми | НАУЧИ+</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <div class="header-content">
+      <div class="logo">🔬 НАУЧИ+</div>
+      <nav class="nav">
+        <a href="index.html">Начало</a>
+        <a href="biology.html">Биология</a>
+        <a href="chemistry.html">Химия</a>
+        <a href="physics.html">Физика</a>
+        <a href="games.html">Игри</a>
+        <a href="quests.html">Мисии</a>
+        <a href="about.html">За нас</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="page-hero">
+      <span class="eyebrow">БИОЛОГИЯ · ЕКОЛОГИЯ</span>
+      <h1>🌍 Екосистеми и хранителни вериги</h1>
+      <p>Промени условията в една екосистема на поляна и наблюдавай как една промяна се отразява на всички.</p>
+    </section>
+
+    <section class="section ecosystem-section">
+      <h2>🌱 Екосистемен симулатор</h2>
+
+      <div class="ecosystem-controls">
+        <div class="control-group">
+          <button id="addPlantButton" class="organism-button plant-button" onclick="addOrganism('plant')">🌱 Засади растение</button>
+          <button id="addHerbivoreButton" class="organism-button herbivore-button" onclick="addOrganism('herbivore')">🐇 Добави заек</button>
+          <button id="addPredatorButton" class="organism-button predator-button" onclick="addOrganism('predator')">🦊 Добави лисица</button>
+          <button class="simulation-button" id="pauseButton" onclick="pauseSimulation()">⏸ Пауза</button>
+          <button class="simulation-button reset-button" onclick="resetSimulation()">🔄 Нова поляна</button>
+        </div>
+      </div>
+
+      <div class="ecosystem-canvas-container">
+        <canvas id="ecosystemCanvas" width="1200" height="500" role="img" aria-label="Екосистема на поляна с растения, зайци и лисици"></canvas>
+      </div>
+
+      <div class="ecosystem-stats">
+        <div class="stat-box">
+          <h4>🌱 Растения</h4>
+          <div id="plant-count" class="stat-value">0</div>
+        </div>
+        <div class="stat-box">
+          <h4>🐇 Зайци</h4>
+          <div id="herbivore-count" class="stat-value">0</div>
+        </div>
+        <div class="stat-box">
+          <h4>🦊 Лисици</h4>
+          <div id="predator-count" class="stat-value">0</div>
+        </div>
+        <div class="stat-box">
+          <h4>⏱ Изминало време</h4>
+          <div id="time-step" class="stat-value">0</div>
+          <small>стъпки на симулацията</small>
+        </div>
+      </div>
+
+      <div class="ecosystem-events">
+        <h3>🌦️ Промени условията</h3>
+        <p>Какво ще стане, ако времето или броят на хищниците се промени?</p>
+        <div class="event-buttons">
+          <button class="event-button drought-button" onclick="triggerDrought()">🌵 Настъпи суша</button>
+          <button class="event-button rain-button" onclick="triggerRain()">🌧️ Заваля дъжд</button>
+          <button class="event-button snow-button" onclick="triggerSnow()">❄️ Настъпи снеговалеж</button>
+          <button class="event-button" onclick="removePredators()">🦊 Изчезнаха лисиците</button>
+        </div>
+      </div>
+
+      <div class="ecosystem-message" id="ecosystem-message" aria-live="polite">
+        <strong>🔎 Твоята мисия:</strong> Наблюдавай популациите. После промени времето или премахни хищниците и виж какво ще последва.
+      </div>
+
+      <div class="info-panel">
+        <h3>📖 Какво да наблюдаваш?</h3>
+        <p class="food-chain"><span>☀️ Слънце</span><b>→</b><span>🌿 Растения</span><b>→</b><span>🐇 Зайци</span><b>→</b><span>🦊 Лисици</span></p>
+        <p><strong>Енергията</strong> започва от Слънцето, преминава към растенията и после към животните, които се хранят с тях.</p>
+        <p><strong>Проследи връзките:</strong></p>
+        <ul>
+          <li>🌱 При суша растенията намаляват — зайците остават с по-малко храна.</li>
+          <li>🌧️ При дъжд растенията растат и се размножават по-бързо.</li>
+          <li>❄️ При снеговалеж растежът на растенията намалява, а животните губят малко повече енергия.</li>
+          <li>🐇 Ако зайците станат твърде много, те изяждат повече растения.</li>
+          <li>🦊 Ако лисиците изчезнат, зайците могат да се увеличат, а растенията да намалеят.</li>
+        </ul>
+        <p><strong>Предизвикателство:</strong> Преди да натиснеш бутон, предвиди коя популация ще се промени първа. След това провери дали твоята прогноза се сбъдва!</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>Любопитството е първата стъпка към откритието.</p>
+    <small style="display: block; margin-top: 15px; border-top: 1px solid rgba(100,113,138,0.3); padding-top: 10px;">
+        Сайтът е създаден за НЕТИТ "Джон Атанасов" София 2026
+    </small>
+    <small style="display: block;">
+        Автори: Йордан Божков и Иван Варников, ПМГ "Константин Величков" Пазарджик
+    </small>
+  </footer>
+
+  <style>
+    .ecosystem-section {
+      background: white;
+      padding: 2rem;
+      border-radius: 12px;
+      max-width: 1180px;
+      margin: 2rem auto;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+
+    .ecosystem-section > h2 {
+      margin: 0 0 1.25rem;
+      color: #17243b;
+      font-family: Manrope, sans-serif;
+      font-size: 1.6rem;
+      text-align: center;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .menu-toggle {
+      border: 0;
+      background: transparent;
+      color: var(--ink);
+      cursor: pointer;
+      font-size: 1.3rem;
+      padding: 6px;
+    }
+
+    .menu-toggle {
+      display: none;
+    }
+
+    .menu-toggle:focus-visible {
+      outline: 2px solid var(--teal);
+      outline-offset: 3px;
+    }
+
+    .ecosystem-controls {
+      background: #f8fafb;
+      padding: 1.5rem;
+      border-radius: 8px;
+      margin: 1.5rem 0;
+    }
+
+    .control-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+    }
+
+    .ecosystem-controls button,
+    .event-button {
+      padding: 10px 16px;
+      border: 0;
+      border-radius: 8px;
+      color: white;
+      cursor: pointer;
+      font: inherit;
+      font-weight: 700;
+      transition: transform 0.2s, filter 0.2s;
+    }
+
+    .ecosystem-controls button:hover,
+    .event-button:hover {
+      filter: brightness(1.08);
+      transform: translateY(-2px);
+    }
+
+    .ecosystem-controls button:focus-visible,
+    .event-button:focus-visible {
+      outline: 3px solid #17243b;
+      outline-offset: 3px;
+    }
+
+    .plant-button { background: #10b981; }
+    .herbivore-button { background: #d97706; }
+    .predator-button { background: #dc2626; }
+    .simulation-button { background: #475569; }
+    .reset-button { background: #2563eb; }
+
+    .ecosystem-canvas-container {
+      background: linear-gradient(#d9f4ff, #f1fbe8 68%, #b8df9b 68%);
+      border: 2px solid #79bd72;
+      border-radius: 16px;
+      padding: 1rem;
+      margin: 2rem 0;
+      text-align: center;
+      overflow-x: auto;
+      box-shadow: 0 12px 30px rgba(34, 85, 50, 0.12);
+    }
+
+    #ecosystemCanvas {
+      border: 1px solid rgba(30, 80, 48, 0.18);
+      border-radius: 12px;
+      background: transparent;
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+    }
+
+    .canvas-caption {
+      margin: 0.75rem 0 0;
+      color: #355b42;
+      font-weight: 600;
+    }
+
+    .ecosystem-events {
+      padding: 1.25rem;
+      border-radius: 12px;
+      background: #fff8e7;
+      border: 1px solid #f4d68b;
+      margin: 1.5rem 0;
+    }
+
+    .ecosystem-events h3 {
+      margin: 0 0 0.25rem;
+      color: #72521a;
+    }
+
+    .ecosystem-events p {
+      margin: 0 0 1rem;
+      color: #64718a;
+    }
+
+    .event-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .event-button { background: #475569; }
+    .drought-button { background: #c2410c; }
+    .rain-button { background: #0284c7; }
+    .snow-button { background: #64748b; }
+
+    .ecosystem-stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 1rem;
+      margin: 2rem 0;
+    }
+
+    .stat-box {
+      background: #f8fafb;
+      padding: 1.5rem;
+      border-radius: 8px;
+      border: 2px solid #18a58e;
+      text-align: center;
+    }
+
+    .stat-box h4 {
+      margin: 0 0 0.5rem 0;
+      color: #666;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+    }
+
+    .stat-value {
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: #18a58e;
+    }
+
+    .stat-box small {
+      color: #64718a;
+    }
+
+    .ecosystem-message {
+      padding: 1rem 1.25rem;
+      border-radius: 10px;
+      border-left: 5px solid #18a58e;
+      background: #e8f8f2;
+      color: #164b3c;
+      margin: 1.5rem 0;
+    }
+
+    .info-panel {
+      background: #f0fdf4;
+      border: 2px solid #10b981;
+      padding: 1.5rem;
+      border-radius: 8px;
+      margin-top: 2rem;
+    }
+
+    .info-panel h3 {
+      margin-top: 0;
+      color: #10b981;
+    }
+
+    .info-panel p {
+      color: #666;
+      margin: 0.5rem 0;
+    }
+
+    .info-panel ul {
+      color: #666;
+      margin: 0.5rem 0;
+      padding-left: 1.5rem;
+    }
+
+    .info-panel li {
+      margin: 0.3rem 0;
+    }
+
+    .food-chain {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.5rem;
+      color: #164b3c !important;
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin: 1rem 0 !important;
+    }
+
+    .food-chain span {
+      padding: 0.4rem 0.65rem;
+      border-radius: 999px;
+      background: white;
+      border: 1px solid #cde9d6;
+    }
+
+    @media (max-width: 600px) {
+      .ecosystem-section { padding: 1rem; }
+      .ecosystem-canvas-container { padding: 0.5rem; }
+    }
+
+    @media (max-width: 900px) {
+      .site-header {
+        height: auto;
+        min-height: 78px;
+        flex-wrap: wrap;
+        gap: 12px;
+        padding-top: 12px;
+        padding-bottom: 12px;
+      }
+
+      .menu-toggle {
+        display: block;
+      }
+
+      .nav,
+      .nav.open {
+        flex-basis: 100%;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+      }
+
+      .nav {
+        display: none;
+      }
+
+      .nav.open {
+        display: flex;
+      }
+
+      .nav a {
+        padding: 10px 0;
+        border-top: 1px solid var(--line);
+      }
+    }
+
+    :root[data-theme="dark"] {
+      --eco-page-bg: radial-gradient(circle at 50% 0, #174e34 0, #0b2d1e 70%);
+      --eco-hero: linear-gradient(135deg, rgba(18, 67, 43, 0.96), rgba(8, 39, 25, 0.96));
+      --eco-header: rgba(7, 31, 20, 0.9);
+      --eco-panel: linear-gradient(145deg, rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0.04));
+      --eco-subpanel: rgba(255, 255, 255, 0.06);
+      --eco-border: rgba(161, 226, 177, 0.24);
+      --eco-ink: #f2f8f3;
+      --eco-muted: #c2d5c8;
+      --eco-accent: #9ce8af;
+      --eco-nav: #e0eee4;
+      --eco-events: rgba(128, 93, 30, 0.2);
+      --eco-chain: rgba(25, 83, 52, 0.88);
+      --eco-message: rgba(34, 115, 72, 0.2);
+      --eco-canvas-ink: #28553a;
+    }
+
+    :root[data-theme="light"] {
+      --eco-page-bg: radial-gradient(circle at 15% 0, #e4f5e8 0, #f5faf7 48%);
+      --eco-hero: linear-gradient(135deg, #e8f6eb, #f5faf7);
+      --eco-header: rgba(255, 255, 255, 0.94);
+      --eco-panel: #ffffff;
+      --eco-subpanel: #f3f8f4;
+      --eco-border: #d5e8d9;
+      --eco-ink: #173a2b;
+      --eco-muted: #5b7063;
+      --eco-accent: #147a4a;
+      --eco-nav: #456252;
+      --eco-events: #fff8e7;
+      --eco-chain: #ffffff;
+      --eco-message: #e8f8f2;
+      --eco-canvas-ink: #28553a;
+    }
+
+    body {
+      min-height: 100vh;
+      background: var(--eco-page-bg);
+      color: var(--eco-ink);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body,
+    body * {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+    }
+
+    .site-header {
+      position: static;
+      background: var(--eco-header);
+      border-bottom: 1px solid var(--eco-border);
+      box-shadow: 0 8px 28px rgba(0, 0, 0, 0.14);
+    }
+
+    .nav a,
+    .menu-toggle {
+      color: var(--eco-nav);
+    }
+
+    .nav a {
+      font-size: 0.95rem;
+    }
+
+    .nav a:hover,
+    .nav a.active {
+      color: var(--eco-accent);
+    }
+
+    .page-hero {
+      background: var(--eco-hero);
+      border-bottom: 1px solid var(--eco-border);
+    }
+
+    .page-hero h1,
+    .ecosystem-section > h2 {
+      color: var(--eco-accent);
+    }
+
+    .page-hero p,
+    .ecosystem-section {
+      color: var(--eco-ink);
+    }
+
+    .ecosystem-section {
+      background: var(--eco-panel);
+      border: 1px solid var(--eco-border);
+      box-shadow: 0 20px 55px rgba(0, 0, 0, 0.18);
+    }
+
+    .ecosystem-controls {
+      padding: 1rem;
+      border: 1px solid var(--eco-border);
+      border-radius: 14px;
+      background: var(--eco-subpanel);
+    }
+
+    .ecosystem-canvas-container {
+      border: 1px solid var(--eco-border);
+      box-shadow: 0 16px 38px rgba(0, 0, 0, 0.2);
+    }
+
+    .ecosystem-events p,
+    .stat-box small,
+    .info-panel p,
+    .info-panel ul {
+      color: var(--eco-muted);
+    }
+
+    .canvas-caption {
+      color: var(--eco-canvas-ink);
+    }
+
+    .ecosystem-events {
+      background: var(--eco-events);
+      border-color: var(--eco-border);
+    }
+
+    .ecosystem-events h3,
+    .stat-box h4,
+    .info-panel h3 {
+      color: var(--eco-accent);
+    }
+
+    .stat-box {
+      background: var(--eco-subpanel);
+      border: 1px solid var(--eco-border);
+      border-top: 4px solid var(--eco-accent);
+    }
+
+    .stat-value {
+      color: var(--eco-accent);
+    }
+
+    .ecosystem-message {
+      background: var(--eco-message);
+      border-left-color: var(--eco-accent);
+      color: var(--eco-ink);
+    }
+
+    .info-panel {
+      background: var(--eco-subpanel);
+      border: 1px solid var(--eco-border);
+    }
+
+    .food-chain {
+      color: var(--eco-ink) !important;
+    }
+
+    .food-chain span {
+      background: var(--eco-chain);
+      border-color: var(--eco-border);
+    }
+
+    .footer {
+      background: var(--eco-header);
+      border-top-color: var(--eco-border);
+      color: var(--eco-muted);
+    }
+
+    .ecosystem-section button:focus-visible,
+    .menu-toggle:focus-visible {
+      outline: 3px solid #facc15;
+      outline-offset: 3px;
+    }
+
+    @media (max-width: 900px) {
+      .nav a {
+        border-top-color: var(--eco-border);
+      }
+    }
+
+    /* Визията следва тъмния зелен стил на еволюционния симулатор. */
+    body {
+      background:
+        radial-gradient(circle at 15% 10%, rgba(132, 199, 121, 0.24), transparent 28rem),
+        radial-gradient(circle at 85% 25%, rgba(255, 209, 102, 0.12), transparent 24rem),
+        linear-gradient(135deg, #123d2a 0%, #1d5137 55%, #263e32 100%);
+      color: #fff;
+      line-height: 1.6;
+    }
+
+    header {
+      background: rgba(8, 35, 24, 0.78);
+      padding: 20px 0;
+      border-bottom: 3px solid #70d49a;
+      backdrop-filter: blur(12px);
+    }
+
+    .header-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 20px;
+    }
+
+    .logo {
+      font-size: 2rem;
+      font-weight: bold;
+      color: #4caf50;
+    }
+
+    .nav {
+      display: flex;
+      gap: 30px;
+      align-items: center;
+    }
+
+    .nav a {
+      color: #fff;
+      text-decoration: none;
+      padding: 10px 15px;
+      border-radius: 5px;
+      transition: all 0.3s;
+      font-size: 0.95rem;
+    }
+
+    .nav a:hover,
+    .nav a.active {
+      background: rgba(76, 175, 80, 0.3);
+      color: #4caf50;
+    }
+
+    .page-hero {
+      padding: 40px max(5vw, 24px);
+      background: transparent;
+      border-bottom: 0;
+    }
+
+    .page-hero .eyebrow {
+      color: #a8edbd;
+    }
+
+    .page-hero h1 {
+      max-width: 1200px;
+      margin: 0 auto 12px;
+      color: #a8edbd;
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      line-height: 1.2;
+      text-shadow: 0 8px 30px rgba(9, 38, 25, 0.45);
+    }
+
+    .page-hero p {
+      color: #d8eadd;
+    }
+
+    main {
+      padding: 0 20px;
+    }
+
+    .ecosystem-section {
+      max-width: 1200px;
+      margin: 0 auto 30px;
+      padding: 30px;
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.12), rgba(31, 91, 57, 0.22));
+      border: 1px solid rgba(168, 237, 189, 0.38);
+      border-radius: 22px;
+      color: #fff;
+      box-shadow: 0 22px 55px rgba(5, 28, 17, 0.28);
+    }
+
+    .ecosystem-section > h2 {
+      margin-bottom: 20px;
+      color: #a8edbd;
+      text-align: center;
+    }
+
+    .ecosystem-controls,
+    .ecosystem-events,
+    .ecosystem-canvas-container,
+    .ecosystem-message,
+    .info-panel {
+      border: 1px solid rgba(168, 237, 189, 0.25);
+    }
+
+    .ecosystem-controls,
+    .ecosystem-events {
+      margin: 16px 0;
+      background: rgba(9, 49, 31, 0.48);
+      border-radius: 12px;
+    }
+
+    .ecosystem-controls button,
+    .event-button {
+      padding: 12px 22px;
+      border: 0;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #49ba74, #278f5c);
+      box-shadow: 0 8px 18px rgba(5, 51, 28, 0.28);
+      font-size: 1rem;
+      font-weight: bold;
+    }
+
+    .ecosystem-controls button:hover,
+    .event-button:hover {
+      filter: none;
+      background: linear-gradient(135deg, #62cf8c, #349c66);
+      transform: translateY(-2px);
+    }
+
+    .ecosystem-controls button:active,
+    .event-button:active {
+      transform: scale(0.95);
+    }
+
+    .ecosystem-controls button:focus-visible,
+    .event-button:focus-visible,
+    .menu-toggle:focus-visible {
+      outline: 2px solid #ffd166;
+      outline-offset: 3px;
+    }
+
+    .ecosystem-canvas-container {
+      background: #a8d7a4;
+      border: 3px solid rgba(168, 237, 189, 0.75);
+      border-radius: 16px;
+      box-shadow: inset 0 0 35px rgba(255, 255, 255, 0.12), 0 16px 38px rgba(4, 25, 15, 0.32);
+    }
+
+    #ecosystemCanvas {
+      border: 0;
+      border-radius: 12px;
+    }
+
+    .canvas-caption {
+      color: #28553a;
+    }
+
+    .ecosystem-events h3,
+    .info-panel h3 {
+      color: #a8edbd;
+    }
+
+    .ecosystem-events p,
+    .stat-box small,
+    .info-panel p,
+    .info-panel ul {
+      color: #d8eadd;
+    }
+
+    .ecosystem-stats {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+      margin: 20px 0;
+    }
+
+    .stat-box {
+      padding: 12px 6px;
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.07));
+      border: 1px solid rgba(168, 237, 189, 0.22);
+      border-top: 4px solid #70d49a;
+      border-radius: 14px;
+      box-shadow: 0 10px 24px rgba(4, 28, 17, 0.16);
+    }
+
+    .stat-box h4 {
+      color: #4caf50;
+      font-size: 0.95rem;
+      white-space: nowrap;
+      text-transform: none;
+    }
+
+    .stat-value {
+      color: #fff;
+      font-size: 1.7rem;
+    }
+
+    .ecosystem-message {
+      background: rgba(255, 255, 255, 0.05);
+      border-left: 4px solid #4caf50;
+      color: #f2f8f3;
+    }
+
+    .info-panel {
+      background: rgba(255, 255, 255, 0.05);
+      border-left: 4px solid #4caf50;
+      border-radius: 10px;
+    }
+
+    .food-chain {
+      color: #fff !important;
+    }
+
+    .food-chain span {
+      background: rgba(8, 35, 24, 0.88);
+      border-color: rgba(168, 237, 189, 0.38);
+      color: #fff;
+    }
+
+    .footer {
+      margin-top: 50px;
+      padding: 20px;
+      background: rgba(0, 0, 0, 0.5);
+      border-top: 2px solid #4caf50;
+      color: #d8eadd;
+    }
+
+    @media (max-width: 1050px) {
+      .ecosystem-stats {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 900px) {
+      .site-header {
+        flex-wrap: wrap;
+      }
+
+      .brand {
+        font-size: 1.35rem;
+      }
+    }
+
+    @media (max-width: 600px) {
+      main {
+        padding: 0 10px;
+      }
+
+      .ecosystem-section {
+        padding: 18px;
+      }
+
+      .ecosystem-stats {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .stat-box h4 {
+        white-space: normal;
+      }
+    }
+
+    /* Пропорции и размери, изравнени с еволюционния симулатор. */
+    .page-hero {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 40px 20px 30px;
+      text-align: center;
+    }
+
+    .page-hero .eyebrow,
+    .page-hero p {
+      display: none;
+    }
+
+    .page-hero h1 {
+      max-width: none;
+      margin: 0;
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      line-height: 1.2;
+    }
+
+    main {
+      max-width: none;
+      padding: 0 20px;
+    }
+
+    .ecosystem-section {
+      max-width: 1200px;
+      margin: 0 auto 30px;
+      padding: 30px;
+      border-radius: 22px;
+    }
+
+    .ecosystem-section > h2 {
+      margin: 0 0 20px;
+      font-size: 1.5em;
+    }
+
+    .ecosystem-controls {
+      margin: 16px 0 20px;
+      padding: 1rem;
+    }
+
+    .ecosystem-canvas-container {
+      max-width: 100%;
+      margin: 20px 0;
+      padding: 0;
+      overflow: hidden;
+      background: #a8d7a4;
+      border: 3px solid rgba(168, 237, 189, 0.75);
+    }
+
+    #ecosystemCanvas {
+      width: 100%;
+      max-width: 100%;
+      height: auto;
+      margin: 0;
+      display: block;
+    }
+
+    .ecosystem-stats {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+      margin: 20px 0;
+    }
+
+    .ecosystem-events {
+      margin: 16px 0;
+      padding: 20px;
+    }
+
+    .ecosystem-message {
+      margin: 20px 0;
+      padding: 15px;
+      border-radius: 8px;
+    }
+
+    .info-panel {
+      margin-top: 30px;
+      padding: 20px;
+      border-radius: 10px;
+    }
+
+    .footer {
+      margin-top: 50px;
+      padding: 20px;
+    }
+
+    @media (max-width: 1050px) {
+      .ecosystem-stats {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 600px) {
+      main {
+        padding: 0 10px;
+      }
+
+      .page-hero {
+        padding: 30px 10px 20px;
+      }
+
+      .ecosystem-section {
+        padding: 18px;
+      }
+
+      .ecosystem-stats {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 900px) {
+      .header-content {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 12px;
+      }
+
+      .nav,
+      .nav.open {
+        width: 100%;
+        display: flex;
+        flex-basis: auto;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 4px;
+      }
+
+      .nav a {
+        border-top: 0;
+        padding: 8px 10px;
+      }
+
+      .menu-toggle,
+      .header-actions {
+        display: none;
+      }
+    }
+  </style>
+  <link rel="stylesheet" href="biology-theme.css">
+
+  <script src="script.js"></script>
+  <script>
+    const canvas = document.getElementById('ecosystemCanvas');
+    const ctx = canvas.getContext('2d');
+
+    let organisms = [];
+    let timeStep = 0;
+    let isRunning = true;
+    let weather = 'normal';
+    let weatherEndsAt = 0;
+    const rainDrops = Array.from({ length: 180 }, () => ({
+      x: Math.random(),
+      y: Math.random(),
+      speed: 0.012 + Math.random() * 0.018
+    }));
+    const snowDrops = Array.from({ length: 160 }, () => ({
+      x: Math.random(),
+      y: Math.random(),
+      speed: 0.004 + Math.random() * 0.006
+    }));
+
+    function resizeCanvas() {
+      const container = canvas.parentElement;
+      const styles = getComputedStyle(container);
+      const padding = parseFloat(styles.paddingLeft) + parseFloat(styles.paddingRight);
+      const width = Math.min(1200, Math.floor(container.clientWidth - padding));
+      if (width <= 0 || width === canvas.width) return;
+
+      const height = Math.round(width * 5 / 12);
+      const scaleX = width / canvas.width;
+      const scaleY = height / canvas.height;
+      for (const organism of organisms) {
+        organism.x *= scaleX;
+        organism.y *= scaleY;
+      }
+
+      canvas.width = width;
+      canvas.height = height;
+    }
+
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    class Organism {
+      constructor(type, x, y) {
+        this.type = type;
+        this.x = x;
+        this.y = y;
+        this.vx = (Math.random() - 0.5) * 2;
+        this.vy = (Math.random() - 0.5) * 2;
+        this.energy = type === 'plant' ? 100 : (type === 'herbivore' ? 220 : 150);
+        this.age = 0;
+        const lifespans = {
+          plant: [1800, 2600],
+          herbivore: [1800, 2400],
+          predator: [900, 1300]
+        };
+        const [minimumLifespan, maximumLifespan] = lifespans[type];
+        this.lifespan = minimumLifespan + Math.random() * (maximumLifespan - minimumLifespan);
+        this.lastReproductionAge = 0;
+        this.feedingCooldown = 0;
+        this.size = type === 'plant' ? 13 : (type === 'herbivore' ? 18 : 20);
+      }
+
+      update() {
+        this.age++;
+        if (this.feedingCooldown > 0) this.feedingCooldown--;
+
+        if (this.type === 'plant') {
+          const energyChange = weather === 'rain' ? 8 : weather === 'drought' ? -0.18 : weather === 'snow' ? -0.12 : weather === 'recovery' ? 1.5 : 2;
+          this.energy += energyChange;
+          if (this.energy > 300) this.energy = 300;
+        } else {
+          const targetType = this.type === 'herbivore' ? 'plant' : 'herbivore';
+          let closestTarget = null;
+          let closestDistance = Infinity;
+          for (const candidate of organisms) {
+            if (candidate.type !== targetType) continue;
+            const dx = candidate.x - this.x;
+            const dy = candidate.y - this.y;
+            const distance = Math.hypot(dx, dy);
+            if (distance < closestDistance) {
+              closestTarget = candidate;
+              closestDistance = distance;
+            }
+          }
+
+          if (closestTarget && closestDistance > 20) {
+            this.vx = this.vx * 0.9 + ((closestTarget.x - this.x) / closestDistance) * 0.12;
+            this.vy = this.vy * 0.9 + ((closestTarget.y - this.y) / closestDistance) * 0.12;
+          }
+
+          this.x += this.vx;
+          this.y += this.vy;
+          this.energy -= 0.5;
+
+          if (this.x < 20 || this.x > canvas.width - 20) this.vx *= -1;
+          if (this.y < canvas.height * 0.49 || this.y > canvas.height - 25) this.vy *= -1;
+        }
+      }
+
+      draw() {
+        const symbols = {
+          plant: weather === 'drought' ? '🍂' : weather === 'snow' ? '❄️' : weather === 'recovery' ? '🌱' : '🌿',
+          herbivore: '🐇',
+          predator: '🦊'
+        };
+        ctx.save();
+        if (this.type !== 'plant') {
+          ctx.filter = 'brightness(1.7) saturate(2.2)';
+          ctx.shadowColor = this.type === 'predator'
+            ? 'rgba(255, 105, 25, 1)'
+            : 'rgba(255, 215, 0, 1)';
+          ctx.shadowBlur = 18;
+        }
+        ctx.font = `${this.size}px "Segoe UI Emoji", sans-serif`;
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(symbols[this.type], this.x, this.y);
+        ctx.restore();
+      }
+
+      canReproduce() {
+        if (this.type === 'plant' && (weather === 'drought' || weather === 'snow')) return false;
+
+        const isRainyPlant = this.type === 'plant' && weather === 'rain';
+        const isRecoveringPlant = this.type === 'plant' && weather === 'recovery';
+        const energyThreshold = isRainyPlant ? 150 : isRecoveringPlant ? 240 : 200;
+        const reproductionInterval = isRainyPlant ? 45 : isRecoveringPlant ? 180 : 120;
+        return this.energy > energyThreshold
+          && this.age > 10
+          && this.age - this.lastReproductionAge >= reproductionInterval;
+      }
+    }
+
+    function addOrganism(type) {
+      if (organisms.length >= 180) {
+        setMessage('На поляната вече има достатъчно обитатели. Наблюдавай как се променя тази популация.');
+        return;
+      }
+
+      const x = Math.random() * (canvas.width - 50) + 25;
+      const y = Math.random() * (canvas.height * 0.4) + canvas.height * 0.52;
+      organisms.push(new Organism(type, x, y));
+      const names = { plant: 'растение', herbivore: 'заек', predator: 'лисица' };
+      setMessage(`Добави ${names[type]}. Наблюдавай как тази промяна се отразява на останалите популации.`);
+      document.getElementById('plant-count').textContent = organisms.filter(org => org.type === 'plant').length;
+      document.getElementById('herbivore-count').textContent = organisms.filter(org => org.type === 'herbivore').length;
+      document.getElementById('predator-count').textContent = organisms.filter(org => org.type === 'predator').length;
+    }
+
+    function pauseSimulation() {
+      isRunning = !isRunning;
+      document.getElementById('pauseButton').textContent = isRunning ? '⏸ Пауза' : '▶ Продължи';
+    }
+
+    function resetSimulation() {
+      organisms = [];
+      timeStep = 0;
+      weather = 'normal';
+      weatherEndsAt = 0;
+      isRunning = true;
+      document.getElementById('pauseButton').textContent = '⏸ Пауза';
+      for (let i = 0; i < 20; i++) addOrganism('plant');
+      for (let i = 0; i < 12; i++) addOrganism('herbivore');
+      for (let i = 0; i < 2; i++) addOrganism('predator');
+      setMessage('Нова поляна! Предвиди как ще се променят популациите и после изпробвай събитие.');
+    }
+
+    function setMessage(message) {
+      document.getElementById('ecosystem-message').textContent = message;
+    }
+
+    function triggerDrought() {
+      weather = 'drought';
+      weatherEndsAt = timeStep + 900;
+      const plants = organisms.filter(org => org.type === 'plant');
+      for (const plant of plants) {
+        plant.energy = Math.max(0, plant.energy - 5);
+      }
+      setMessage('Започна суша! Растенията увяхват постепенно, спират да се размножават и губят енергия. Как ще се отрази това на зайците и лисиците?');
+    }
+
+    function triggerRain() {
+      weather = 'rain';
+      weatherEndsAt = timeStep + 600;
+      setMessage('Заваля дъжд! Растенията получават повече енергия и се размножават по-бързо за кратко. Ще има ли повече храна за зайците?');
+    }
+
+    function triggerSnow() {
+      weather = 'snow';
+      weatherEndsAt = timeStep + 750;
+      setMessage('Настъпи снеговалеж! Растенията растат по-бавно и животните губят малко повече енергия. Следи дали храната ще стигне за зайците и лисиците.');
+    }
+
+    function removePredators() {
+      const predators = organisms.filter(org => org.type === 'predator');
+      organisms = organisms.filter(org => org.type !== 'predator');
+      setMessage(predators.length
+        ? `Лисиците изчезнаха! Премахнати са ${predators.length}. Следи дали зайците ще се увеличат и растенията ще намалеят.`
+        : 'На поляната вече няма лисици. Добави лисица, за да възстановиш хищниците.');
+    }
+
+    function drawHabitat() {
+      const scale = canvas.width / 800;
+      const isRaining = weather === 'rain';
+      const isDrought = weather === 'drought';
+      const isSnowing = weather === 'snow';
+      const isRecovering = weather === 'recovery';
+      const sky = ctx.createLinearGradient(0, 0, 0, canvas.height);
+      sky.addColorStop(0, isRaining ? '#8299a8' : isDrought ? '#edaa59' : isSnowing ? '#aebbc7' : isRecovering ? '#d5d9bb' : '#b8e7ff');
+      sky.addColorStop(0.68, isRaining ? '#c1d0d3' : isDrought ? '#ffe4a3' : isSnowing ? '#dce6ed' : isRecovering ? '#e5ecd2' : '#effbe9');
+      sky.addColorStop(0.69, isRaining ? '#a9c5ac' : isDrought ? '#d6ae6e' : isSnowing ? '#dfe9e9' : isRecovering ? '#b8ca91' : '#b9df9b');
+      sky.addColorStop(1, isRaining ? '#789d7c' : isDrought ? '#b77b45' : isSnowing ? '#b5c9c5' : isRecovering ? '#91ad72' : '#82bd70');
+      ctx.fillStyle = sky;
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      if (!isRaining) {
+        ctx.fillStyle = isDrought ? '#ff8c32' : '#ffd166';
+        ctx.beginPath();
+        ctx.arc(canvas.width * 0.875, canvas.height * 0.15, (isDrought ? 44 : 38) * scale, 0, Math.PI * 2);
+        ctx.fill();
+
+        if (isDrought || isRecovering) {
+          ctx.strokeStyle = 'rgba(255, 140, 50, 0.65)';
+          ctx.lineWidth = 3 * scale;
+          for (let ray = 0; ray < 12; ray++) {
+            const angle = (ray * Math.PI) / 6;
+            const centerX = canvas.width * 0.875;
+            const centerY = canvas.height * 0.15;
+            ctx.beginPath();
+            ctx.moveTo(centerX + Math.cos(angle) * 55 * scale, centerY + Math.sin(angle) * 55 * scale);
+            ctx.lineTo(centerX + Math.cos(angle) * 68 * scale, centerY + Math.sin(angle) * 68 * scale);
+            ctx.stroke();
+          }
+        }
+      }
+
+      ctx.fillStyle = isRaining ? 'rgba(91, 109, 124, 0.94)' : 'rgba(255,255,255,0.82)';
+      for (const cloud of [
+        { x: canvas.width * 0.14, y: canvas.height * 0.16 },
+        { x: canvas.width * 0.51, y: canvas.height * 0.25 }
+      ]) {
+        ctx.beginPath();
+        ctx.arc(cloud.x, cloud.y, 20 * scale, 0, Math.PI * 2);
+        ctx.arc(cloud.x + 23 * scale, cloud.y - 7 * scale, 27 * scale, 0, Math.PI * 2);
+        ctx.arc(cloud.x + 50 * scale, cloud.y, 19 * scale, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      ctx.fillStyle = isDrought ? 'rgba(142, 91, 39, 0.3)' : 'rgba(61, 128, 69, 0.25)';
+      ctx.beginPath();
+      ctx.moveTo(0, canvas.height * 0.72);
+      ctx.quadraticCurveTo(canvas.width * 0.225, canvas.height * 0.52, canvas.width * 0.45, canvas.height * 0.73);
+      ctx.quadraticCurveTo(canvas.width * 0.71, canvas.height * 0.55, canvas.width, canvas.height * 0.72);
+      ctx.lineTo(canvas.width, canvas.height);
+      ctx.lineTo(0, canvas.height);
+      ctx.fill();
+
+      if (isSnowing) {
+        ctx.fillStyle = 'rgba(245, 250, 255, 0.68)';
+        ctx.beginPath();
+        ctx.moveTo(0, canvas.height * 0.78);
+        ctx.quadraticCurveTo(canvas.width * 0.25, canvas.height * 0.68, canvas.width * 0.5, canvas.height * 0.79);
+        ctx.quadraticCurveTo(canvas.width * 0.75, canvas.height * 0.67, canvas.width, canvas.height * 0.78);
+        ctx.lineTo(canvas.width, canvas.height);
+        ctx.lineTo(0, canvas.height);
+        ctx.fill();
+      }
+
+      if (isRaining) {
+        ctx.fillStyle = 'rgba(73, 145, 173, 0.38)';
+        ctx.beginPath();
+        ctx.ellipse(canvas.width * 0.25, canvas.height * 0.88, 65 * scale, 9 * scale, 0, 0, Math.PI * 2);
+        ctx.ellipse(canvas.width * 0.72, canvas.height * 0.82, 48 * scale, 7 * scale, 0, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      if (isDrought) {
+        const cracks = [
+          [[0.08, 0.78], [0.1, 0.84], [0.08, 0.9], [0.11, 0.96], [0.1, 1]],
+          [[0.1, 0.84], [0.14, 0.82], [0.17, 0.84]],
+          [[0.29, 0.77], [0.27, 0.83], [0.3, 0.88], [0.28, 0.94], [0.31, 1]],
+          [[0.3, 0.88], [0.34, 0.9], [0.36, 0.95]],
+          [[0.51, 0.81], [0.54, 0.86], [0.52, 0.92], [0.56, 0.97], [0.55, 1]],
+          [[0.73, 0.77], [0.7, 0.84], [0.73, 0.9], [0.71, 0.96], [0.74, 1]],
+          [[0.73, 0.9], [0.77, 0.92], [0.79, 0.97]],
+          [[0.91, 0.8], [0.89, 0.86], [0.92, 0.91], [0.9, 0.97], [0.93, 1]]
+        ];
+        ctx.strokeStyle = isDrought ? 'rgba(105, 65, 34, 0.65)' : 'rgba(105, 65, 34, 0.25)';
+        ctx.lineWidth = Math.max(1, 1.5 * scale);
+        for (const crack of cracks) {
+          ctx.beginPath();
+          crack.forEach(([x, y], index) => {
+            if (index === 0) ctx.moveTo(x * canvas.width, y * canvas.height);
+            else ctx.lineTo(x * canvas.width, y * canvas.height);
+          });
+          ctx.stroke();
+        }
+      }
+
+      if (isRaining) {
+        ctx.strokeStyle = 'rgba(231, 247, 255, 0.85)';
+        ctx.lineWidth = Math.max(1, 1.5 * scale);
+        ctx.lineCap = 'round';
+        for (const drop of rainDrops) {
+          const x = drop.x * canvas.width;
+          const y = drop.y * canvas.height;
+          ctx.beginPath();
+          ctx.moveTo(x, y);
+          ctx.lineTo(x - 4 * scale, y + 12 * scale);
+          ctx.stroke();
+
+          drop.x -= 0.001;
+          drop.y += drop.speed;
+          if (drop.y > 1) {
+            drop.y = -0.02;
+            drop.x = Math.random();
+          }
+          if (drop.x < 0) drop.x = 1;
+        }
+      }
+
+      if (isSnowing) {
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.92)';
+        for (const flake of snowDrops) {
+          const x = flake.x * canvas.width;
+          const y = flake.y * canvas.height;
+          ctx.beginPath();
+          ctx.arc(x, y, 2.2 * scale, 0, Math.PI * 2);
+          ctx.fill();
+
+          flake.x += Math.sin(flake.y * 20) * 0.0008;
+          flake.y += flake.speed;
+          if (flake.y > 1) {
+            flake.y = -0.02;
+            flake.x = Math.random();
+          }
+          if (flake.x < 0) flake.x = 1;
+        }
+      }
+    }
+
+    function animate() {
+      drawHabitat();
+
+      if (isRunning) {
+        for (let org of organisms) {
+          org.update();
+        }
+
+        // Лисиците се хранят със зайци.
+        for (let i = organisms.length - 1; i >= 0; i--) {
+          if (organisms[i].type === 'predator') {
+            if (organisms[i].feedingCooldown > 0) continue;
+            for (let j = organisms.length - 1; j >= 0; j--) {
+              if (organisms[j].type === 'herbivore') {
+                const dx = organisms[i].x - organisms[j].x;
+                const dy = organisms[i].y - organisms[j].y;
+                const dist = Math.sqrt(dx*dx + dy*dy);
+                if (dist < 20) {
+                  organisms[i].energy += 100;
+                  organisms[i].feedingCooldown = 90;
+                  organisms.splice(j, 1);
+                  break;
+                }
+              }
+            }
+          }
+        }
+
+        // Зайците се хранят с растения.
+        for (let i = organisms.length - 1; i >= 0; i--) {
+          if (organisms[i].type === 'herbivore') {
+            if (organisms[i].feedingCooldown > 0) continue;
+            for (let j = organisms.length - 1; j >= 0; j--) {
+              if (organisms[j].type === 'plant') {
+                const dx = organisms[i].x - organisms[j].x;
+                const dy = organisms[i].y - organisms[j].y;
+                const dist = Math.sqrt(dx*dx + dy*dy);
+                if (dist < 20) {
+                  organisms[i].energy += 70;
+                  organisms[i].feedingCooldown = weather === 'drought' ? 240 : 120;
+                  organisms.splice(j, 1);
+                  break;
+                }
+              }
+            }
+          }
+        }
+
+        // При достатъчно енергия организмите се размножават.
+        const newOrganisms = [];
+        for (let org of organisms) {
+          if (org.canReproduce() && organisms.length + newOrganisms.length < 180) {
+            const nx = org.x + (Math.random() - 0.5) * 50;
+            const ny = org.y + (Math.random() - 0.5) * 50;
+            newOrganisms.push(new Organism(org.type, nx, ny));
+            org.energy -= org.type === 'predator' ? 100 : 100;
+            org.lastReproductionAge = org.age;
+          }
+        }
+        organisms.push(...newOrganisms);
+
+        // Премахване на умрели от глад или старост организми.
+        organisms = organisms.filter(org => org.energy > 0 && org.age < org.lifespan);
+
+        timeStep++;
+        if (weather !== 'normal' && timeStep >= weatherEndsAt) {
+          if (weather === 'drought') {
+            weather = 'recovery';
+            weatherEndsAt = timeStep + 900;
+            setMessage('Сушата отмина. Растенията се възстановяват постепенно — проследи колко време им е нужно.');
+          } else if (weather === 'recovery') {
+            weather = 'normal';
+            setMessage('Екосистемата се възстанови. Сравни популациите с тези преди сушата.');
+          } else if (weather === 'snow') {
+            weather = 'normal';
+            setMessage('Снеговалежът спря. Растенията и животните се връщат към нормалните условия.');
+          } else {
+            weather = 'normal';
+            setMessage('Дъждът спря. Наблюдавай какво се случва с новите растения и животните.');
+          }
+        }
+      }
+
+      for (let org of organisms) {
+        org.draw();
+      }
+
+      const plants = organisms.filter(o => o.type === 'plant').length;
+      const herbivores = organisms.filter(o => o.type === 'herbivore').length;
+      const predators = organisms.filter(o => o.type === 'predator').length;
+
+      document.getElementById('plant-count').textContent = plants;
+      document.getElementById('herbivore-count').textContent = herbivores;
+      document.getElementById('predator-count').textContent = predators;
+      document.getElementById('time-step').textContent = timeStep;
+
+      requestAnimationFrame(animate);
+    }
+
+    resetSimulation();
+    animate();
+
+    document.getElementById('addPlantButton').addEventListener('click', () => addOrganism('plant'));
+    document.getElementById('addHerbivoreButton').addEventListener('click', () => addOrganism('herbivore'));
+    document.getElementById('addPredatorButton').addEventListener('click', () => addOrganism('predator'));
+  </script>
+</body>
+</html>

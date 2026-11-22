@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>НАУЧИ+ | Еволюция - Естествен подбор</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background:
+                radial-gradient(circle at 15% 10%, rgba(132, 199, 121, 0.24), transparent 28rem),
+                radial-gradient(circle at 85% 25%, rgba(255, 209, 102, 0.12), transparent 24rem),
+                linear-gradient(135deg, #123d2a 0%, #1d5137 55%, #263e32 100%);
+            color: #fff;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+        header { background: rgba(8, 35, 24, 0.78); padding: 20px 0; border-bottom: 3px solid #70d49a; backdrop-filter: blur(12px); }
+        .header-content {
+            max-width: 1200px; margin: 0 auto; display: flex;
+            justify-content: space-between; align-items: center; padding: 0 20px;
+        }
+        .logo { font-size: 2rem; font-weight: bold; color: #4CAF50; }
+        .nav { display: flex; gap: 30px; align-items: center; }
+        .nav a {
+            color: #fff; text-decoration: none; padding: 10px 15px;
+            border-radius: 5px; transition: all 0.3s; font-size: 0.95rem;
+        }
+        .nav a:hover { background: rgba(76, 175, 80, 0.3); color: #4CAF50; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 40px 20px; }
+        h1 {
+            font-size: clamp(2rem, 5vw, 3.2rem);
+            margin-bottom: 30px;
+            text-align: center;
+            color: #a8edbd;
+            text-shadow: 0 8px 30px rgba(9, 38, 25, 0.45);
+        }
+        .simulator-section {
+            background: linear-gradient(145deg, rgba(255,255,255,0.12), rgba(31,91,57,0.22));
+            padding: 30px;
+            border-radius: 22px;
+            border: 1px solid rgba(168, 237, 189, 0.38);
+            margin-bottom: 30px;
+            box-shadow: 0 22px 55px rgba(5, 28, 17, 0.28);
+        }
+        .simulator-intro {
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 1.15rem;
+            line-height: 1.7;
+        }
+        canvas {
+            border: 3px solid rgba(168, 237, 189, 0.75);
+            border-radius: 16px;
+            background: #a8d7a4;
+            display: block;
+            margin: 20px 0;
+            max-width: 100%;
+            height: auto;
+            box-shadow: inset 0 0 35px rgba(255,255,255,0.12), 0 16px 38px rgba(4,25,15,0.32);
+        }
+        .habitat-control {
+            display: grid;
+            grid-template-columns: auto minmax(0, 1fr) minmax(160px, 220px);
+            align-items: center;
+            gap: 8px 12px;
+            margin: 16px 0;
+        }
+        .habitat-control label { color: #a8edbd; font-weight: bold; font-size: 1.25rem; }
+        .habitat-control select {
+            appearance: none;
+            width: 100%;
+            padding: 9px 34px 9px 12px;
+            border: 1px solid rgba(168, 237, 189, 0.6);
+            border-radius: 10px;
+            background-color: rgba(8, 35, 24, 0.88);
+            background-image:
+                linear-gradient(45deg, transparent 50%, #a8edbd 50%),
+                linear-gradient(135deg, #a8edbd 50%, transparent 50%);
+            background-position:
+                calc(100% - 17px) 50%,
+                calc(100% - 11px) 50%;
+            background-repeat: no-repeat;
+            background-size: 6px 6px;
+            color: #fff;
+            cursor: pointer;
+            font: inherit;
+        }
+        .habitat-control select:focus-visible { outline: 2px solid #ffd166; outline-offset: 2px; }
+        .habitat-control option { background: #123d2a; color: #fff; }
+        .habitat-control p { margin: 0; font-size: 1.1rem; white-space: nowrap; }
+        @media (max-width: 1050px) {
+            .habitat-control { grid-template-columns: auto minmax(0, 1fr); }
+            .habitat-control label { grid-column: 1; grid-row: 1; }
+            .habitat-control p { grid-column: 2; grid-row: 1; white-space: normal; }
+            .habitat-control select {
+                grid-column: 2;
+                grid-row: 2;
+                justify-self: end;
+                max-width: 100%;
+            }
+        }
+        .controls { display: flex; gap: 15px; margin: 20px 0; flex-wrap: wrap; }
+        button {
+            background: linear-gradient(135deg, #49ba74, #278f5c);
+            color: white;
+            border: none;
+            padding: 12px 22px;
+            border-radius: 999px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            transition: all 0.3s;
+            box-shadow: 0 8px 18px rgba(5, 51, 28, 0.28);
+        }
+        button:hover { background: linear-gradient(135deg, #62cf8c, #349c66); transform: translateY(-2px); }
+        button:active { transform: scale(0.95); }
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(5, minmax(0, 1fr));
+            gap: 10px;
+            margin: 20px 0;
+        }
+        .stat-box {
+            background: linear-gradient(145deg, rgba(255,255,255,0.16), rgba(255,255,255,0.07));
+            padding: 12px 6px;
+            border-radius: 14px;
+            border: 1px solid rgba(168,237,189,0.22);
+            border-top: 4px solid #70d49a;
+            text-align: center;
+            box-shadow: 0 10px 24px rgba(4,28,17,0.16);
+        }
+        .stat-box h4 {
+            color: #4CAF50;
+            margin-bottom: 10px;
+            font-size: 0.95rem;
+            white-space: nowrap;
+        }
+        .stat-box p { font-size: 1.7rem; font-weight: bold; }
+        @media (max-width: 1050px) {
+            .stats { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+            .stat-box h4 { white-space: normal; }
+        }
+        @media (max-width: 600px) {
+            .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        }
+        .evolution-status {
+            display: grid;
+            grid-template-columns: minmax(180px, 1fr) auto;
+            align-items: center;
+            gap: 12px;
+            margin: 16px 0;
+            padding: 12px 16px;
+            border-radius: 12px;
+            background: rgba(9, 49, 31, 0.48);
+            border: 1px solid rgba(168, 237, 189, 0.25);
+        }
+        .evolution-status strong { color: #a8edbd; }
+        .speed-track {
+            height: 8px;
+            margin-top: 7px;
+            overflow: hidden;
+            border-radius: 999px;
+            background: rgba(255,255,255,0.12);
+        }
+        .speed-fill {
+            width: 25%;
+            height: 100%;
+            border-radius: inherit;
+            background: linear-gradient(90deg, #70d49a, #ffd166);
+            transition: width 0.25s;
+        }
+        .speed-control {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        #evolutionSpeedSlider {
+            width: 150px;
+            accent-color: #70d49a;
+            cursor: pointer;
+        }
+        .info-section {
+            background: rgba(255, 255, 255, 0.05); padding: 20px;
+            border-radius: 10px; margin-top: 30px; border-left: 4px solid #4CAF50;
+        }
+        .info-section h3 { color: #4CAF50; margin-bottom: 15px; }
+        .footer {
+            background: rgba(0, 0, 0, 0.5); padding: 20px;
+            text-align: center; margin-top: 50px; border-top: 2px solid #4CAF50;
+        }
+    </style>
+    <link rel="stylesheet" href="biology-theme.css">
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="logo">🔬 НАУЧИ+</div>
+            <nav class="nav">
+                <a href="index.html">Начало</a>
+                <a href="biology.html">Биология</a>
+                <a href="chemistry.html">Химия</a>
+                <a href="physics.html">Физика</a>
+                <a href="games.html">Игри</a>
+                <a href="quests.html">Мисии</a>
+                <a href="about.html">За нас</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <h1>🦎 Еволюция: Естествен подбор</h1>
+        <div class="simulator-section">
+            <h2 style="margin-bottom: 20px; text-align: center;">Симулация на еволюция в природата</h2>
+            <p class="simulator-intro">
+                Наблюдавайте как животните се движат, размножават и взаимодействат с хищниците.
+                Хищниците преследват най-близките животни, а оцелелите могат да създават потомство.
+            </p>
+            <div class="habitat-control">
+                <label for="habitatSelect">Среда:</label>
+                <p id="habitatDescription" aria-live="polite"></p>
+                <select id="habitatSelect" aria-label="Избери среда">
+                    <option value="forest" selected>🌲 Гора</option>
+                    <option value="jungle">🌴 Джунгла</option>
+                    <option value="desert">🏜️ Пустиня</option>
+                </select>
+            </div>
+            <canvas id="simulationCanvas" width="1200" height="500"></canvas>
+            <div class="stats">
+                <div class="stat-box"><h4>Всички животни</h4><p id="totalCount">0</p></div>
+                <div class="stat-box"><h4 id="fastCountLabel">Зайци</h4><p id="fastCount">0</p></div>
+                <div class="stat-box"><h4 id="mediumCountLabel">Сърни</h4><p id="mediumCount">0</p></div>
+                <div class="stat-box"><h4 id="slowCountLabel">Таралежи</h4><p id="slowCount">0</p></div>
+                <div class="stat-box"><h4>Мутирани животни</h4><p id="mutationCount">0</p></div>
+            </div>
+            <div class="evolution-status" aria-live="polite">
+                <div>
+                    <strong>Скорост на симулацията: <span id="evolutionSpeedText">Ниска</span></strong>
+                    <div class="speed-track"><div id="evolutionSpeedFill" class="speed-fill"></div></div>
+                </div>
+                <div class="speed-control">
+                    <input id="evolutionSpeedSlider" type="range" min="1" max="4" step="1" value="1" aria-label="Скорост на симулацията">
+                    <strong id="evolutionSpeedNumber">1x</strong>
+                </div>
+            </div>
+            <div class="controls">
+                <button onclick="toggleSimulation()">▶ Начало / Пауза</button>
+                <button onclick="resetSimulation()">🔄 Рестарт</button>
+            </div>
+            <div style="background: rgba(255, 255, 255, 0.05); padding: 15px; border-radius: 8px; margin-top: 20px;">
+                <p style="font-size: 0.9rem;"><strong>Инструкции:</strong></p>
+                <ul style="list-style: none; margin-left: 20px; margin-top: 10px;">
+                    <li><span id="fastSpeciesIcon" aria-hidden="true">🐇</span> <span id="fastSpeciesName">Заек</span> = Бързи животни</li>
+                    <li><span id="mediumSpeciesIcon" aria-hidden="true">🦌</span> <span id="mediumSpeciesName">Сърна</span> = Средно бързи животни</li>
+                    <li><span id="slowSpeciesIcon" aria-hidden="true">🦔</span> <span id="slowSpeciesName">Таралеж</span> = Бавни животни</li>
+                    <li><span id="predatorSpeciesIcon" aria-hidden="true">🐺</span> <span id="predatorSpeciesName">Вълк</span> = Хищници</li>
+                    <li><span aria-hidden="true">⭐</span> Мутация</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="info-section">
+            <h3>📚 Концепции на еволюцията</h3>
+            <p><strong>Естествен подбор</strong> - Механизъм на еволюция, при който организмите, най-приспособени към средата, имат по-големи шансове да преживеят и да се размножават.</p>
+            <p style="margin-top: 15px;"><strong>Адаптация</strong> - Черта, която помага на организма да преживее в неговата среда.</p>
+            <p style="margin-top: 15px;"><strong>Вариативност</strong> - Различията между индивидите в популация.</p>
+            <p style="margin-top: 15px;"><strong>Мутация</strong> - Случайна промяна в наследствената информация. В симулацията мутацията може да промени скоростта на потомството.</p>
+            <p style="margin-top: 15px;"><strong>Наследяване</strong> - Полезни черти могат да бъдат предадени на потомците.</p>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>Любопитството е първата стъпка към откритието.</p>
+        <small style="display: block; margin-top: 15px; border-top: 1px solid rgba(100,113,138,0.3); padding-top: 10px;">
+            Сайтът е създаден за НЕТИТ "Джон Атанасов" София 2026
+        </small>
+        <small style="display: block;">
+            Автори: Йордан Божков и Иван Варников, ПМГ "Константин Величков" Пазарджик
+        </small>
+    </footer>
+
+    <script>
+        const canvas = document.getElementById('simulationCanvas');
+        const ctx = canvas.getContext('2d');
+        let running = false;
+        let reproductionCooldown = 0;
+        let animationFrameId = null;
+        let evolutionSpeed = 1;
+        let simulationTimerId = null;
+        const habitats = {
+            jungle: {
+                sky: '#8bbd68',
+                middle: '#4f8e4b',
+                ground: '#285d36',
+                predatorSightRange: 80,
+                captureDistance: 13,
+                reproductionCooldown: 25,
+                reproductionChanceDivisor: 28,
+                description: 'Гъстата растителност затруднява лова, а изобилната храна позволява по-често размножаване.',
+                species: {
+                    fast: { icon: '🐒', name: 'Маймуни' },
+                    medium: { icon: '🦜', name: 'Папагали' },
+                    slow: { icon: '🦥', name: 'Ленивци' },
+                    predator: { icon: '🐆', name: 'Ягуари' }
+                }
+            },
+            forest: {
+                sky: '#d9edb8',
+                middle: '#9bcf82',
+                ground: '#75a96a',
+                predatorSightRange: 100,
+                captureDistance: 15,
+                reproductionCooldown: 30,
+                reproductionChanceDivisor: 30,
+                description: 'Умерената среда поддържа балансирани условия за лов и размножаване.',
+                species: {
+                    fast: { icon: '🐇', name: 'Зайци' },
+                    medium: { icon: '🦌', name: 'Сърни' },
+                    slow: { icon: '🦔', name: 'Таралежи' },
+                    predator: { icon: '🐺', name: 'Вълци' }
+                }
+            },
+            desert: {
+                sky: '#f2d18a',
+                middle: '#e0b45e',
+                ground: '#bd8541',
+                predatorSightRange: 120,
+                captureDistance: 17,
+                reproductionCooldown: 36,
+                reproductionChanceDivisor: 33,
+                description: 'Откритият терен улеснява лова, а недостигът на ресурси забавя размножаването.',
+                species: {
+                    fast: { icon: '🦊', name: 'Фенекови лисици' },
+                    medium: { icon: '🐪', name: 'Камили' },
+                    slow: { icon: '🐢', name: 'Пустинни костенурки' },
+                    predator: { icon: '🐍', name: 'Змии' }
+                }
+            }
+        };
+        let currentHabitat = 'forest';
+
+        class Animal {
+            constructor(x, y, speed, mutated = false) {
+                this.x = x;
+                this.y = y;
+                this.speed = speed;
+                this.mutated = mutated;
+                this.direction = Math.random() * Math.PI * 2;
+                this.turnSpeed = 0.03 + Math.random() * 0.08;
+                this.age = 0;
+                this.maxAge = 100;
+                this.energy = 100;
+            }
+            update() {
+                this.age++;
+                this.energy -= this.speed * 0.1;
+                this.direction += (Math.random() - 0.5) * this.turnSpeed;
+                this.x += Math.cos(this.direction) * this.speed;
+                this.y += Math.sin(this.direction) * this.speed;
+
+                if (this.x < 12) {
+                    this.x = 12;
+                    this.direction = Math.PI - this.direction;
+                }
+                if (this.x > canvas.width - 12) {
+                    this.x = canvas.width - 12;
+                    this.direction = Math.PI - this.direction;
+                }
+                if (this.y < 12) {
+                    this.y = 12;
+                    this.direction = -this.direction;
+                }
+                if (this.y > canvas.height - 12) {
+                    this.y = canvas.height - 12;
+                    this.direction = -this.direction;
+                }
+            }
+            draw() {
+                const species = habitats[currentHabitat].species;
+                const animal = this.speed > 3
+                    ? species.fast
+                    : this.speed > 1.5
+                        ? species.medium
+                        : species.slow;
+                ctx.font = '22px "Segoe UI Emoji", "Apple Color Emoji", sans-serif';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillText(animal.icon, this.x, this.y);
+                if (this.mutated) {
+                    ctx.font = '12px "Segoe UI Emoji", "Apple Color Emoji", sans-serif';
+                    ctx.fillText('⭐', this.x + 10, this.y - 9);
+                }
+            }
+        }
+
+        class Predator {
+            constructor(x, y) {
+                this.x = x;
+                this.y = y;
+                this.speed = 1.30;
+            }
+            update(animals) {
+                let nearest = null;
+                let minDist = habitats[currentHabitat].predatorSightRange;
+                for (let animal of animals) {
+                    const dx = animal.x - this.x;
+                    const dy = animal.y - this.y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    if (dist < minDist) {
+                        minDist = dist;
+                        nearest = animal;
+                    }
+                }
+                if (nearest) {
+                    const dx = nearest.x - this.x;
+                    const dy = nearest.y - this.y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+                    if (distance > 0) {
+                        this.x += (dx / distance) * this.speed;
+                        this.y += (dy / distance) * this.speed;
+                    }
+                }
+            }
+            draw() {
+                ctx.font = '28px "Segoe UI Emoji", "Apple Color Emoji", sans-serif';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillText(habitats[currentHabitat].species.predator.icon, this.x, this.y);
+            }
+        }
+
+        let animals = [];
+        let predators = [
+            new Predator(canvas.width * 0.25, canvas.height * 0.35),
+            new Predator(canvas.width * 0.75, canvas.height * 0.45),
+            new Predator(canvas.width * 0.55, canvas.height * 0.75)
+        ];
+
+        function initializeSimulation() {
+            animals = [];
+            for (let i = 0; i < 50; i++) {
+                animals.push(new Animal(
+                    Math.random() * canvas.width,
+                    Math.random() * canvas.height,
+                    1 + Math.random() * 4
+                ));
+            }
+            predators = [
+                new Predator(canvas.width * 0.25, canvas.height * 0.35),
+                new Predator(canvas.width * 0.75, canvas.height * 0.45),
+                new Predator(canvas.width * 0.55, canvas.height * 0.75)
+            ];
+            updateStats();
+        }
+
+        const runFastFrames = () => {
+            if (!running) return;
+            for (let speedStep = 0; speedStep < evolutionSpeed; speedStep++) {
+                simulate();
+                if (!running) break;
+            }
+            if (running) animationFrameId = requestAnimationFrame(runFastFrames);
+        };
+
+        function simulate() {
+            if (!running) return;
+            if (reproductionCooldown > 0) reproductionCooldown--;
+
+            for (let animal of animals) animal.update();
+            for (let predator of predators) predator.update(animals);
+
+            const survivors = animals.filter(a => {
+                let nearestPredatorDistance = Infinity;
+                for (let predator of predators) {
+                    const dx = a.x - predator.x;
+                    const dy = a.y - predator.y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    nearestPredatorDistance = Math.min(nearestPredatorDistance, dist);
+                }
+                return nearestPredatorDistance > habitats[currentHabitat].captureDistance;
+            });
+
+            let newAnimals = [];
+            if (reproductionCooldown === 0 && animals.length < 90) {
+                for (let animal of survivors) {
+                    if (Math.random() < animal.speed / habitats[currentHabitat].reproductionChanceDivisor) {
+                        const mutated = Math.random() < 0.2;
+                        const mutation = mutated ? (Math.random() - 0.5) * 2 : 0;
+                        const childSpeed = Math.max(1, Math.min(5, animal.speed + mutation));
+                        newAnimals.push(new Animal(
+                            animal.x + (Math.random() - 0.5) * 20,
+                            animal.y + (Math.random() - 0.5) * 20,
+                            childSpeed,
+                            mutated
+                        ));
+                    }
+                }
+                reproductionCooldown = habitats[currentHabitat].reproductionCooldown;
+            }
+
+            animals = survivors.concat(newAnimals).slice(0, 90);
+            if (animals.length === 0) running = false;
+            updateStats();
+            draw();
+        }
+
+        function draw() {
+            const habitat = habitats[currentHabitat];
+            const sceneWidth = 800;
+            const sceneHeight = 400;
+            const sceneScaleX = canvas.width / sceneWidth;
+            const sceneScaleY = canvas.height / sceneHeight;
+            const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
+            gradient.addColorStop(0, habitat.sky);
+            gradient.addColorStop(0.65, habitat.middle);
+            gradient.addColorStop(1, habitat.ground);
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.save();
+            ctx.scale(sceneScaleX, sceneScaleY);
+            if (currentHabitat === 'desert') {
+                ctx.fillStyle = 'rgba(174, 116, 48, 0.28)';
+                ctx.beginPath();
+                ctx.moveTo(0, 280);
+                ctx.quadraticCurveTo(200, 170, 400, 280);
+                ctx.quadraticCurveTo(600, 340, 800, 250);
+                ctx.lineTo(800, sceneHeight);
+                ctx.lineTo(0, sceneHeight);
+                ctx.closePath();
+                ctx.fill();
+
+                ctx.fillStyle = 'rgba(105, 78, 42, 0.32)';
+                ctx.beginPath();
+                ctx.ellipse(520, 333, 72, 20, 0, 0, Math.PI * 2);
+                ctx.fill();
+
+                ctx.fillStyle = '#42c9b0';
+                ctx.strokeStyle = 'rgba(220, 255, 224, 0.85)';
+                ctx.lineWidth = 2;
+                ctx.beginPath();
+                ctx.ellipse(520, 326, 56, 14, 0, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.stroke();
+
+                ctx.strokeStyle = 'rgba(105, 78, 42, 0.9)';
+                ctx.lineWidth = 7;
+                ctx.lineCap = 'round';
+                ctx.beginPath();
+                ctx.moveTo(520, 322);
+                ctx.quadraticCurveTo(510, 282, 520, 248);
+                ctx.stroke();
+
+                ctx.strokeStyle = 'rgba(50, 119, 54, 0.9)';
+                ctx.lineWidth = 4;
+                for (let frond = 0; frond < 8; frond++) {
+                    const angle = Math.PI + (frond / 7) * Math.PI;
+                    ctx.beginPath();
+                    ctx.moveTo(520, 250);
+                    ctx.quadraticCurveTo(
+                        520 + Math.cos(angle) * 24,
+                        240 + Math.sin(angle) * 15,
+                        520 + Math.cos(angle) * 44,
+                        250 + Math.sin(angle) * 22
+                    );
+                    ctx.stroke();
+                }
+
+                ctx.strokeStyle = 'rgba(75, 113, 55, 0.88)';
+                ctx.lineWidth = 7;
+                ctx.lineCap = 'round';
+                const cactusPositions = [
+                    { x: 85, baseY: 255 },
+                    { x: 205, baseY: 235 },
+                    { x: 320, baseY: 255 },
+                    { x: 680, baseY: 295 },
+                    { x: 760, baseY: 270 }
+                ];
+                for (let i = 0; i < cactusPositions.length; i++) {
+                    const { x, baseY } = cactusPositions[i];
+                    const height = 34 + (i % 3) * 11;
+                    ctx.beginPath();
+                    ctx.moveTo(x, baseY);
+                    ctx.lineTo(x, baseY - height);
+                    ctx.moveTo(x, baseY - height * 0.55);
+                    ctx.lineTo(x - 10, baseY - height * 0.65);
+                    ctx.lineTo(x - 10, baseY - height * 0.88);
+                    ctx.moveTo(x, baseY - height * 0.72);
+                    ctx.lineTo(x + 10, baseY - height * 0.82);
+                    ctx.lineTo(x + 10, baseY - height * 0.98);
+                    ctx.stroke();
+                }
+            } else if (currentHabitat === 'jungle') {
+                ctx.fillStyle = 'rgba(21, 67, 35, 0.5)';
+                for (let i = 0; i < 10; i++) {
+                    const x = i * 92 - 18;
+                    ctx.beginPath();
+                    ctx.ellipse(x, 32, 62, 82, 0, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+
+                ctx.fillStyle = 'rgba(91, 72, 43, 0.42)';
+                for (let x of [70, 260, 545, 755]) {
+                    ctx.fillRect(x, 40, 18, sceneHeight - 40);
+                }
+
+                ctx.strokeStyle = 'rgba(120, 166, 69, 0.75)';
+                ctx.lineWidth = 4;
+                for (let x of [115, 345, 610]) {
+                    ctx.beginPath();
+                    ctx.moveTo(x, 0);
+                    ctx.bezierCurveTo(x - 18, 85, x + 24, 130, x + 2, 220);
+                    ctx.stroke();
+                }
+
+                ctx.strokeStyle = 'rgba(100, 154, 69, 0.8)';
+                ctx.lineWidth = 5;
+                for (let x of [170, 455, 700]) {
+                    const crownY = 125;
+                    ctx.beginPath();
+                    ctx.moveTo(x, sceneHeight);
+                    ctx.bezierCurveTo(x + 18, 300, x - 12, 200, x, crownY);
+                    ctx.stroke();
+
+                    for (let frond = 0; frond < 6; frond++) {
+                        const direction = frond % 2 === 0 ? -1 : 1;
+                        const length = 45 + Math.floor(frond / 2) * 15;
+                        ctx.beginPath();
+                        ctx.moveTo(x, crownY);
+                        ctx.quadraticCurveTo(
+                            x + direction * length * 0.55,
+                            crownY - 38,
+                            x + direction * length,
+                            crownY + 10 + Math.floor(frond / 2) * 8
+                        );
+                        ctx.stroke();
+                    }
+                }
+
+                ctx.fillStyle = 'rgba(43, 102, 47, 0.5)';
+                for (let i = 0; i < 14; i++) {
+                    const x = (i * 67 + 18) % canvas.width;
+                    const y = 315 + ((i * 29) % 70);
+                    ctx.beginPath();
+                    ctx.ellipse(x, y, 30, 12, (i % 2 ? 1 : -1) * 0.35, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+                for (let i = 0; i < 18; i++) {
+                    const x = (i * 53 + 18) % canvas.width;
+                    const y = 110 + (i % 4) * 48;
+                    ctx.save();
+                    ctx.translate(x, y);
+                    ctx.rotate((i % 2 ? 1 : -1) * 0.45);
+                    ctx.fillStyle = i % 2
+                        ? 'rgba(132, 190, 65, 0.55)'
+                        : 'rgba(53, 132, 57, 0.55)';
+                    ctx.beginPath();
+                    ctx.ellipse(0, 0, 27, 8, 0, 0, Math.PI * 2);
+                    ctx.fill();
+                    ctx.restore();
+                }
+            } else {
+                ctx.fillStyle = 'rgba(90, 133, 87, 0.24)';
+                ctx.beginPath();
+                ctx.moveTo(0, 270);
+                ctx.quadraticCurveTo(180, 160, 360, 270);
+                ctx.quadraticCurveTo(580, 150, 800, 260);
+                ctx.lineTo(800, 400);
+                ctx.lineTo(0, 400);
+                ctx.closePath();
+                ctx.fill();
+
+                for (let i = 0; i < 7; i++) {
+                    const x = 55 + i * 120;
+                    const baseY = 365 - (i % 2) * 28;
+                    const topY = 165 + (i % 3) * 13;
+                    ctx.fillStyle = 'rgba(99, 76, 48, 0.55)';
+                    ctx.fillRect(x - 5, topY + 45, 10, sceneHeight - topY - 45);
+
+                    ctx.fillStyle = i % 2
+                        ? 'rgba(35, 91, 52, 0.66)'
+                        : 'rgba(48, 111, 58, 0.62)';
+                    for (let tier = 0; tier < 4; tier++) {
+                        const tierTop = topY + tier * 30;
+                        const tierBase = Math.min(baseY - tier * 12, tierTop + 58);
+                        const halfWidth = 20 + tier * 9;
+                        ctx.beginPath();
+                        ctx.moveTo(x, tierTop);
+                        ctx.lineTo(x - halfWidth, tierBase);
+                        ctx.lineTo(x + halfWidth, tierBase);
+                        ctx.closePath();
+                        ctx.fill();
+                    }
+                }
+            }
+            ctx.restore();
+            for (let animal of animals) animal.draw();
+            for (let predator of predators) predator.draw();
+        }
+
+        function updateStats() {
+            const total = animals.length;
+            const fast = animals.filter(a => a.speed > 3).length;
+            const medium = animals.filter(a => a.speed > 1.5 && a.speed <= 3).length;
+            const slow = animals.filter(a => a.speed <= 1.5).length;
+            const mutated = animals.filter(a => a.mutated).length;
+            document.getElementById('totalCount').textContent = total;
+            document.getElementById('fastCount').textContent = fast;
+            document.getElementById('mediumCount').textContent = medium;
+            document.getElementById('slowCount').textContent = slow;
+            document.getElementById('mutationCount').textContent = mutated;
+        }
+
+        function updateSpeciesLegend() {
+            const species = habitats[currentHabitat].species;
+            for (const type of ['fast', 'medium', 'slow', 'predator']) {
+                document.getElementById(`${type}SpeciesIcon`).textContent = species[type].icon;
+                document.getElementById(`${type}SpeciesName`).textContent = species[type].name;
+            }
+            document.getElementById('fastCountLabel').textContent = species.fast.name;
+            document.getElementById('mediumCountLabel').textContent = species.medium.name;
+            document.getElementById('slowCountLabel').textContent = species.slow.name;
+        }
+
+        function toggleSimulation() {
+            running = !running;
+            if (running) startSimulationTimer();
+            else stopSimulationTimer();
+        }
+
+        function startSimulationTimer() {
+            stopSimulationTimer();
+            running = true;
+            animationFrameId = requestAnimationFrame(runFastFrames);
+        }
+
+        function stopSimulationTimer() {
+            running = false;
+            if (simulationTimerId !== null) {
+                cancelAnimationFrame(simulationTimerId);
+                simulationTimerId = null;
+            }
+            if (animationFrameId !== null) {
+                cancelAnimationFrame(animationFrameId);
+                animationFrameId = null;
+            }
+        }
+
+        function resetSimulation() {
+            stopSimulationTimer();
+            evolutionSpeed = 1;
+            reproductionCooldown = 0;
+            initializeSimulation();
+            draw();
+            const speedSlider = document.getElementById('evolutionSpeedSlider');
+            speedSlider.value = '1';
+            speedSlider.dispatchEvent(new Event('input', { bubbles: true }));
+            startSimulationTimer();
+        }
+
+        document.getElementById('evolutionSpeedSlider').addEventListener('input', event => {
+            evolutionSpeed = Number(event.target.value);
+            const labels = { 1: 'Ниска', 2: 'Средна', 3: 'Бърза', 4: 'Максимална' };
+            document.getElementById('evolutionSpeedText').textContent = labels[evolutionSpeed];
+            document.getElementById('evolutionSpeedNumber').textContent = `${evolutionSpeed}x`;
+            updateEvolutionSpeedBar();
+            if (running) startSimulationTimer();
+        });
+
+        function updateEvolutionSpeedBar() {
+            document.getElementById('evolutionSpeedFill').style.width = `${evolutionSpeed * 25}%`;
+        }
+
+        document.getElementById('habitatSelect').addEventListener('change', event => {
+            currentHabitat = event.target.value;
+            reproductionCooldown = 0;
+            initializeSimulation();
+            document.getElementById('habitatDescription').textContent = habitats[currentHabitat].description;
+            updateSpeciesLegend();
+            draw();
+        });
+
+        initializeSimulation();
+        document.getElementById('habitatDescription').textContent = habitats[currentHabitat].description;
+        updateSpeciesLegend();
+        draw();
+        document.getElementById('evolutionSpeedText').textContent = 'Ниска';
+        updateEvolutionSpeedBar();
+        startSimulationTimer();
+    </script>
+</body>
+</html>

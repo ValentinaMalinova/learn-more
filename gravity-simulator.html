@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>НАУЧИ+ | Сили и движение: гравитация и орбити</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a0a1a 0%, #1a1a2e 100%);
+            color: #fff;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+        
+        header {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 20px 0;
+            border-bottom: 3px solid #FFD700;
+        }
+        
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+        
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #FFD700;
+        }
+        
+        .nav {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+        
+        .nav a {
+            color: #fff;
+            text-decoration: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            transition: all 0.3s;
+            font-size: 0.95rem;
+        }
+        
+        .nav a:hover {
+            background: rgba(255, 215, 0, 0.3);
+            color: #FFD700;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            text-align: center;
+            color: #FFD700;
+        }
+
+        h2 {
+            color: #FFD700;
+        }
+        
+        .simulator-box {
+            background: rgba(255, 215, 0, 0.1);
+            padding: 30px;
+            border-radius: 15px;
+            border: 2px solid #FFD700;
+            margin-bottom: 30px;
+        }
+        
+        .simulator-controls {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .learning-card {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 215, 0, 0.35);
+            border-radius: 8px;
+            padding: 16px 18px;
+            margin-top: 20px;
+        }
+
+        .slider-value {
+            color: #FFD700;
+            font-weight: bold;
+            min-width: 90px;
+            text-align: right;
+        }
+        
+        button {
+            background: #FFD700;
+            color: #000;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+        
+        button:hover {
+            background: #FFC700;
+            transform: scale(1.05);
+        }
+
+        button:focus-visible,
+        a:focus-visible {
+            outline: 3px solid #fff;
+            outline-offset: 3px;
+        }
+        
+        button.active {
+            background: #FF6B6B;
+            color: white;
+        }
+        
+        canvas {
+            border: 2px solid #FFD700;
+            border-radius: 10px;
+            background: rgba(0, 0, 0, 0.5);
+            display: block;
+            margin: 20px auto;
+            width: 100%;
+            height: auto;
+            max-width: 600px;
+        }
+        
+        .results {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 30px;
+        }
+        
+        .results h3 {
+            color: #FFD700;
+            margin-bottom: 15px;
+        }
+
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+            gap: 8px 14px;
+        }
+        
+        .result-item {
+            padding: 10px 12px;
+            background: rgba(255, 215, 0, 0.1);
+            border-radius: 5px;
+            border-left: 4px solid #FFD700;
+        }
+
+        .result-item strong {
+            display: block;
+            margin-bottom: 3px;
+        }
+
+        .learning-card h3 {
+            color: #FFD700;
+            margin-bottom: 8px;
+        }
+
+        .learning-card p + p {
+            margin-top: 8px;
+        }
+
+        @media (max-width: 600px) {
+            .header-content {
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .nav {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 4px;
+            }
+
+            .nav a {
+                padding: 7px 8px;
+            }
+
+            .container {
+                padding: 25px 14px;
+            }
+
+            .simulator-box {
+                padding: 20px 14px;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .simulator-controls button {
+                flex: 1 1 145px;
+            }
+        }
+        
+        .info-section {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 30px;
+            border-left: 4px solid #FFD700;
+        }
+        
+        .info-section h3 {
+            color: #FFD700;
+            margin-bottom: 15px;
+        }
+        
+        .footer {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            text-align: center;
+            margin-top: 50px;
+            border-top: 2px solid #FFD700;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="logo">🔬 НАУЧИ+</div>
+            <nav class="nav">
+                <a href="index.html">Начало</a>
+                <a href="biology.html">Биология</a>
+                <a href="chemistry.html">Химия</a>
+                <a href="physics.html">Физика</a>
+                <a href="games.html">Игри</a>
+                <a href="quests.html">Мисии</a>
+                <a href="about.html">За нас</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <h1>🌍 Сили и движение: гравитация и орбити</h1>
+
+        <div class="simulator-box">
+            <h2 style="margin-bottom: 12px; text-align: center;">Как гравитацията движи планетите?</h2>
+            <p style="text-align: center; margin-bottom: 20px;">Слънцето привлича планетите към себе си. Но те се движат и напред — затова обикалят около него, вместо да паднат право към него.</p>
+            
+            <canvas id="canvas" width="600" height="400" role="img" aria-label="Схема на осемте планети, които обикалят около Слънцето"></canvas>
+            <p style="text-align: center; font-size: 0.9rem;">Жълтото е Слънцето, цветните точки са планетите, а тънките кръгове показват пътищата им.</p>
+            
+            <div class="simulator-controls">
+                <button id="playPauseBtn" onclick="toggleSimulation()">▶ Пусни движението</button>
+                <button onclick="resetOrbit()">↺ Започни отначало</button>
+                <button onclick="decreaseSpeed()">⏪ Забави</button>
+                <button onclick="increaseSpeed()">⏩ Ускори</button>
+                <button id="deviationBtn" onclick="toggleDeviation()">🧪 Покажи промяна на разстоянието</button>
+            </div>
+
+            <div class="results">
+                <h3>Какво наблюдаваме?</h3>
+                <div class="results-grid">
+                    <div class="result-item">
+                        <strong>Планети</strong> <span id="planetCount">8</span> обикалят около Слънцето.
+                    </div>
+                    <div class="result-item">
+                        <strong>Темпо на анимацията</strong> <span id="speedValue">1.0x</span>
+                        <span id="speedDescription">— стандартно</span>
+                    </div>
+                    <div class="result-item">
+                        <strong>Промяна на разстоянието</strong> <span id="deviationValue">изключена</span>
+                    </div>
+                    <div class="result-item">
+                        <strong>Движение</strong> <span id="simStatus">на пауза</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="learning-card" aria-live="polite">
+                <h3>Какво се случва?</h3>
+                <p id="simulationInsight">Натисни „Пусни движението“, за да видиш как планетите обикалят по различни пътища.</p>
+            </div>
+
+            <div class="learning-card">
+                <h3>Опитай сам</h3>
+                <ul style="margin-left: 20px;">
+                    <li>Пусни движението и сравни колко бързо обикалят близките и далечните планети.</li>
+                    <li>Натисни „Забави“ или „Ускори“ — това променя само темпото на анимацията.</li>
+                    <li>Включи промяната на разстоянието и наблюдавай как планетите се отдалечават и приближават.</li>
+                </ul>
+                <p><strong>Важно:</strong> Това е учебна схема, не точен модел на Слънчевата система. Размерите и разстоянията не са в мащаб, а движението не се изчислява от гравитационната сила.</p>
+            </div>
+        </div>
+
+        <div class="info-section">
+            <h3>📚 Какво е гравитация?</h3>
+            <p><strong>Гравитацията</strong> е силата, с която телата с маса се привличат. Тя държи планетите в орбита около Слънцето, а Луната — около Земята.</p>
+            <p style="margin-top: 15px;"><strong>Нютонов закон за гравитацията:</strong> F = G × (m₁ × m₂) / r²</p>
+            <ul style="margin-top: 15px; margin-left: 20px;">
+                <li>F = Силата на привличане</li>
+                <li>G = Гравитационна константа</li>
+                <li>m₁ и m₂ = Масите на двете тела — по-голяма маса означава по-силно привличане.</li>
+                <li>r = Разстоянието между телата — ако то се удвои, силата става 4 пъти по-малка.</li>
+            </ul>
+            <p style="margin-top: 15px;"><strong>Орбита</strong> е пътят на едно тяло около друго. Гравитацията променя посоката на движението му, докато то продължава да се движи напред.</p>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>Любопитството е първата стъпка към откритието.</p>
+        <small style="display: block; margin-top: 15px; border-top: 1px solid rgba(100,113,138,0.3); padding-top: 10px;">
+            Сайтът е създаден за НЕТИТ "Джон Атанасов" София 2026
+        </small>
+        <small style="display: block;">
+            Автори: Йордан Божков и Иван Варников, ПМГ "Константин Величков" Пазарджик
+        </small>
+    </footer>
+
+    <script>
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        const sunX = canvas.width / 2;
+        const sunY = canvas.height / 2;
+        const sim = {
+            timeScale: 1,
+            minSpeed: 0.2,
+            maxSpeed: 3,
+            speedStep: 0.2,
+            deviationEnabled: false,
+            deviationAmount: 0.08,
+            phaseTime: 0,
+            dt: 0.02
+        };
+        
+        let running = false;
+        let planets = [];
+        const planetModels = [
+            { name: 'Меркурий', color: '#B0BEC5', distance: 40, radius: 3, period: 0.24, phase: 0.4 },
+            { name: 'Венера', color: '#F4C27A', distance: 55, radius: 4, period: 0.62, phase: 1.1 },
+            { name: 'Земя', color: '#4FC3F7', distance: 72, radius: 4, period: 1.0, phase: 2.2 },
+            { name: 'Марс', color: '#EF5350', distance: 90, radius: 3, period: 1.88, phase: 0.9 },
+            { name: 'Юпитер', color: '#D7A86E', distance: 120, radius: 7, period: 11.86, phase: 2.8 },
+            { name: 'Сатурн', color: '#F2D67F', distance: 150, radius: 6, period: 29.46, phase: 1.9 },
+            { name: 'Уран', color: '#80DEEA', distance: 180, radius: 5, period: 84.01, phase: 0.2 },
+            { name: 'Нептун', color: '#5C6BC0', distance: 210, radius: 5, period: 164.8, phase: 2.5 }
+        ];
+        
+        class Planet {
+            constructor(name, color, orbitRadius, radius, period, phase) {
+                this.radius = radius;
+                this.color = color;
+                this.name = name;
+                this.orbitRadius = orbitRadius;
+                this.period = period;
+                this.phase = phase;
+                this.angle = phase;
+                this.x = sunX + Math.cos(phase) * orbitRadius;
+                this.y = sunY + Math.sin(phase) * orbitRadius;
+            }
+
+            update(dt, t) {
+                const baseAngularSpeed = (2 * Math.PI) / (this.period * 24);
+                this.angle += baseAngularSpeed * dt * sim.timeScale;
+
+                let drawRadius = this.orbitRadius;
+                if (sim.deviationEnabled) {
+                    const wave = Math.sin(t * 1.6 + this.phase * 3);
+                    drawRadius += this.orbitRadius * sim.deviationAmount * wave;
+                }
+
+                this.x = sunX + Math.cos(this.angle) * drawRadius;
+                this.y = sunY + Math.sin(this.angle) * drawRadius;
+            }
+
+            drawOrbitGuide() {
+                ctx.strokeStyle = 'rgba(255, 255, 255, 0.18)';
+                ctx.lineWidth = 1;
+                ctx.beginPath();
+                ctx.arc(sunX, sunY, this.orbitRadius, 0, Math.PI * 2);
+                ctx.stroke();
+            }
+            
+            draw() {
+                ctx.fillStyle = this.color;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fill();
+
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+                ctx.font = '11px Segoe UI';
+                ctx.textAlign = 'center';
+                ctx.fillText(this.name, this.x, this.y - this.radius - 6);
+            }
+        }
+
+        function updateSimulationLabels() {
+            const displayedSpeed = Number(sim.timeScale.toFixed(1));
+            document.getElementById('speedValue').textContent = `${displayedSpeed.toFixed(1)}x`;
+            document.getElementById('speedDescription').textContent = displayedSpeed < 1 ? '— забавено' : displayedSpeed > 1 ? '— ускорено' : '— стандартно';
+            document.getElementById('deviationValue').textContent = sim.deviationEnabled ? 'включена' : 'изключена';
+            const button = document.getElementById('deviationBtn');
+            button.textContent = sim.deviationEnabled ? '🧪 Скрий промяната на разстоянието' : '🧪 Покажи промяна на разстоянието';
+            button.classList.toggle('active', sim.deviationEnabled);
+            document.getElementById('simulationInsight').textContent = sim.deviationEnabled
+                ? 'Планетите се отдалечават и приближават по време на движението. Това е преувеличен пример за промяна на орбитата, а не изчисление на гравитацията.'
+                : 'Наблюдавай как планетите обикалят по почти кръгови пътища. По-близките до Слънцето планети се движат по-бързо от далечните.';
+        }
+        
+        function initializePlanets() {
+            planets = planetModels.map(model => new Planet(
+                model.name,
+                model.color,
+                model.distance,
+                model.radius,
+                model.period,
+                model.phase
+            ));
+            sim.phaseTime = 0;
+            updatePlanetCount();
+            updateSimulationLabels();
+        }
+        
+        function simulate() {
+            if (!running) return;
+            
+            // Clear canvas
+            ctx.fillStyle = 'rgba(10, 10, 26, 1)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            sim.phaseTime += sim.dt;
+
+            for (let planet of planets) {
+                planet.update(sim.dt, sim.phaseTime);
+            }
+
+            for (let planet of planets) {
+                planet.drawOrbitGuide();
+            }
+
+            for (let planet of planets) {
+                planet.draw();
+            }
+            
+            // Draw sun
+            ctx.fillStyle = '#FFD700';
+            ctx.beginPath();
+            ctx.arc(sunX, sunY, 15, 0, Math.PI * 2);
+            ctx.fill();
+            
+            // Draw sun glow
+            ctx.strokeStyle = '#FFD700';
+            ctx.globalAlpha = 0.3;
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.arc(sunX, sunY, 25, 0, Math.PI * 2);
+            ctx.stroke();
+            ctx.globalAlpha = 1;
+            
+            requestAnimationFrame(simulate);
+        }
+        
+        function draw() {
+            ctx.fillStyle = 'rgba(10, 10, 26, 1)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            for (let planet of planets) {
+                planet.drawOrbitGuide();
+            }
+
+            for (let planet of planets) {
+                planet.draw();
+            }
+            
+            ctx.fillStyle = '#FFD700';
+            ctx.beginPath();
+            ctx.arc(sunX, sunY, 15, 0, Math.PI * 2);
+            ctx.fill();
+        }
+        
+        function toggleSimulation() {
+            running = !running;
+            document.getElementById('simStatus').textContent = running ? 'движение' : 'на пауза';
+            document.getElementById('playPauseBtn').textContent = running ? '⏸ Пауза' : '▶ Продължи движението';
+            if (running) {
+                simulate();
+            }
+        }
+        
+        function resetOrbit() {
+            running = false;
+            document.getElementById('simStatus').textContent = 'на пауза';
+            document.getElementById('playPauseBtn').textContent = '▶ Пусни движението';
+            initializePlanets();
+            draw();
+        }
+        
+        function increaseSpeed() {
+            sim.timeScale = Math.min(sim.maxSpeed, sim.timeScale + sim.speedStep);
+            updateSimulationLabels();
+        }
+
+        function decreaseSpeed() {
+            sim.timeScale = Math.max(sim.minSpeed, sim.timeScale - sim.speedStep);
+            updateSimulationLabels();
+        }
+
+        function toggleDeviation() {
+            sim.deviationEnabled = !sim.deviationEnabled;
+            planets.forEach(planet => planet.update(0, sim.phaseTime));
+            updateSimulationLabels();
+            if (!running) {
+                draw();
+            }
+        }
+        
+        function updatePlanetCount() {
+            document.getElementById('planetCount').textContent = planets.length;
+        }
+        
+        // Initialize
+        initializePlanets();
+        draw();
+    </script>
+</body>
+</html>
