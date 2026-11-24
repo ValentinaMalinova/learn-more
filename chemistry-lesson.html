@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Научи повече + | Урок по химия</title>
+    <link rel="stylesheet" href="chemistry-theme.css">
+    <link rel="stylesheet" href="brand-layout.css">
+    <style>
+        body { background:linear-gradient(135deg,#2d1a3d,#3d2d4d); color:#fff; min-height:100vh }
+        header { background:rgba(30,13,43,.82); padding:20px 0; border-bottom:3px solid #ba68c8 }
+        .header-content { max-width:1200px; margin:auto; display:flex; justify-content:space-between; align-items:center; padding:0 20px }
+        .logo { font-size:2rem; font-weight:bold; color:#ce93d8 }
+        .nav { display:flex; gap:30px; align-items:center }
+        .nav a { color:#fff;text-decoration:none;padding:10px 15px;border-radius:5px }
+        .nav a.active,.nav a:hover { background:rgba(156,39,176,.35);color:#ce93d8 }
+        main { max-width:960px; margin:auto; padding:45px 20px 60px }
+        .lesson-card { background:linear-gradient(145deg,rgba(255,255,255,.12),rgba(111,66,139,.24)); border:1px solid rgba(225,190,231,.38); border-radius:22px; padding:32px; box-shadow:0 22px 55px rgba(28,8,38,.28) }
+        .lesson-top { display:flex; align-items:center; gap:16px; margin-bottom:18px }
+        .lesson-top > div { min-width:0 }
+        .lesson-icon { width:68px;height:68px;display:grid;place-items:center;border-radius:18px;background:rgba(156,39,176,.32);font-size:2.2rem }
+        .lesson-card h1 { margin:0;color:#e1bee7;font-size:clamp(1.8rem,5vw,2.6rem) }
+        .lesson-subtitle { margin:5px 0 0;color:#cdaed2;font-size:.95rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase }
+        .lesson-intro { color:#ead5ef;font-size:1.05rem;line-height:1.75 }
+        .lesson-section { margin-top:24px;padding:18px 20px;border-left:4px solid #ba68c8;border-radius:12px;background:rgba(255,255,255,.07) }
+        .lesson-section h2 { margin:0 0 8px;color:#ffe082;font-size:1.18rem }
+        .lesson-section p { margin:7px 0;line-height:1.7 }
+        .formula { display:block;margin:12px 0;padding:12px;border-radius:10px;background:rgba(255,224,130,.09);color:#ffe082;font-size:1.35rem;font-weight:800;text-align:center }
+        .formula-table { width:100%; margin-top:24px; border-collapse:separate; border-spacing:0; overflow:hidden; border:1px solid rgba(225,190,231,.38); border-radius:14px }
+        .formula-table th,.formula-table td { padding:12px 14px; border-bottom:1px solid rgba(225,190,231,.18); text-align:left }
+        .formula-table th { background:rgba(156,39,176,.22); color:#ffe082 }
+        .formula-table td { background:rgba(255,255,255,.055); color:#ead5ef }
+        .formula-table tr:last-child td { border-bottom:0 }
+        .formula-table .table-formula { color:#ffe082; font-weight:800 }
+        .lesson-nav { display:flex;justify-content:space-between;gap:12px;margin-top:24px }
+        .lesson-link { color:#fff;text-decoration:none;border:1px solid rgba(225,190,231,.38);border-radius:999px;padding:11px 16px;background:rgba(255,255,255,.08);font-weight:700 }
+        .lesson-link:hover { background:rgba(156,39,176,.35);border-color:#ce93d8 }
+        .lesson-not-found { text-align:center;color:#ead5ef }
+        .footer { background:rgba(18,7,25,.68);padding:20px;text-align:center;border-top:2px solid #9C27B0 }
+        @media(max-width:700px) {
+            .header-content { flex-direction:column;gap:10px }
+            .nav { width:100%;flex-wrap:wrap;justify-content:center;gap:4px }
+            .nav a { padding:8px 10px }
+            .lesson-card { padding:22px 16px }
+            .lesson-top { align-items:flex-start }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="logo">🔬 Научи повече +</div>
+            <nav class="nav">
+                <a href="index.html">Начало</a>
+                <a href="biology.html">Биология</a>
+                <a href="chemistry.html" class="active">Химия</a>
+                <a href="physics.html">Физика</a>
+                <a href="games.html">Игри</a>
+                <a href="quests.html">Мисии</a>
+                <a href="about.html">За нас</a>
+            </nav>
+        </div>
+    </header>
+    <main>
+        <article class="lesson-card" id="lessonCard"></article>
+    </main>
+    <footer class="footer">Любопитството е първата стъпка към откритието.</footer>
+    <script>
+        const lessons = {
+            signs: {
+                icon:'🧪', title:'Химични знаци и формули',
+                intro:'Химичните знаци и формули са кратък международен запис за химичните елементи и съставните им атоми. Те ни позволяват да разберем от какви елементи е изградено дадено вещество и в какви отношения са техните атоми.',
+                sections:[
+                    {title:'Химичен елемент', text:'Химичният елемент е вид чисто вещество, изградено от атоми с еднакъв вид ядра. Например водородът е елемент, състоящ се от водородни атоми, а кислородът — от кислородни атоми.'},
+                    {title:'Химичен знак', text:'За обозначаване на елементите се използват химични знаци. В повечето случаи знака се състои от една главна буква, например H за водород и O за кислород. При някои елементи знакът има и малка втора буква, например Na за натрий и Cl за хлор. Малката буква е задължителна част от знака.'},
+                    {title:'Химична формула', text:'Химичната формула показва кои елементи участват във веществото и какъв е броят на атомите от всеки елемент. Ако след знака няма число, броят на атомите е един.'},
+                    {title:'Какво показва индексът', text:'Малкото число вдясно долу след химичния знак се нарича индекс. Индексът показва броя на атомите на съответния елемент в формулата. Индексът 1 обикновено не се записва.', formula:'H₂O: два атома водород и един атом кислород<br>CO₂: един атом въглерод и два атома кислород<br>NH₃: един атом азот и три атома водород'},
+                    {title:'Четене на формула със скоби', text:'При формули със скоби индексът след скобата се отнася за всички атоми в скобата. Например в Ca(OH)₂ има един атом калций, два атома кислород и два атома водород.', formula:'Ca(OH)₂ = 1 Ca + 2 O + 2 H'},
+                    {title:'Кратка проверка', text:'Прочитай формулата на части: 1) запиши знаците на елементите; 2) прочети индекса след всеки знак; 3) събери броя на всички атоми. При липсващ индекс броят е един.'}
+                ]
+            },
+            formula: {
+                icon:'⚗️', title:'Съставяне на химични формули',
+                intro:'Химичната формула показва състава на простото или сложното вещество чрез химични знаци, индекси и в някои случаи скоби.',
+                sections:[
+                    {title:'Кое е необходимо да знаем', text:'За съставяне на формула на двуелементно съединение са нужни валентностите на двата елемента. Те се записват с римските числа I, II, III и т.н.'},
+                    {title:'Правило за съставяне', text:'Записват се знаците на двата елемента. Индексът при първия елемент е равен на валентността на втория, а индексът при втория е равен на валентността на първия. Индексите се записват като най-малки цели числа.'},
+                    {title:'Алгоритъм с НОК', text:'Определят се валентностите на двата елемента. Намерете НОК на валентностите. Разделете НОК на валентността на всеки елемент — получените числа са индекси.' , formula:'Валентности → НОК → индекси'},
+                    {title:'Пример с алуминий и кислород', text:'Алуминият е III валентен, а кислородът — II валентен. НОК на 3 и 2 е 6. 6:3=2 за алуминия и 6:2=3 за кислорода.', formula:'Al₂O₃'},
+                    {title:'Пример с азот и кислород', text:'Азотът може да има различна валентност. При азот II и кислород II се получава NO₂; при азот V и кислород II се получава N₂O₅.', formula:'NO₂ · азот II и кислород II<br>N₂O₅ · азот V и кислород II'}
+                ],
+                table:{headers:['Елементи','Валентности','Получена формула'],rows:[
+                    ['Mg и Cl','II и I','MgCl₂'],
+                    ['Al и O','III и II','Al₂O₃'],
+                    ['C и O','IV и II','CO₂'],
+                    ['H и S','I и II','H₂S']
+                ]}
+            },
+            valency: {
+                icon:'🔗', title:'Определяне на валентност',
+                intro:'Валентността е свойство на атомите да се свързват с определен брой атоми от друг елемент. В тази тема валентността се показва с римско число.',
+                sections:[
+                    {title:'Какво е валентност', text:'Валентността на водорода е I, защото един негов атом се свързва с един друг атом. Валентността на кислорода обикновено е II, защото той се свързва с два водородни атома във H₂O.' , formula:'H — I валентност<br>O — II валентност'},
+                    {title:'Постоянна валентност', text:'Някои елементи имат постоянна валентност. Например натрий, калий, сребро и водород са I валентни; магнезий и калций — II валентни.'},
+                    {title:'Променлива валентност', text:'Много елементи могат да проявяват различни валентности. Например азотът може да е I, II, III, IV или V валентен; желязото — II или III.' , formula:'N: I, II, III, IV, V<br>Fe: II и III'},
+                    {title:'Определяне чрез формула', text:'Ако елемента образува съединение с друг елемент с постоянна валентност, валентността му се определя по формулата. Например в SO₂ кислородът е II и има два кислородни атома, а има един сярен атом. Неговата валентност се определя като IV.' , formula:'SO₂: валентността на S е IV'},
+                    {title:'Проверка', text:'Валентността се проверява от броя свързани атоми и от формулата. Сумата от валентностите на атомите от двата елемента трябва да е изравнена.'}
+                ],
+                table:{headers:['Елемент','Чести валентности','Примери'],rows:[
+                    ['H','I','H₂O, HCl, CH₄'],
+                    ['O','II','H₂O, SO₂, CO₂'],
+                    ['N','II, III, IV, V','NO, NO₂, NH₃, N₂O₅'],
+                    ['Mg, Ca','II','MgCl₂, CaO'],
+                    ['Fe','II и III','FeO, Fe₂O₃']
+                ]}
+            },
+            names: {
+                icon:'🏷️', title:'Наименования на вещества',
+                intro:'Веществата имат тривиални и системни имена. Системното наименование показва кои елементи изграждат съединението.',
+                sections:[
+                    {title:'Тривиални и системни имена', text:'Тривиалните имена са известни с дълга употреба, например вода, амоняк и готварска сол. Системните имена се образуват по правила.', formula:'H₂O — вода<br>NH₃ — амоняк<br>NaCl — натриев хлорид'},
+                    {title:'Наименуване на прости вещества', text:'Простите вещества се наименуват по името на химичния елемент. Съществено е дали веществото е атомно или молекулно.', formula:'Fe — железо<br>O₂ — кислород<br>N₂ — азот'},
+                    {title:'Двуелементни съединения с метал', text:'Първо се назовава металът, а след него — неметалът с окончание „-ид“. Съединението се запомня с формата име на метал + име на неметал с окончание -ид.', formula:'NaCl — натриев хлорид<br>MgCl₂ — магнезиев дихлорид<br>CaO — калциев оксид'},
+                    {title:'Наименуване с представки', text:'При бинарни молекулни съединения българското име може да показва броя на атомите: моно- = 1, ди- = 2, три- = 3, тетра- = 4.', formula:'CO₂ — въглероден диоксид<br>N₂O₅ — динитроген пентаоксид'}
+                ],
+                table:{headers:['Формула','Състав','Наименование'],rows:[
+                    ['NaCl','Na и Cl','Натриев хлорид'],
+                    ['CaO','Ca и O','Калциев оксид'],
+                    ['ZnS','Zn и S','Цинков сулфид'],
+                    ['CO₂','C и O₂','Въглероден диоксид'],
+                    ['NH₃','N и H₃','Амоняк']
+                ]}
+            },
+            mass: {
+                icon:'⚖️', title:'Относителна атомна и молекулна маса',
+                intro:'Относителната атомна маса се обозначава с Ar. Относителната молекулна маса се обозначава с Mr и се намира като сбор от атомните маси на всички атоми в молекулата.',
+                sections:[
+                    {title:'Атомна маса', text:'Всяко вещество е изградено от атоми с различна средна маса. Масата на атома се сравнява с 1/12 от масата на изотопа въглерод-12. Полученото число се нарича относителна атомна маса.' , formula:'Ar(C) ≈ 12 · Ar(Na) ≈ 23'},
+                    {title:'Относителна молекулна маса', text:'Молекулната маса се получава като сбор от относителните атомни маси на атомите в молекулата.', formula:'Mr = Σ(Ar × брой атоми)'},
+                    {title:'Пример с вода', text:'Ако Ar(H)=1 и Ar(O)=16, във H₂O има два атома водород и един атом кислород. Mr се намира като 1×2 + 16×1.', formula:'Mr(H₂O)=1·2+16·1=18'},
+                    {title:'Пример с въглероден диоксид', text:'В CO₂ има един атом въглерод с Ar=12 и два атома кислород с Ar=16.', formula:'Mr(CO₂)=12·1+16·2=44'},
+                    {title:'Пример с метан', text:'CH₄ има един атом въглерод и четири атома водород. Намира се сбора на тяхната относителна маса.', formula:'Mr(CH₄)=12·1+1·4=16'}
+                ],
+                table:{headers:['Вещество','Формула','Изчисление','Mr'],rows:[
+                    ['Вода','H₂O','1·2 + 16·1','18'],
+                    ['Въглероден диоксид','CO₂','12·1 + 16·2','44'],
+                    ['Метан','CH₄','12·1 + 1·4','16'],
+                    ['Натриев хлорид','NaCl','23·1 + 35.5·1','58.5']
+                ]}
+            },
+            equations: {
+                icon:'➡️', title:'Химични уравнения',
+                intro:'Химичната реакция се записва с формули и знаци. В химичното уравнение се показват изходните вещества и получените вещества.',
+                sections:[
+                    {title:'Какво е химична реакция', text:'При химична реакция някои вещества се превръщат в други вещества. Изходните вещества се наричат реагенти, а новите — продукти.'},
+                    {title:'Структура на уравнение', text:'Реагентите се записват отляво на стрелката, а продуктите — отдясно. Стрелката означава „превръщат се в“ или „образуват се“.', formula:'реагенти → продукти'},
+                    {title:'Коефициенти', text:'Числата пред химичните формули се наричат коефициенти и показват броя молекули. Те се различават от индексите: индексът е част от формулата, а коефициентът е пред формулата.'},
+                    {title:'Изравняване на уравнение', text:'След реакцията атомите не изчезват и не се създават нови. Броят на атомите от всеки елемент трябва да е еднакъв от двете страни.', formula:'2H₂ + O₂ → 2H₂O'},
+                    {title:'Проверка на баланса', text:'В уравнението 2H₂ + O₂ → 2H₂O отляво има 4 водородни и 2 кислородни атома. Отдясно са 4 водородни и 2 кислородни атома.'}
+                ],
+                table:{headers:['Част','Пример','Значение'],rows:[
+                    ['Реагенти','H₂ и O₂','Изходни вещества'],
+                    ['Стрелка','→','Посока на реакцията'],
+                    ['Продукти','H₂O','Получено вещество'],
+                    ['Коефициент','2 пред H₂','Две молекули водород'],
+                    ['Индекс','₂ в H₂','Два атома водород в молекулата']
+                ]}
+            }
+        };
+        const id=new URLSearchParams(location.search).get('lesson') || 'signs';
+        const lesson=lessons[id];
+        const card=document.getElementById('lessonCard');
+        if(!lesson) {
+            card.innerHTML='<div class="lesson-not-found"><h1>Урокът не е намерен</h1><p>Върни се към страницата с уроци по химия.</p><a class="lesson-link" href="chemistry.html">Към уроците</a></div>';
+        } else {
+            document.title='Научи повече + | '+lesson.title;
+            card.innerHTML=
+                '<div class="lesson-top"><div class="lesson-icon">'+lesson.icon+'</div><div><h1>'+lesson.title+'</h1><p class="lesson-subtitle">Кратък урок по химия</p></div></div>'+
+                '<p class="lesson-intro">'+lesson.intro+'</p>'+
+                lesson.sections.map(section =>
+                    '<section class="lesson-section"><h2>'+section.title+'</h2><p>'+section.text+'</p>'+
+                    (section.formula?'<strong class="formula">'+section.formula+'</strong>':'')+'</section>'
+                ).join('')+
+                (lesson.table
+                    ? '<section class="lesson-section"><h2>Кратка таблица</h2>'+
+                        '<table class="formula-table"><thead><tr>'+
+                        lesson.table.headers.map(header=>'<th>'+header+'</th>').join('')+
+                        '</tr></thead><tbody>'+
+                        lesson.table.rows.map(row=>'<tr>'+row.map((cell,index)=>'<td'+(index===row.length-1?' class="table-formula"':'')+'>'+cell+'</td>').join('')+'</tr>').join('')+
+                        '</tbody></table></section>'
+                    : '')+
+                (id==='signs'
+                    ? '<section class="lesson-section"><h2>Примери за прочитане на формули</h2>'+
+                        '<table class="formula-table">'+
+                        '<thead><tr><th>Формула</th><th>Елементи</th><th>Брой атоми</th></tr></thead>'+
+                        '<tbody>'+
+                        '<tr><td class="table-formula">H₂O</td><td>Водород и кислород</td><td>2 атома H и 1 атом O</td></tr>'+
+                        '<tr><td class="table-formula">CO₂</td><td>Въглерод и кислород</td><td>1 атом C и 2 атома O</td></tr>'+
+                        '<tr><td class="table-formula">NH₃</td><td>Азот и водород</td><td>1 атом N и 3 атома H</td></tr>'+
+                        '<tr><td class="table-formula">Ca(OH)₂</td><td>Калций, кислород и водород</td><td>1 атом Ca, 2 атома O и 2 атома H</td></tr>'+
+                        '</tbody></table></section>'
+                    : '')+
+                '<div class="lesson-nav"><a class="lesson-link" href="chemistry.html">← Към уроците</a><a class="lesson-link" href="chemistry-test.html">Към теста →</a></div>';
+        }
+    </script>
+</body>
+</html>

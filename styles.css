@@ -5,7 +5,7 @@ body{margin:0;background:#fff;color:var(--ink);font-family:'DM Sans',sans-serif;
 a{color:inherit;text-decoration:none}
 .site-header{height:78px;padding:0 max(5vw,24px);display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #edf1f5;background:rgba(255,255,255,.94);position:sticky;top:0;z-index:20;backdrop-filter:blur(12px)}
 .brand{font-family:Manrope,sans-serif;font-weight:800;font-size:1.35rem;letter-spacing:-.06em}
-.brand>span:last-child{color:var(--teal)}.brand-mark{color:var(--teal);margin-right:7px}
+.brand-mark{color:var(--teal);margin-right:7px}
 .nav{display:flex;gap:27px;align-items:center}.nav a{font-size:.88rem;color:#59677e;font-weight:600;transition:.2s}
 .nav a:hover,.nav a.active{color:var(--teal-dark)}
 .menu-toggle{display:none;border:0;background:none;font-size:1.6rem}

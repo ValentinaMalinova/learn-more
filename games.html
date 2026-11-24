@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>НАУЧИ+ | Игри и тестове</title>
+    <title>Научи повече + | Игри</title>
     <style>
         * {
             margin: 0;
@@ -128,6 +128,28 @@
             transform: scale(1.08);
             box-shadow: 0 10px 30px rgba(0, 212, 255, 0.4);
         }
+
+        .quiz-card a {
+            display: block;
+            width: 100%;
+            background: linear-gradient(135deg, #00d4ff, #0099cc);
+            color: #000;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.05rem;
+            font-weight: bold;
+            text-decoration: none;
+            text-align: center;
+            transition: all 0.3s;
+            margin-top: 10px;
+        }
+
+        .quiz-card a:hover {
+            transform: scale(1.08);
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.4);
+        }
         
         .footer {
             background: rgba(0, 0, 0, 0.5);
@@ -149,11 +171,12 @@
             color: #FFD700;
         }
     </style>
+    <link rel="stylesheet" href="brand-layout.css">
 </head>
 <body>
     <header>
         <div class="header-content">
-            <div class="logo">🎮 НАУЧИ+</div>
+            <div class="logo">🎮 Научи повече +</div>
             <nav class="nav">
                 <a href="index.html">Начало</a>
                 <a href="biology.html">Биология</a>
@@ -194,25 +217,19 @@
             <div class="quiz-card">
                 <h3>🧬 Биология</h3>
                 <p>Въпроси за клетки, организми, еволюция и екосистеми. Научи повече за живота!</p>
-                <button onclick="alert('Тести идват скоро! Останете с нас за получаване на обновления.')">Начни теста →</button>
+                <a href="biology-test.html">Започни теста →</a>
             </div>
 
             <div class="quiz-card">
                 <h3>🧪 Химия</h3>
                 <p>Въпроси за атоми, молекули, реакции и химични процеси. Открий света на веществата!</p>
-                <button onclick="alert('Тести идват скоро! Останете с нас за получаване на обновления.')">Начни теста →</button>
+                <a href="chemistry-test.html">Започни теста →</a>
             </div>
 
             <div class="quiz-card">
                 <h3>⚡ Физика</h3>
                 <p>Въпроси за сили, движение, енергия и механика. Разбери законите на природата!</p>
-                <button onclick="alert('Тести идват скоро! Останете с нас за получаване на обновления.')">Начни теста →</button>
-            </div>
-
-            <div class="quiz-card">
-                <h3>🌍 Смесен тест</h3>
-                <p>Въпроси от всички три предмета. Идеален за проверка на цялостните си знания!</p>
-                <button onclick="alert('Тести идват скоро! Останете с нас за получаване на обновления.')">Начни теста →</button>
+                <a href="physics-test.html">Започни теста →</a>
             </div>
         </div>
 

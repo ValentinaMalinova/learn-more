@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>НАУЧИ+ | Периодична таблица</title>
+    <title>Научи повече + | Периодична таблица</title>
     <style>
         * {
             margin: 0;
@@ -84,41 +84,100 @@
         
         .legend {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
+            grid-template-columns: repeat(auto-fit, minmax(165px, 1fr));
+            gap: 10px;
             margin: 20px 0;
         }
         
         .legend-item {
             background: rgba(255, 255, 255, 0.1);
-            padding: 15px;
+            padding: 10px 12px;
             border-radius: 8px;
             border-left: 4px solid #9C27B0;
+            font-size: 0.9rem;
+        }
+
+        .legend-symmetric {
+            display: grid;
+            grid-column: 1 / -1;
+            grid-template-columns: repeat(auto-fit, minmax(165px, 1fr));
+            gap: 10px;
+            max-width: 720px;
+            margin: 0 auto;
         }
         
         .legend-item strong {
-            color: #9C27B0;
+            color: #f3e5f5;
+        }
+
+        .legend-swatch {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            margin-right: 7px;
+            border-radius: 3px;
+        }
+
+        .legend-swatch.alkali { background: #7548a1; }
+        .legend-swatch.alkaline { background: #a35369; }
+        .legend-swatch.transition { background: #a34a55; }
+        .legend-swatch.post-transition { background: #9b653d; }
+        .legend-swatch.metalloid { background: #3a806c; }
+        .legend-swatch.nonmetal { background: #356b9b; }
+        .legend-swatch.halogen { background: #287c8c; }
+        .legend-swatch.noble { background: #6b5ba5; }
+        .legend-swatch.lanthanide { background: #a06487; }
+        .legend-swatch.actinide { background: #805477; }
+
+        .element-search {
+            display: block;
+            width: min(100%, 440px);
+            margin: 18px auto 8px;
+            padding: 12px 15px;
+            border: 2px solid #ba68c8;
+            border-radius: 12px;
+            background: rgba(28, 12, 38, 0.8);
+            color: #fff;
+            font: inherit;
+        }
+
+        .element-search::placeholder {
+            color: #d7bddf;
+        }
+
+        .search-status {
+            min-height: 24px;
+            text-align: center;
+            color: #ead5ef;
         }
         
         .table-container {
-            overflow-x: auto;
+            overflow-x: hidden;
+            position: relative;
+            left: 50%;
+            width: calc(100vw - 40px);
+            max-width: 1200px;
+            transform: translateX(-50%);
             margin: 30px 0;
             background: rgba(0, 0, 0, 0.3);
-            padding: 20px;
+            padding: 20px 8px;
             border-radius: 15px;
             border: 2px solid #9C27B0;
         }
         
         .periodic-table {
             display: grid;
-            grid-template-columns: repeat(18, 60px);
-            gap: 5px;
-            min-width: 1100px;
+            width: 100%;
+            grid-template-columns: repeat(18, minmax(0, 1fr));
+            grid-auto-rows: 68px;
+            column-gap: clamp(1px, 0.35vw, 5px);
+            row-gap: 4px;
         }
         
         .element {
-            width: 60px;
-            height: 60px;
+            width: 100%;
+            height: 100%;
+            padding: 2px 0;
             border: 2px solid #9C27B0;
             border-radius: 5px;
             display: flex;
@@ -127,38 +186,83 @@
             align-items: center;
             cursor: pointer;
             transition: all 0.3s;
+            color: #fff;
+            font: inherit;
             font-size: 0.75rem;
             font-weight: bold;
             position: relative;
         }
         
         .element:hover {
-            transform: scale(1.1);
+            transform: translateY(-2px);
             box-shadow: 0 0 20px rgba(156, 39, 176, 0.8);
         }
         
-        .element.nonmetal { background: rgba(100, 150, 255, 0.4); }
-        .element.metal { background: rgba(255, 100, 100, 0.4); }
-        .element.semimetal { background: rgba(100, 255, 150, 0.4); }
-        .element.noble { background: rgba(255, 200, 100, 0.4); }
-        .element.halogen { background: rgba(255, 150, 150, 0.4); }
-        .element.alkali { background: rgba(100, 100, 255, 0.4); }
+        .element:focus-visible,
+        .element.selected {
+            outline: 3px solid #ffe082;
+            outline-offset: 2px;
+            z-index: 1;
+        }
+
+        .element[hidden],
+        .series-label[hidden] {
+            display: none;
+        }
+
+        .element.alkali { background: #7548a1; }
+        .element.alkaline { background: #a35369; }
+        .element.transition { background: #a34a55; }
+        .element.post-transition { background: #9b653d; }
+        .element.metalloid { background: #3a806c; }
+        .element.nonmetal { background: #356b9b; }
+        .element.halogen { background: #287c8c; }
+        .element.noble { background: #6b5ba5; }
+        .element.lanthanide { background: #a06487; }
+        .element.actinide { background: #805477; }
+
+        .series-label {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 5px;
+            border: 1px dashed rgba(225, 190, 231, 0.5);
+            border-radius: 8px;
+            color: #ead5ef;
+            font-size: 0.78rem;
+            text-align: center;
+        }
         
         .element-number {
-            font-size: 0.6rem;
+            font-size: clamp(0.34rem, 0.72vw, 0.68rem);
             opacity: 0.8;
+        }
+
+        .element-mass {
+            max-width: 100%;
+            overflow-wrap: anywhere;
+            font-size: clamp(0.35rem, 0.82vw, 0.65rem);
+            line-height: 1;
+            white-space: normal;
         }
         
         .element-symbol {
-            font-size: 1.1rem;
+            font-size: clamp(0.7rem, 1.35vw, 1.4rem);
             font-weight: bold;
         }
         
         .element-name {
-            font-size: 0.6rem;
-            opacity: 0.9;
+            max-width: 100%;
+            overflow: hidden;
+            transform: translateY(-3px);
+            font-size: clamp(0.38rem, 0.92vw, 0.72rem);
+            line-height: 1;
+            opacity: 1;
+            overflow-wrap: anywhere;
+            text-align: center;
+            white-space: normal;
         }
-        
+
         .detail-box {
             background: rgba(156, 39, 176, 0.1);
             padding: 30px;
@@ -214,7 +318,126 @@
             color: #9C27B0;
             margin-bottom: 15px;
         }
-        
+
+        .element-key {
+            margin: 0 0 24px;
+            padding: 22px;
+            border: 1px solid rgba(225, 190, 231, 0.38);
+            border-radius: 18px;
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.1), rgba(111, 66, 139, 0.2));
+        }
+
+        .element-key h2 {
+            margin-bottom: 8px;
+            color: #e1bee7;
+            text-align: center;
+        }
+
+        .element-key-intro {
+            margin-bottom: 18px;
+            color: #ead5ef;
+            text-align: center;
+        }
+
+        .element-key-content {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) 205px minmax(0, 1fr);
+            grid-template-rows: 235px;
+            align-items: stretch;
+            gap: 14px;
+            max-width: 1050px;
+            margin: 0 auto;
+        }
+
+        .element-key-side {
+            display: grid;
+            grid-template-rows: 22px 24px 48px 19px 22px 22px 22px;
+            align-self: stretch;
+            padding-top: 16px;
+            gap: 4px;
+        }
+
+        .element-key-field {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 0;
+            border-bottom: 1px solid rgba(225, 190, 231, 0.2);
+        }
+
+        .element-key-side.left .element-key-field:nth-child(1) { grid-row: 1; }
+        .element-key-side.left .element-key-field:nth-child(2) { grid-row: 2; }
+        .element-key-side.left .element-key-field:nth-child(3) { grid-row: 4; }
+        .element-key-side.left .element-key-field:nth-child(4) { grid-row: 6; }
+        .element-key-side.right .element-key-field:nth-child(1) { grid-row: 1; }
+        .element-key-side.right .element-key-field:nth-child(2) { grid-row: 3; }
+        .element-key-side.right .element-key-field:nth-child(3) { grid-row: 5; }
+
+        .element-key-side.left .element-key-field {
+            justify-content: flex-end;
+            text-align: right;
+        }
+
+        .element-key-side.right .element-key-field {
+            justify-content: flex-start;
+            text-align: left;
+        }
+
+        .element-key-field dt {
+            color: #f3e5f5;
+            font-size: 0.92rem;
+            font-weight: 700;
+        }
+
+        .element-key-field dd {
+            margin: 0;
+            color: #ffe082;
+            font-size: 1.15rem;
+            font-weight: 800;
+        }
+
+        .sample-element {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 22px 24px 48px 19px 22px 22px 22px;
+            grid-template-areas:
+                "number mass"
+                "config config"
+                "symbol symbol"
+                "latin latin"
+                "name name"
+                "valency valency"
+                "state state";
+            gap: 4px;
+            align-items: center;
+            width: 205px;
+            height: 235px;
+            margin: 0 auto;
+            padding: 14px;
+            border: 2px solid #80cbc4;
+            border-radius: 14px;
+            background: linear-gradient(145deg, #286e70, #31536d);
+            box-shadow: 0 10px 24px rgba(0, 0, 0, 0.25);
+            text-align: center;
+            line-height: 1.2;
+        }
+
+        .sample-number { grid-area: number; text-align: left; }
+        .sample-mass { grid-area: mass; text-align: right; }
+        .sample-config { grid-area: config; font-size: 0.68rem; }
+        .sample-symbol { grid-area: symbol; font-size: 3rem; font-weight: 800; line-height: 1; }
+        .sample-latin { grid-area: latin; font-size: 0.78rem; font-style: italic; }
+        .sample-name { grid-area: name; font-size: 1rem; font-weight: 800; }
+        .sample-valency { grid-area: valency; color: #ffe082; font-size: 0.82rem; }
+        .sample-state { grid-area: state; font-size: 0.75rem; }
+
+        .element-key-note {
+            margin-top: 16px;
+            color: #ead5ef;
+            font-size: 0.92rem;
+            text-align: center;
+        }
+
         .footer {
             background: rgba(0, 0, 0, 0.5);
             padding: 20px;
@@ -224,32 +447,58 @@
         }
         
         @media (max-width: 768px) {
-            .periodic-table {
-                grid-template-columns: repeat(12, 50px);
-                gap: 3px;
-                min-width: auto;
-            }
-            
-            .element {
-                width: 50px;
-                height: 50px;
-                font-size: 0.65rem;
-            }
-            
             .detail-grid {
                 grid-template-columns: 1fr;
             }
+
+            .table-container {
+                padding: 12px;
+            }
+
+            .element-key-content {
+                grid-template-columns: 1fr;
+                grid-template-rows: auto;
+                gap: 14px;
+            }
+
+            .sample-element {
+                grid-row: 1;
+            }
+
+            .element-key-side {
+                display: flex;
+                flex-direction: column;
+                height: auto;
+                padding-top: 0;
+                gap: 4px;
+            }
+
+            .element-key-field {
+                padding: 7px 0;
+            }
+
+            .element-key-field dd {
+                display: none;
+            }
+
+            .element-key-side.left .element-key-field,
+            .element-key-side.right .element-key-field {
+                justify-content: center;
+                text-align: center;
+            }
         }
     </style>
+    <link rel="stylesheet" href="chemistry-theme.css">
+    <link rel="stylesheet" href="brand-layout.css">
 </head>
 <body>
     <header>
         <div class="header-content">
-            <div class="logo">🔬 НАУЧИ+</div>
+            <div class="logo">🔬 Научи повече +</div>
             <nav class="nav">
                 <a href="index.html">Начало</a>
                 <a href="biology.html">Биология</a>
-                <a href="chemistry.html">Химия</a>
+                <a href="chemistry.html" class="active">Химия</a>
                 <a href="physics.html">Физика</a>
                 <a href="games.html">Игри</a>
                 <a href="quests.html">Мисии</a>
@@ -262,36 +511,64 @@
         <h1>⚛️ Периодична таблица на елементите</h1>
 
         <div class="info-top">
-            <h2>Открий структурата на материята!</h2>
-            <p>Всички вещества в света са направени от елементи. Натисни на който и да е елемент, за да научиш повече за него.</p>
+            <h2>Всичките 118 елемента на едно място</h2>
+            <p>Търси елемент по име или символ. Натисни върху него, за да видиш атомния му номер, маса, група и състояние.</p>
             
             <div class="legend">
-                <div class="legend-item">
-                    <div style="width: 20px; height: 20px; background: rgba(100, 150, 255, 0.4); border: 1px solid #666; margin-bottom: 5px;"></div>
-                    <strong>Неметали</strong>
-                </div>
-                <div class="legend-item">
-                    <div style="width: 20px; height: 20px; background: rgba(255, 100, 100, 0.4); border: 1px solid #666; margin-bottom: 5px;"></div>
-                    <strong>Метали</strong>
-                </div>
-                <div class="legend-item">
-                    <div style="width: 20px; height: 20px; background: rgba(100, 255, 150, 0.4); border: 1px solid #666; margin-bottom: 5px;"></div>
-                    <strong>Полуметали</strong>
-                </div>
-                <div class="legend-item">
-                    <div style="width: 20px; height: 20px; background: rgba(255, 200, 100, 0.4); border: 1px solid #666; margin-bottom: 5px;"></div>
-                    <strong>Благородни газове</strong>
+                <div class="legend-item"><span class="legend-swatch alkali"></span><strong>Алкални метали</strong></div>
+                <div class="legend-item"><span class="legend-swatch alkaline"></span><strong>Алкалоземни метали</strong></div>
+                <div class="legend-item"><span class="legend-swatch transition"></span><strong>Преходни метали</strong></div>
+                <div class="legend-item"><span class="legend-swatch post-transition"></span><strong>Други метали</strong></div>
+                <div class="legend-item"><span class="legend-swatch metalloid"></span><strong>Полуметали</strong></div>
+                <div class="legend-item"><span class="legend-swatch nonmetal"></span><strong>Неметали</strong></div>
+                <div class="legend-symmetric">
+                    <div class="legend-item"><span class="legend-swatch halogen"></span><strong>Халогени</strong></div>
+                    <div class="legend-item"><span class="legend-swatch noble"></span><strong>Благородни газове</strong></div>
+                    <div class="legend-item"><span class="legend-swatch lanthanide"></span><strong>Лантаноиди</strong></div>
+                    <div class="legend-item"><span class="legend-swatch actinide"></span><strong>Актиноиди</strong></div>
                 </div>
             </div>
+
+            <label for="elementSearch"><strong>Намери елемент:</strong></label>
+            <input class="element-search" id="elementSearch" type="search" placeholder="Например: кислород или O">
+            <p class="search-status" id="searchStatus" aria-live="polite"></p>
         </div>
 
         <div class="table-container">
-            <div class="periodic-table" id="periodicTable"></div>
+            <section class="element-key" aria-labelledby="elementKeyTitle">
+                <h2 id="elementKeyTitle">Как да разчиташ клетката на елемента?</h2>
+                <p class="element-key-intro">Пример със злато — означенията сочат към съответните данни:</p>
+                <div class="element-key-content">
+                    <dl class="element-key-side left">
+                        <div class="element-key-field"><dt>Атомен номер</dt><dd>→</dd></div>
+                        <div class="element-key-field"><dt>Електронна конфигурация</dt><dd>→</dd></div>
+                        <div class="element-key-field"><dt>Латинско наименование</dt><dd>→</dd></div>
+                        <div class="element-key-field"><dt>Степени на окисление / валентност</dt><dd>→</dd></div>
+                    </dl>
+                    <div class="sample-element" role="img" aria-label="Злато: атомен номер 79, атомна маса 196.97, електронна конфигурация ксенон 4f 14 5d 10 6s 1, химичен символ Au, латинско име Aurum, българско име Злато, валентности едно и три">
+                        <span class="sample-number">79</span>
+                        <span class="sample-mass">196.97 u</span>
+                        <span class="sample-config">[Xe] 4f¹⁴ 5d¹⁰ 6s¹</span>
+                        <span class="sample-symbol">Au</span>
+                        <span class="sample-latin">Aurum</span>
+                        <span class="sample-name">ЗЛАТО</span>
+                        <span class="sample-valency">Валентности: I, III</span>
+                        <span class="sample-state">Състояние: твърдо</span>
+                    </div>
+                    <dl class="element-key-side right">
+                        <div class="element-key-field"><dd>←</dd><dt>Атомна маса</dt></div>
+                        <div class="element-key-field"><dd>←</dd><dt>Химичен знак</dt></div>
+                        <div class="element-key-field"><dd>←</dd><dt>Наименование</dt></div>
+                    </dl>
+                </div>
+                <p class="element-key-note">Във всяка клетка са показани атомният номер, атомната маса, химичният знак и името. Натисни върху елемент за валентностите и останалите свойства.</p>
+            </section>
+            <div class="periodic-table" id="periodicTable" aria-label="Периодична таблица с 118 елемента"></div>
         </div>
 
         <div class="detail-box">
             <h2 id="selectedName">Избери елемент</h2>
-            <p id="selectedDescription">Натисни на някой елемент в таблицата, за да видиш неговите свойства.</p>
+            <p id="selectedDescription">Натисни на някой елемент в таблицата, за да видиш основните му свойства.</p>
             
             <div class="detail-grid" id="detailsGrid" style="display: none;">
                 <div class="detail-item">
@@ -307,26 +584,31 @@
                     <p id="atomicMass"></p>
                 </div>
                 <div class="detail-item">
+                    <strong>Чести валентности:</strong>
+                    <p id="valency"></p>
+                </div>
+                <div class="detail-item">
                     <strong>Тип:</strong>
                     <p id="type"></p>
                 </div>
-            </div>
-            
-            <div class="fun-fact" id="funFact" style="display: none;">
-                <strong>💡 Забавна информация:</strong>
-                <p id="funFactText"></p>
+                <div class="detail-item">
+                    <strong>Период и група:</strong>
+                    <p id="position"></p>
+                </div>
+                <div class="detail-item">
+                    <strong>Състояние при стайна температура:</strong>
+                    <p id="state"></p>
+                </div>
             </div>
         </div>
 
         <div class="info-section">
             <h3>📚 Какво е периодична таблица?</h3>
-            <p>Периодичната таблица е списък на всички известни химични елементи. Всеки елемент е представен с уникален химичен символ и атомен номер.</p>
-            <p style="margin-top: 15px;"><strong>Атомен номер</strong> - Броят на протоните в ядрото на един атом. Всеки елемент има уникален атомен номер.</p>
-            <p style="margin-top: 15px;"><strong>Химичен символ</strong> - Съкращение за елемента, например H за водород, O за кислород, C за въглерод.</p>
-            <p style="margin-top: 15px;"><strong>Атомна маса</strong> - Средната маса на атома, измерена в единици атомна маса (u).</p>
-            <p style="margin-top: 15px;"><strong>Метали</strong> - Елементи, които са добри проводници на топлина и електричество. Обикновено са блестящи и твърди.</p>
-            <p style="margin-top: 15px;"><strong>Неметали</strong> - Елементи, които не провеждат добре топлина и електричество. Обикновено са тъмни и мехки.</p>
-            <p style="margin-top: 15px;"><strong>Благородни газове</strong> - Елементи, които не се вяжат лесно с други елементи. Обикновено са газове и са безопасни.</p>
+            <p>Елементите са подредени по атомен номер. Хоризонталните редове се наричат периоди, а вертикалните колони — групи.</p>
+            <p style="margin-top: 15px;"><strong>Атомен номер</strong> — броят на протоните в ядрото на атома.</p>
+            <p style="margin-top: 15px;"><strong>Атомна маса</strong> — относителната атомна маса, показана в единици u. При елементите без стабилни изотопи е дадено масовото число на представителен изотоп в скоби.</p>
+            <p style="margin-top: 15px;"><strong>Валентност</strong> — колко химични връзки може да образува атомът. Посочени са чести стойности; някои елементи имат повече от една.</p>
+            <p style="margin-top: 15px;"><strong>Състояние</strong> — посочено е при стайна температура; за някои изкуствено получени елементи то не е потвърдено.</p>
         </div>
     </div>
 
@@ -412,8 +694,7 @@
             return types[type] || type;
         }
         
-        // Initialize
-        createPeriodicTable();
     </script>
+    <script src="periodic-table.js"></script>
 </body>
 </html>

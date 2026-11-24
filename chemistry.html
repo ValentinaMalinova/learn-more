@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>НАУЧИ+ | Химия</title>
+    <title>Научи повече + | Химия</title>
     <style>
         * {
             margin: 0;
@@ -86,6 +86,7 @@
             font-size: 1.1rem;
             line-height: 1.8;
             margin-bottom: 15px;
+            text-align: center;
         }
         
         .simulators-grid {
@@ -145,16 +146,57 @@
             margin-top: 50px;
             border-top: 2px solid #9C27B0;
         }
+
+        .lessons-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 18px;
+            margin: 24px 0 40px;
+        }
+
+        .lesson-card {
+            padding: 20px;
+            background: rgba(156, 39, 176, 0.14);
+            border: 1px solid rgba(206, 147, 216, 0.45);
+            border-left: 4px solid #9C27B0;
+            border-radius: 10px;
+        }
+
+        .lesson-card h3 {
+            margin-bottom: 10px;
+            color: #CE93D8;
+        }
+
+        .lesson-card p {
+            line-height: 1.65;
+        }
+
+        .lesson-card p + p {
+            margin-top: 8px;
+        }
+        a.lesson-card {
+            color: inherit;
+            text-decoration: none;
+            cursor: pointer;
+            transition: transform .22s, border-color .22s, background .22s;
+        }
+        a.lesson-card:hover {
+            transform: translateY(-5px);
+            border-color: #ce93d8;
+            background: rgba(156,39,176,.22);
+        }
     </style>
+    <link rel="stylesheet" href="chemistry-theme.css">
+    <link rel="stylesheet" href="brand-layout.css">
 </head>
 <body>
     <header>
         <div class="header-content">
-            <div class="logo">🔬 НАУЧИ+</div>
+            <div class="logo">🔬 Научи повече +</div>
             <nav class="nav">
                 <a href="index.html">Начало</a>
                 <a href="biology.html">Биология</a>
-                <a href="chemistry.html">Химия</a>
+                <a href="chemistry.html" class="active">Химия</a>
                 <a href="physics.html">Физика</a>
                 <a href="games.html">Игри</a>
                 <a href="quests.html">Мисии</a>
@@ -168,18 +210,18 @@
         
         <div class="intro-section">
             <p>
-                Химиката е наука за веществата и как те се превръщат един в друг. От обикновенната вода до сложните 
-                молекули, которые правят живота възможен, всичко е химия! В тази секция ще изучаваш основните концепции 
-                на химиката чрез интерактивни симулации.
+                Химиката е наука за веществата и как те се превръщат един в друг.<br>
+                От обикновенната вода до сложните молекули, които правят живота възможен, всичко е химия!<br>
+                В тази секция ще изучаваш основните концепции на химията чрез интерактивни симулации.
             </p>
         </div>
 
         <h2 class="section-title">📚 Образователни симулации</h2>
         <div class="simulators-grid">
             <a href="reactions-simulator.html" class="simulator-card">
-                <div class="simulator-icon">⚗️</div>
-                <h3>Химични реакции</h3>
-                <p>Как елементите се комбинират в нови вещества</p>
+                <div class="simulator-icon">⚖️</div>
+                <h3>Относителна атомна и молекулна маса</h3>
+                <p>Разложи формула на атоми и изчисли атомната и молекулната маса на везна</p>
             </a>
             <a href="molecules-simulator.html" class="simulator-card">
                 <div class="simulator-icon">🔬</div>
@@ -191,6 +233,83 @@
                 <h3>Периодична таблица</h3>
                 <p>Елементите и техните свойства</p>
             </a>
+        </div>
+
+        <h2 class="section-title">📚 Уроци по химия</h2>
+        <p style="margin: 0 0 24px; color: #ead5ef; text-align: center;">Основни теми за подготовка по химия.</p>
+        <div class="lessons-grid">
+            <a class="lesson-card" href="chemistry-lesson.html?lesson=signs">
+                <h3>Химични знаци и формули</h3>
+                <p>Научи как се означават химичните елементи, какво показват формулите и индекси и как се разчитат съставни молекули като H₂O и CO₂.</p>
+            </a>
+            <a class="lesson-card" href="chemistry-lesson.html?lesson=formula">
+                <h3>Съставяне на химични формули</h3>
+                <p>Разберете как валентностите на два елемента определят техните индекси и как се записват формули като MgCl₂ и Al₂O₃.</p>
+            </a>
+            <a class="lesson-card" href="chemistry-lesson.html?lesson=valency">
+                <h3>Определяне на валентност</h3>
+                <p>Разгледай способността на атомите да образуват химични връзки и научи как валентността се проявява в различни съединения.</p>
+            </a>
+            <a class="lesson-card" href="chemistry-lesson.html?lesson=names">
+                <h3>Наименования на вещества</h3>
+                <p>Упражни се да свързваш формулите с правилните имена на веществата и да разпознаваш представките за брой атоми.</p>
+            </a>
+            <a class="lesson-card" href="chemistry-lesson.html?lesson=mass">
+                <h3>Относителна атомна и молекулна маса</h3>
+                <p>Прегледай как се намира Ar на елемент и как се събират произведенията на масата по броя атоми за изчисляване на Mr.</p>
+            </a>
+            <a class="lesson-card" href="chemistry-lesson.html?lesson=equations">
+                <h3>Химични уравнения</h3>
+                <p>Разберете как реагентите се превръщат в продукти и как коефициентите изравняват броя на атомите от двете страни.</p>
+            </a>
+        </div>
+
+        <h2 class="section-title">📖 Непознати думи</h2>
+        <div class="lessons-grid glossary-grid">
+            <article class="lesson-card">
+                <h3>Химичен знак</h3>
+                <p>Буквено означение на химичен елемент, например H за водород и Na за натрий.</p>
+            </article>
+            <article class="lesson-card">
+                <h3>Химична формула</h3>
+                <p>Запис със знаци и индекси, който показва кои атоми изграждат веществото и в какво отношение са.</p>
+            </article>
+            <article class="lesson-card">
+                <h3>Индекс</h3>
+                <p>Малкото число долу вдясно след химичния знак. То показва броя на атомите от този елемент във формулата.</p>
+            </article>
+            <article class="lesson-card">
+                <h3>Валентност</h3>
+                <p>Показва с колко други атома може да се свърже атомът на даден елемент в съединение.</p>
+            </article>
+            <article class="lesson-card">
+                <h3>Двуелементно съединение</h3>
+                <p>Химично съединение, изградено от атоми на два различни химични елемента.</p>
+            </article>
+            <article class="lesson-card">
+                <h3>Относителна атомна маса (Ar)</h3>
+                <p>Число, което описва относителната маса на атома и се използва при изчисленията по химия.</p>
+            </article>
+            <article class="lesson-card">
+                <h3>Относителна молекулна маса (Mr)</h3>
+                <p>Получава се като се съберат относителните атомни маси на всички атоми във формулата.</p>
+            </article>
+            <article class="lesson-card">
+                <h3>Реагенти</h3>
+                <p>Изходните вещества, които участват в химичната реакция. В уравнението се записват вляво от стрелката.</p>
+            </article>
+            <article class="lesson-card">
+                <h3>Продукти</h3>
+                <p>Веществата, които се получават при химичната реакция. В уравнението се записват вдясно от стрелката.</p>
+            </article>
+            <article class="lesson-card glossary-center">
+                <h3>Коефициент</h3>
+                <p>Число пред химичната формула, което показва броя на частиците и помага за изравняване на уравнението.</p>
+            </article>
+            <article class="lesson-card glossary-center">
+                <h3>Химично уравнение</h3>
+                <p>Запис на химична реакция чрез формулите на реагентите и продуктите и стрелка между тях.</p>
+            </article>
         </div>
 
         <h2 class="section-title">📖 Теория и информация</h2>
@@ -213,10 +332,6 @@
                     <p>Преобразуване на едни вещества в други. Атомите се преустройват, за да образуват нови молекули и вещества.</p>
                 </div>
                 
-                <div style="background: rgba(156, 39, 176, 0.2); padding: 20px; border-radius: 8px;">
-                    <h4 style="color: #9C27B0; margin-bottom: 10px;">🌡️ Енергия</h4>
-                    <p>В химията енергията се освобождава или абсорбира при реакции. Огънят е енергия от горене.</p>
-                </div>
             </div>
         </div>
 

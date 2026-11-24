@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>НАУЧИ+ | Еволюция - Естествен подбор</title>
+    <title>Научи повече + | Еволюция - Естествен подбор</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
@@ -118,7 +118,7 @@
         button:active { transform: scale(0.95); }
         .stats {
             display: grid;
-            grid-template-columns: repeat(5, minmax(0, 1fr));
+            grid-template-columns: repeat(6, minmax(0, 1fr));
             gap: 10px;
             margin: 20px 0;
         }
@@ -192,11 +192,12 @@
         }
     </style>
     <link rel="stylesheet" href="biology-theme.css">
+    <link rel="stylesheet" href="brand-layout.css">
 </head>
 <body>
     <header>
         <div class="header-content">
-            <div class="logo">🔬 НАУЧИ+</div>
+            <div class="logo">🔬 Научи повече +</div>
             <nav class="nav">
                 <a href="index.html">Начало</a>
                 <a href="biology.html">Биология</a>
@@ -233,6 +234,7 @@
                 <div class="stat-box"><h4 id="mediumCountLabel">Сърни</h4><p id="mediumCount">0</p></div>
                 <div class="stat-box"><h4 id="slowCountLabel">Таралежи</h4><p id="slowCount">0</p></div>
                 <div class="stat-box"><h4>Мутирани животни</h4><p id="mutationCount">0</p></div>
+                <div class="stat-box"><h4 id="predatorCountLabel">Хищници</h4><p id="predatorCount">0</p></div>
             </div>
             <div class="evolution-status" aria-live="polite">
                 <div>
@@ -710,6 +712,7 @@
             document.getElementById('mediumCount').textContent = medium;
             document.getElementById('slowCount').textContent = slow;
             document.getElementById('mutationCount').textContent = mutated;
+            document.getElementById('predatorCount').textContent = predators.length;
         }
 
         function updateSpeciesLegend() {
@@ -721,6 +724,8 @@
             document.getElementById('fastCountLabel').textContent = species.fast.name;
             document.getElementById('mediumCountLabel').textContent = species.medium.name;
             document.getElementById('slowCountLabel').textContent = species.slow.name;
+            document.getElementById('predatorCountLabel').textContent = species.predator.name;
+            updateStats();
         }
 
         function toggleSimulation() {

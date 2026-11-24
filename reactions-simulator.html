@@ -3,189 +3,265 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>НАУЧИ+ | Химични реакции</title>
+    <title>Научи повече + | Относителна маса</title>
+    <link rel="stylesheet" href="chemistry-theme.css">
+    <link rel="stylesheet" href="brand-layout.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #2d1a3d 0%, #3d2d4d 100%);
-            color: #fff;
-            min-height: 100vh;
-            line-height: 1.6;
-        }
-        
+        * { box-sizing:border-box }
         header {
-            background: rgba(0, 0, 0, 0.3);
-            padding: 20px 0;
-            border-bottom: 3px solid #9C27B0;
+            background:rgba(30,13,43,.82);
+            padding:20px 0;
+            border-bottom:3px solid #ba68c8;
+            backdrop-filter:blur(12px);
         }
-        
         .header-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 20px;
+            width:100%;
+            max-width:none;
+            margin:0;
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            padding:0 32px 0 32px;
         }
-        
         .logo {
-            font-size: 2rem;
-            font-weight: bold;
-            color: #9C27B0;
+            font-size:2rem;
+            font-weight:bold;
+            color:#9C27B0;
         }
-        
         .nav {
-            display: flex;
-            gap: 30px;
-            align-items: center;
+            display:flex;
+            gap:30px;
+            align-items:center;
         }
-        
         .nav a {
-            color: #fff;
-            text-decoration: none;
-            padding: 10px 15px;
-            border-radius: 5px;
-            transition: all 0.3s;
-            font-size: 0.95rem;
+            color:#fff;
+            text-decoration:none;
+            padding:10px 15px;
+            border-radius:5px;
+            transition:.3s;
+            font-size:.95rem;
         }
-        
-        .nav a:hover {
-            background: rgba(156, 39, 176, 0.3);
-            color: #9C27B0;
+        .nav a:hover,
+        .nav a.active {
+            background:rgba(156,39,176,.35);
+            color:#ce93d8;
         }
-        
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 40px 20px;
+        body { margin:0; min-height:100vh; background:
+            radial-gradient(circle at 15% 12%,rgba(206,147,216,.16),transparent 28rem),
+            radial-gradient(circle at 88% 30%,rgba(255,224,130,.09),transparent 22rem),
+            linear-gradient(135deg,#2d1a3d,#3d2d4d); color:#fff; font-family:'Segoe UI',Tahoma,sans-serif }
+        main { max-width:1180px; margin:auto; padding:38px 20px 55px }
+        h1 { text-align:center; color:#e1bee7; margin:0 0 8px; font-size:clamp(2rem,5vw,3rem) }
+        .intro { text-align:center; color:#ead5ef; margin-bottom:24px }
+        .lab { position:relative; overflow:hidden; background:linear-gradient(145deg,rgba(255,255,255,.12),rgba(111,66,139,.24)); border:1px solid rgba(225,190,231,.38); border-radius:24px; box-shadow:0 22px 55px rgba(28,8,38,.28),inset 0 1px rgba(255,255,255,.14); padding:22px }
+        .lab::before { content:""; position:absolute; width:220px;height:220px;right:-130px;top:-150px;border:1px solid rgba(255,224,130,.18);border-radius:50%;box-shadow:0 0 40px rgba(225,190,231,.08);pointer-events:none }
+        .hud { display:grid; grid-template-columns:auto 1fr auto; gap:14px; align-items:center; margin-bottom:18px }
+        .score { color:#b45a88; font-weight:800 }
+        .progress { height:9px; border-radius:20px; background:rgba(255,255,255,.12); overflow:hidden }
+        .progress span { display:block; height:100%; width:0; background:linear-gradient(90deg,#b66db7,#e7a0ba); transition:.4s }
+        .challenge { color:#ead5ef }
+        .mass-layout { display:grid; grid-template-columns:260px minmax(360px,1fr) 260px; gap:16px }
+        .formula-panel,.target-panel,.balance-panel { border:1px solid rgba(225,190,231,.28); border-radius:16px; background:rgba(22,10,31,.32); padding:16px }
+        .formula-panel h2,.target-panel h2,.balance-panel h2 { margin:0 0 12px; color:#e1bee7; font-size:1.05rem }
+        .element-card {
+            width:100%;
+            display:grid;
+            grid-template-columns:44px 1fr auto;
+            align-items:center;
+            gap:8px;
+            margin-bottom:8px;
+            border:1px solid rgba(225,190,231,.32);
+            border-radius:12px;
+            background:rgba(255,255,255,.08);
+            color:#fff;
+            padding:8px;
+            cursor:pointer;
+            text-align:left;
         }
-        
-        h1 {
-            font-size: 2.5rem;
-            margin-bottom: 30px;
-            text-align: center;
-            color: #9C27B0;
+        .element-card:hover,.element-card.active { border-color:#ce93d8; background:rgba(156,39,176,.28) }
+        .element-symbol { width:38px;height:38px;display:grid;place-items:center;border-radius:50%;background:#9b4da1;color:#fff;font-weight:900 }
+        .element-mass { color:#ffe082;font-weight:800 }
+        .balance-stage { min-height:380px; display:grid; place-items:center; position:relative; border:1px solid rgba(225,190,231,.26); border-radius:18px; background:radial-gradient(circle at 50% 70%,rgba(225,190,231,.12),transparent 32%),rgba(22,10,31,.35) }
+        .formula-display { text-align:center }
+        .formula-name { color:#ead5ef;margin-bottom:8px;font-weight:700 }
+        .formula-big { color:#ffe082;font-size:clamp(3rem,8vw,5.5rem);font-weight:900;line-height:1;text-shadow:0 8px 28px rgba(255,224,130,.18);letter-spacing:.04em;animation:formulaFloat 3s ease-in-out infinite }
+        @keyframes formulaFloat { 50% { transform:translateY(-5px) } }
+        .formula-answer { margin-top:20px;color:#ead5ef }
+        .formula-answer strong { color:#e1bee7 }
+        .weighing-area { margin-top:14px }
+        .scale-beam { position:relative;height:12px;border-radius:10px;background:linear-gradient(90deg,#ba68c8,#e1bee7,#ba68c8); box-shadow:0 0 18px rgba(225,190,231,.22); transform-origin:center; transition:.65s cubic-bezier(.2,.8,.2,1) }
+        .scale-beam::before { content:"";position:absolute;left:50%;bottom:-24px;width:42px;height:42px;transform:translateX(-50%) rotate(45deg);border:8px solid #d9b3e4;border-top:0;border-left:0 }
+        .scale-pans { display:grid;grid-template-columns:1fr 1fr;gap:34px;margin-top:30px }
+        .scale-pan { min-height:88px;border:3px solid #ba68c8;border-top:0;border-radius:8px 8px 30px 30px;background:rgba(186,104,200,.12);display:grid;place-items:center;color:#e1bee7;font-weight:900;text-align:center;transition:.5s }
+        .target-mass { font-size:2.2rem;color:#ffe082;font-weight:900;text-align:center;margin:8px 0 }
+        .answer-options { display:grid;gap:8px }
+        .answer-button { border:1px solid rgba(225,190,231,.32);border-radius:12px;background:rgba(255,255,255,.08);color:#fff;padding:11px;cursor:pointer;font-weight:800 }
+        .answer-button:hover,.answer-button.selected { border-color:#ce93d8;background:rgba(156,39,176,.28) }
+        .answer-button.selected { box-shadow:0 0 22px rgba(206,147,216,.16); transform:translateY(-2px) }
+        .breakdown { margin-top:14px;min-height:88px;border-radius:12px;background:rgba(255,255,255,.08);border:1px solid rgba(225,190,231,.28);padding:10px;color:#ead5ef;font-size:.9rem }
+        .breakdown-row { display:flex;justify-content:space-between;gap:8px;margin:5px 0 }
+        .example-card {
+            margin:0 0 18px;
+            padding:16px 18px;
+            border:1px solid rgba(255,224,130,.38);
+            border-radius:16px;
+            background:linear-gradient(135deg,rgba(255,224,130,.10),rgba(156,39,176,.12));
         }
-        
-        .simulator-box {
-            background: rgba(156, 39, 176, 0.1);
-            padding: 30px;
-            border-radius: 15px;
-            border: 2px solid #9C27B0;
-            margin-bottom: 30px;
+        .example-card h2 { margin:0 0 8px;color:#ffe082;font-size:1.08rem }
+        .example-grid {
+            display:grid;
+            grid-template-columns:1fr auto;
+            gap:12px;
+            align-items:center;
         }
-        
-        .simulator-controls {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 30px;
-            flex-wrap: wrap;
-            justify-content: center;
+        .example-steps { color:#ead5ef;line-height:1.75 }
+        .example-formula { color:#ffe082;font-size:2.4rem;font-weight:900;text-align:center }
+        .example-card[hidden] { display:none }
+        .solved-examples {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0,1fr));
+            gap: 10px;
+            margin-top: 12px;
         }
-        
-        button {
-            background: #9C27B0;
-            color: white;
-            border: none;
-            padding: 12px 25px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 1rem;
-            font-weight: bold;
-            transition: all 0.3s;
+        .solved-example {
+            min-height: 118px;
+            padding: 12px;
+            border: 1px solid rgba(225,190,231,.30);
+            border-radius: 12px;
+            background: rgba(22,10,31,.28);
+            color:#ead5ef;
         }
-        
-        button:hover {
-            background: #7B1FA2;
-            transform: scale(1.05);
+        .atom-trainer {
+            display:grid;
+            grid-template-columns:220px minmax(300px,1fr) 250px;
+            gap:16px;
         }
-        
-        .reaction-option {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 15px;
-            border-radius: 8px;
-            border: 2px solid #9C27B0;
-            cursor: pointer;
-            transition: all 0.3s;
+        .atom-shelf,.trainer-panel,.trainer-board {
+            border:1px solid rgba(225,190,231,.28);
+            border-radius:16px;
+            background:rgba(22,10,31,.32);
+            padding:16px;
         }
-        
-        .reaction-option:hover {
-            background: rgba(156, 39, 176, 0.3);
-            transform: scale(1.05);
+        .atom-shelf h2,.trainer-panel h2,.trainer-board h2 {
+            margin:0 0 12px;color:#e1bee7;font-size:1.05rem;
         }
-        
-        .reaction-option.active {
-            background: rgba(156, 39, 176, 0.5);
-            border-color: #E91E63;
+        .atom-bag { display:grid;grid-template-columns:repeat(2,1fr);gap:8px }
+        .drag-atom {
+            min-height:72px;border:2px solid rgba(255,255,255,.22);border-radius:50%;
+            background:rgba(156,39,176,.42);color:#fff;font-size:1.25rem;font-weight:900;
+            cursor:pointer;box-shadow:0 8px 18px rgba(28,8,38,.22);
         }
-        
-        canvas {
-            border: 2px solid #9C27B0;
-            border-radius: 10px;
-            background: rgba(0, 0, 0, 0.3);
-            display: block;
-            margin: 20px auto;
-            width: 100%;
-            height: auto;
-            max-width: 600px;
+        .drag-atom:hover { border-color:#ffe082;transform:translateY(-3px) }
+        .formula-drop {
+            min-height:300px;display:flex;align-items:center;justify-content:center;
+            flex-wrap:wrap;gap:10px;padding:20px;border:2px dashed rgba(225,190,231,.38);
+            border-radius:18px;background:rgba(255,255,255,.06);
         }
-        
-        .results {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 20px;
-            border-radius: 10px;
-            margin-top: 30px;
+        .tray-atom {
+            position:relative;width:78px;height:78px;display:grid;place-items:center;
+            border:3px solid rgba(255,255,255,.72);border-radius:50%;
+            background:linear-gradient(145deg,#ce93d8,#7e3ba1);color:#fff;
+            font-size:1.35rem;font-weight:900;box-shadow:0 12px 24px rgba(28,8,38,.28);
+            cursor:pointer;
         }
-        
-        .results h3 {
-            color: #9C27B0;
-            margin-bottom: 15px;
+        .tray-atom small { position:absolute;right:-5px;bottom:-4px;min-width:26px;height:26px;
+            display:grid;place-items:center;border-radius:50%;background:#ffe082;color:#35213e;font-size:.75rem }
+        .trainer-instructions {
+            margin:0 0 10px;
+            color:#ead5ef;
+            font-size:.9rem;
+            line-height:1.55;
         }
-        
-        .result-item {
-            padding: 10px;
-            margin: 10px 0;
-            background: rgba(156, 39, 176, 0.2);
-            border-radius: 5px;
-            border-left: 4px solid #9C27B0;
+        .trainer-controls {
+            display:flex;
+            justify-content:center;
+            gap:8px;
+            flex-wrap:wrap;
+            margin-top:10px;
         }
-        
-        .info-section {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 20px;
-            border-radius: 10px;
-            margin-top: 30px;
-            border-left: 4px solid #9C27B0;
+        .trainer-button {
+            border:1px solid rgba(225,190,231,.42);
+            border-radius:999px;
+            background:rgba(255,255,255,.10);
+            color:#fff;
+            padding:9px 13px;
+            cursor:pointer;
+            font:inherit;
+            font-weight:800;
         }
-        
-        .info-section h3 {
-            color: #9C27B0;
-            margin-bottom: 15px;
+        .trainer-button.danger {
+            border-color:rgba(244,143,177,.50);
+            color:#ffd1dc;
         }
-        
-        .footer {
-            background: rgba(0, 0, 0, 0.5);
-            padding: 20px;
-            text-align: center;
-            margin-top: 50px;
-            border-top: 2px solid #9C27B0;
+        .trainer-button:disabled { opacity:.45; cursor:not-allowed }
+        .target-equation { text-align:center;color:#ffe082;font-size:2rem;font-weight:900;margin:4px 0 12px }
+        .live-expression {
+            min-height:82px;padding:12px;border:1px solid rgba(225,190,231,.28);
+            border-radius:12px;background:rgba(255,255,255,.08);color:#ead5ef;
+            line-height:1.7;font-size:.9rem;
+        }
+        .live-expression strong { color:#ffe082 }
+        .solved-example strong.formula-name {
+            display:block;
+            color:#ffe082;
+            font-size:1.15rem;
+            margin-bottom:5px;
+        }
+        .task-inputs { display:grid;gap:8px;margin-top:10px }
+        .task-row {
+            display:grid;
+            grid-template-columns:46px 54px 16px 54px 16px 1fr;
+            align-items:center;
+            gap:5px;
+            color:#ead5ef;
+            font-size:.82rem;
+        }
+        .mass-input {
+            width:100%;
+            min-height:40px;
+            border:1px solid rgba(225,190,231,.38);
+            border-radius:9px;
+            background:rgba(255,255,255,.09);
+            color:#fff;
+            text-align:center;
+            font:inherit;
+            font-weight:800;
+        }
+        .mass-input:focus { outline:2px solid #ce93d8; }
+        .final-input-row {
+            display:grid;
+            grid-template-columns:1fr 90px;
+            gap:8px;
+            align-items:center;
+            margin-top:12px;
+            color:#ead5ef;
+            font-weight:700;
+        }
+        .actions { display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:16px }
+        .btn { border:0;border-radius:999px;padding:11px 18px;color:#fff;background:#9b4da1;cursor:pointer;font-weight:800 }
+        .btn.secondary { background:#fff;color:#70466f;border:1px solid #dac9df }
+        .feedback { min-height:48px;max-width:720px;margin:14px auto 0;text-align:center;color:#ead5ef }
+        .feedback.success { color:#c8f7d4; border:1px solid rgba(76,175,80,.28); background:rgba(76,175,80,.10); border-radius:12px; padding:12px }
+        .feedback.warning { color:#ffe8a3 }
+        .takeaway { margin-top:18px;padding:14px 16px;border-left:4px solid #80cbc4;border-radius:10px;background:rgba(128,203,196,.10) }
+        .footer { text-align:center;padding:22px;border-top:2px solid #9C27B0;background:rgba(0,0,0,.42);color:#ead5ef }
+        @media(max-width:980px) {
+            .mass-layout { grid-template-columns:1fr }
+            .solved-examples { grid-template-columns:1fr }
+            .atom-trainer { grid-template-columns:1fr }
+            .hud { grid-template-columns:1fr auto }
+            .progress { grid-row:2;grid-column:1/-1 }
         }
     </style>
 </head>
 <body>
     <header>
         <div class="header-content">
-            <div class="logo">🔬 НАУЧИ+</div>
+            <div class="logo">🔬 Научи повече +</div>
             <nav class="nav">
                 <a href="index.html">Начало</a>
                 <a href="biology.html">Биология</a>
-                <a href="chemistry.html">Химия</a>
+                <a href="chemistry.html" class="active">Химия</a>
                 <a href="physics.html">Физика</a>
                 <a href="games.html">Игри</a>
                 <a href="quests.html">Мисии</a>
@@ -193,223 +269,247 @@
             </nav>
         </div>
     </header>
-
-    <div class="container">
-        <h1>⚗️ Химични реакции</h1>
-
-        <div class="simulator-box">
-            <h2 style="margin-bottom: 20px; text-align: center;">Експеримент с химични реакции</h2>
-            
-            <h3 style="color: #9C27B0; margin: 20px 0;">Избери тип реакция:</h3>
-            <div style="display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; margin: 20px 0;">
-                <div class="reaction-option active" onclick="selectReaction('combustion')">
-                    <strong>🔥 Горене</strong><br>
-                    <small>Вещество + кислород</small>
-                </div>
-                <div class="reaction-option" onclick="selectReaction('acid-base')">
-                    <strong>🧪 Киселина-база</strong><br>
-                    <small>Неутрализация</small>
-                </div>
-                <div class="reaction-option" onclick="selectReaction('synthesis')">
-                    <strong>⚛️ Синтез</strong><br>
-                    <small>Две вещества=одно</small>
-                </div>
+    <main>
+        <h1>⚖️ Относителна атомна и молекулна маса</h1>
+        <p class="intro">Разложи формулата на атоми, намери техните маси и претегли цялата молекула.</p>
+        <section class="lab">
+            <div class="hud">
+                <span class="score" id="score">⭐ 0 точки</span>
+                <div class="progress"><span id="progress"></span></div>
+                <span class="challenge" id="challenge">Мисия 1 / 5</span>
             </div>
-
-            <canvas id="canvas" width="600" height="400"></canvas>
-
-            <div class="simulator-controls">
-                <button onclick="startReaction()">▶ Начало</button>
-                <button onclick="resetReaction()">🔄 Рестарт</button>
-                <button onclick="increaseIntensity()">⚡ Усили реакцията</button>
+            <section class="example-card" id="exampleCard" aria-label="Образец за решен пример">
+                <h2>📝 Решени примери — разгледай начина на записване</h2>
+                <div class="example-grid">
+                    <div class="example-steps">
+                        <strong>Основна схема:</strong><br>
+                        Mr(формула) = Ar(елемент)·брой атоми + Ar(елемент)·брой атоми + ...
+                    </div>
+                    <div>
+                        <div class="example-formula">H₂O</div>
+                        <button class="btn" id="startExamplesButton" type="button">Започни упражненията</button>
+                    </div>
+                </div>
+                <div class="solved-examples">
+                    <div class="solved-example">
+                        <strong class="formula-name">H₂O — вода</strong>
+                        Mr(H₂O) = Ar(H)·2 + Ar(O)·1<br>
+                        = 1·2 + 16·1 = 18
+                    </div>
+                    <div class="solved-example">
+                        <strong class="formula-name">CO₂ — въглероден диоксид</strong>
+                        Mr(CO₂) = Ar(C)·1 + Ar(O)·2<br>
+                        = 12·1 + 16·2 = 44
+                    </div>
+                    <div class="solved-example">
+                        <strong class="formula-name">CH₄ — метан</strong>
+                        Mr(CH₄) = Ar(C)·1 + Ar(H)·4<br>
+                        = 12·1 + 1·4 = 16
+                    </div>
+                    <div class="solved-example">
+                        <strong class="formula-name">NH₃ — амоняк</strong>
+                        Mr(NH₃) = Ar(N)·1 + Ar(H)·3<br>
+                        = 14·1 + 1·3 = 17
+                    </div>
+                    <div class="solved-example">
+                        <strong class="formula-name">NaCl — натриев хлорид</strong>
+                        Mr(NaCl) = Ar(Na)·1 + Ar(Cl)·1<br>
+                        = 23·1 + 35.5·1 = 58.5
+                    </div>
+                    <div class="solved-example">
+                        <strong class="formula-name">O₂ — кислород</strong>
+                        Mr(O₂) = Ar(O)·2<br>
+                        = 16·2 = 32
+                    </div>
+                </div>
+            </section>
+            <section class="atom-trainer" aria-label="Помощна симулация за молекулна маса">
+                <aside class="atom-shelf">
+                    <h2>Атомна чанта</h2>
+                    <div class="atom-bag">
+                        <button class="drag-atom" type="button" data-element="H">H</button>
+                        <button class="drag-atom" type="button" data-element="O">O</button>
+                        <button class="drag-atom" type="button" data-element="C">C</button>
+                        <button class="drag-atom" type="button" data-element="N">N</button>
+                        <button class="drag-atom" type="button" data-element="Na">Na</button>
+                        <button class="drag-atom" type="button" data-element="Cl">Cl</button>
+                    </div>
+                </aside>
+                <div class="trainer-board">
+                    <h2 id="trainerTitle">Построй молекула H₂O</h2>
+                    <p class="trainer-instructions" id="trainerInstructions">
+                        Натисни атомите от лявата чанта според формулата. Натисни върху поставен атом или бутона „Изтрий последния“, ако направиш грешка.
+                    </p>
+                    <div class="target-equation" id="targetEquation">Mr(H₂O) = ?</div>
+                    <div class="formula-drop" id="formulaDrop" aria-label="Поле за поставяне на атоми">
+                        Натисни атомите отляво
+                    </div>
+                    <div class="trainer-controls">
+                        <button class="trainer-button danger" id="removeLastAtomButton" type="button" disabled>↶ Изтрий последния атом</button>
+                        <button class="trainer-button" id="clearAtomsButton" type="button" disabled>🧹 Изчисти всички</button>
+                    </div>
+                </div>
+                <aside class="trainer-panel">
+                    <h2>Живо изчисление</h2>
+                    <div class="live-expression" id="liveExpression">Добави атоми, за да събереш молекулната маса.</div>
+                </aside>
+            </section>
+            <div class="actions">
+                <button class="btn" id="checkButton" type="button">✓ Проверка</button>
+                <button class="btn secondary" id="hintButton" type="button">💡 Подсказка</button>
+                <button class="btn secondary" id="resetButton" type="button">↺ Нова мисия</button>
             </div>
-
-            <div class="results">
-                <h3>Информация за реакцията</h3>
-                <div class="result-item">
-                    <strong>Тип реакция:</strong> <span id="reactionType">Горене</span>
-                </div>
-                <div class="result-item">
-                    <strong>Молекули произведени:</strong> <span id="moleculesProduced">0</span>
-                </div>
-                <div class="result-item">
-                    <strong>Енергия освободена:</strong> <span id="energyReleased">0</span> kJ
-                </div>
-            </div>
-        </div>
-
-        <div class="info-section">
-            <h3>📚 Типове химични реакции</h3>
-            <p><strong>Комбинирана реакция (горене):</strong> Дво или повече вещества се комбинират, за да образуват едно ново вещество. Пример: углерод + кислород = въглероден диоксид.</p>
-            <p style="margin-top: 15px;"><strong>Киселина-база реакция (неутрализация):</strong> Киселина и база реагират, за да образуват сол и вода. Пример: HCl + NaOH = NaCl + H₂O</p>
-            <p style="margin-top: 15px;"><strong>Синтезна реакция:</strong> Едно вещество се разлага на две или повече нови вещества. Пример: H₂O = H₂ + O₂</p>
-            <p style="margin-top: 15px;"><strong>Екзотермни реакции:</strong> Реакции, които освобождават топлина и енергия (горене, неутрализация).</p>
-            <p style="margin-top: 15px;"><strong>Ендотермни реакции:</strong> Реакции, които абсорбират топлина и енергия от околната среда.</p>
-        </div>
-    </div>
-
-    <footer class="footer">
-        <p>Любопитството е първата стъпка към откритието.</p>
-        <small style="display: block; margin-top: 15px; border-top: 1px solid rgba(100,113,138,0.3); padding-top: 10px;">
-            Сайтът е създаден за НЕТИТ "Джон Атанасов" София 2026
-        </small>
-        <small style="display: block;">
-            Автори: Йордан Божков и Иван Варников, ПМГ "Константин Величков" Пазарджик
-        </small>
-    </footer>
-
+            <p class="feedback" id="feedback" aria-live="polite">Избери правилната молекулна маса.</p>
+            <p class="takeaway"><strong>Правило:</strong> умножаваш атомната маса по броя атоми в формулата и събираш получените стойности.</p>
+        </section>
+    </main>
+    <footer class="footer">Любопитството е първата стъпка към откритието.</footer>
     <script>
-        const canvas = document.getElementById('canvas');
-        const ctx = canvas.getContext('2d');
-        
-        let currentReaction = 'combustion';
-        let moleculesCount = 0;
-        let energyReleased = 0;
-        let intensity = 1;
-        let isReacting = false;
-        
-        const reactions = {
-            combustion: {
-                name: 'Горене',
-                reactants: 'C + O₂',
-                products: 'CO₂',
-                energy: 393
-            },
-            'acid-base': {
-                name: 'Киселина-база',
-                reactants: 'HCl + NaOH',
-                products: 'NaCl + H₂O',
-                energy: 57
-            },
-            synthesis: {
-                name: 'Синтез',
-                reactants: 'H₂ + Cl₂',
-                products: '2HCl',
-                energy: 184
-            }
-        };
-        
-        function selectReaction(type) {
-            currentReaction = type;
-            document.querySelectorAll('.reaction-option').forEach(opt => opt.classList.remove('active'));
-            event.target.closest('.reaction-option').classList.add('active');
-            
-            document.getElementById('reactionType').textContent = reactions[type].name;
-            resetReaction();
+        const masses={H:1,O:16,C:12,N:14,Na:23,Cl:35.5};
+        const missions=[
+            {name:'Вода',formula:'H₂O',elements:{H:2,O:1}},
+            {name:'Въглероден диоксид',formula:'CO₂',elements:{C:1,O:2}},
+            {name:'Метан',formula:'CH₄',elements:{C:1,H:4}},
+            {name:'Амоняк',formula:'NH₃',elements:{N:1,H:3}},
+            {name:'Натриев хлорид',formula:'NaCl',elements:{Na:1,Cl:1}}
+        ];
+        let missionIndex=0;
+        let addedAtoms=[];
+        let exerciseStarted=false;
+        let points=Number(localStorage.getItem('nauchi-mass-score')||0);
+        const feedback=document.getElementById('feedback');
+
+        function currentMission(){ return missions[missionIndex]; }
+        function calculate(){ 
+            return addedAtoms.reduce((sum,element)=>sum+masses[element],0);
         }
-        
-        function startReaction() {
-            if (!isReacting) {
-                isReacting = true;
-                animateReaction();
-            }
+        function countAtoms(){
+            return addedAtoms.reduce((counts,element)=>{
+                counts[element]=(counts[element]||0)+1;
+                return counts;
+            },{});
         }
-        
-        function animateReaction() {
-            if (!isReacting) return;
-            
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            
-            // Draw background
-            ctx.fillStyle = 'rgba(0, 0, 0, 0.3)';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-            
-            // Reactants (left side)
-            ctx.fillStyle = '#FF6B6B';
-            ctx.font = '20px Arial';
-            ctx.fillText(reactions[currentReaction].reactants, 50, 50);
-            
-            // Draw molecule particles for reactants
-            for (let i = 0; i < 15; i++) {
-                const x = 50 + Math.sin(Date.now() * 0.001 + i) * 60 + i * 5;
-                const y = 150 + Math.cos(Date.now() * 0.0008 + i) * 60;
-                
-                ctx.fillStyle = '#FF6B6B';
-                ctx.beginPath();
-                ctx.arc(x, y, 5, 0, Math.PI * 2);
-                ctx.fill();
-            }
-            
-            // Arrow
-            ctx.strokeStyle = '#FFD700';
-            ctx.lineWidth = 3;
-            ctx.beginPath();
-            ctx.moveTo(200, 100);
-            ctx.lineTo(350, 100);
-            ctx.stroke();
-            
-            ctx.fillStyle = '#FFD700';
-            ctx.beginPath();
-            ctx.moveTo(350, 100);
-            ctx.lineTo(340, 95);
-            ctx.lineTo(340, 105);
-            ctx.closePath();
-            ctx.fill();
-            
-            // Products (right side)
-            ctx.fillStyle = '#4CAF50';
-            ctx.fillText(reactions[currentReaction].products, 400, 50);
-            
-            // Draw molecule particles for products
-            moleculesCount += intensity;
-            for (let i = 0; i < moleculesCount * 0.1; i++) {
-                const x = 400 + Math.sin(Date.now() * 0.0012 + i) * 60 + i * 3;
-                const y = 150 + Math.cos(Date.now() * 0.001 + i) * 60;
-                
-                ctx.fillStyle = '#4CAF50';
-                ctx.beginPath();
-                ctx.arc(x, y, 5, 0, Math.PI * 2);
-                ctx.fill();
-            }
-            
-            // Energy indicator
-            energyReleased = reactions[currentReaction].energy * intensity;
-            ctx.fillStyle = '#FFA500';
-            ctx.font = '16px Arial';
-            ctx.fillText(`Енергия: ${energyReleased.toFixed(0)} kJ`, 100, 350);
-            
-            // Heat animation
-            const heatIntensity = Math.sin(Date.now() * 0.003) * 50 + 50;
-            ctx.fillStyle = `rgba(255, 100, 0, ${heatIntensity / 100})`;
-            ctx.fillRect(0, 300, canvas.width, 100);
-            
-            // Update stats
-            document.getElementById('moleculesProduced').textContent = Math.floor(moleculesCount * 0.1);
-            document.getElementById('energyReleased').textContent = energyReleased.toFixed(0);
-            
-            if (moleculesCount < 500) {
-                requestAnimationFrame(animateReaction);
+        function htmlFormula(formula){
+            return String(formula).replace(/₂/g,'<sub>2</sub>').replace(/₃/g,'<sub>3</sub>').replace(/₄/g,'<sub>4</sub>');
+        }
+        function updateTrainer(){
+            const mission=currentMission();
+            const counts=countAtoms();
+            const tray=document.getElementById('formulaDrop');
+            tray.replaceChildren();
+            Object.entries(counts).forEach(([element,count])=>{
+                const atom=document.createElement('button');
+                atom.type='button';
+                atom.className='tray-atom';
+                atom.innerHTML=element+'<small>'+count+'</small>';
+                atom.title='Изтрий един атом '+element;
+                atom.setAttribute('aria-label','Изтрий един атом '+element);
+                atom.addEventListener('click',function(){
+                    const index=addedAtoms.lastIndexOf(element);
+                    if(index!==-1) {
+                        addedAtoms.splice(index,1);
+                        feedback.className='feedback';
+                        feedback.textContent='Изтрит е един атом '+element+'.';
+                        updateTrainer();
+                    }
+                });
+                tray.appendChild(atom);
+            });
+            if(!addedAtoms.length) tray.textContent='Натисни атомите отляво';
+            const hasAtoms=addedAtoms.length>0;
+            document.getElementById('removeLastAtomButton').disabled=!hasAtoms;
+            document.getElementById('clearAtomsButton').disabled=!hasAtoms;
+            const parts=Object.entries(counts).map(([element,count])=>
+                'Ar('+element+') '+masses[element]+' × '+count+' = '+(masses[element]*count));
+            const expression=document.getElementById('liveExpression');
+            if(!parts.length){
+                expression.textContent='Добави атоми, за да събереш молекулната маса.';
             } else {
-                isReacting = false;
+                expression.innerHTML='<strong>Mr('+mission.formula+') = '+parts.join(' + ')+
+                    '<br>Общо: '+calculate()+'</strong>';
             }
         }
-        
-        function resetReaction() {
-            isReacting = false;
-            moleculesCount = 0;
-            energyReleased = 0;
-            intensity = 1;
-            
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            ctx.fillStyle = 'rgba(0, 0, 0, 0.3)';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-            
-            ctx.fillStyle = '#9C27B0';
-            ctx.font = '18px Arial';
-            ctx.textAlign = 'center';
-            ctx.fillText('Натиснете "Начало" за да начнете реакцията', canvas.width / 2, canvas.height / 2);
-            
-            document.getElementById('moleculesProduced').textContent = '0';
-            document.getElementById('energyReleased').textContent = '0';
+        function loadTrainer(){
+            addedAtoms=[];
+            const mission=currentMission();
+            document.getElementById('trainerTitle').textContent='Построй молекула '+mission.formula;
+            document.getElementById('targetEquation').textContent='Mr('+mission.formula+') = ?';
+            document.getElementById('challenge').textContent=exerciseStarted
+                ? 'Мисия '+(missionIndex+1)+' / '+missions.length
+                : 'Образец';
+            document.getElementById('score').textContent='⭐ '+points+' точки';
+            document.getElementById('progress').style.width=(exerciseStarted?(missionIndex/missions.length*100):0)+'%';
+            feedback.className='feedback';
+            feedback.textContent=exerciseStarted
+                ? 'Добави точно толкова атоми, колкото показва формулата.'
+                : 'Разгледай образците и натисни „Започни упражненията“.';
+            updateTrainer();
         }
-        
-        function increaseIntensity() {
-            intensity += 0.5;
-            alert(`Интензитет на реакцията: ${intensity.toFixed(1)}x`);
-        }
-        
-        // Initialize
-        resetReaction();
+
+        document.querySelectorAll('.drag-atom').forEach(button=>{
+            button.addEventListener('click',function(){
+                if(!exerciseStarted){
+                    feedback.className='feedback warning';
+                    feedback.textContent='Първо натисни „Започни упражненията“.';
+                    return;
+                }
+                addedAtoms.push(button.dataset.element);
+                updateTrainer();
+            });
+        });
+        document.getElementById('checkButton').addEventListener('click',function(){
+            if(!exerciseStarted){
+                feedback.className='feedback warning';
+                feedback.textContent='Първо натисни „Започни упражненията“.';
+                return;
+            }
+            const mission=currentMission();
+            const counts=countAtoms();
+            const correct=Object.entries(mission.elements).every(([element,count])=>counts[element]==count) &&
+                Object.keys(counts).every(element=>mission.elements[element]==counts[element]);
+            if(correct){
+                feedback.className='feedback success';
+                feedback.textContent='Отлично! Mr('+mission.formula+') = '+calculate()+'.';
+                points+=20;
+                localStorage.setItem('nauchi-mass-score',String(points));
+                document.getElementById('score').textContent='⭐ '+points+' точки';
+                document.getElementById('progress').style.width=((missionIndex+1)/missions.length*100)+'%';
+            } else {
+                feedback.className='feedback warning';
+                feedback.textContent='Добавените атоми не съответстват на формулата '+mission.formula+'.';
+            }
+        });
+        document.getElementById('hintButton').addEventListener('click',function(){
+            const mission=currentMission();
+            feedback.textContent='Необходима е формулата '+mission.formula+': '+
+                Object.entries(mission.elements).map(([element,count])=>count+'× '+element).join(' + ');
+        });
+        document.getElementById('removeLastAtomButton').addEventListener('click',function(){
+            if(!addedAtoms.length) return;
+            const removed=addedAtoms.pop();
+            feedback.className='feedback';
+            feedback.textContent='Изтрит е последният атом '+removed+'.';
+            updateTrainer();
+        });
+        document.getElementById('clearAtomsButton').addEventListener('click',function(){
+            if(!addedAtoms.length) return;
+            addedAtoms=[];
+            feedback.className='feedback';
+            feedback.textContent='Всички поставени атоми са изчистени.';
+            updateTrainer();
+        });
+        document.getElementById('startExamplesButton').addEventListener('click',function(){
+            exerciseStarted=true;
+            missionIndex=0;
+            document.getElementById('exampleCard').hidden=true;
+            loadTrainer();
+        });
+        document.getElementById('resetButton').addEventListener('click',function(){
+            if(!exerciseStarted) return;
+            missionIndex=(missionIndex+1)%missions.length;
+            loadTrainer();
+        });
+        loadTrainer();
     </script>
 </body>
 </html>
