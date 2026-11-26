@@ -499,9 +499,15 @@
             scoreDisplay.textContent = `${score}/${questions.length}`;
             
             if (percentage >= 80) {
-                scoreMessage.textContent = `🌟 Отличен резултат! Получи +50 точки!`;
+                const awarded = awardTestPoints('biology', 50);
+                scoreMessage.textContent = awarded
+                    ? `🌟 Отличен резултат! Получи +${awarded} точки!`
+                    : `🌟 Отличен резултат! Вече си получил максимума точки за този тест.`;
             } else if (percentage >= 60) {
-                scoreMessage.textContent = `✨ Добър резултат! Получи +30 точки!`;
+                const awarded = awardTestPoints('biology', 30);
+                scoreMessage.textContent = awarded
+                    ? `✨ Добър резултат! Получи +${awarded} точки!`
+                    : `✨ Добър резултат! Вече си получил точки за този тест.`;
             } else if (percentage >= 40) {
                 scoreMessage.textContent = `📚 Приемлив резултат. Повтори и опитай пак!`;
             } else {

@@ -401,6 +401,8 @@
         let userAnswers = [];
         let questionPool = [];
         let lastQuestionSet = '';
+        let answerStartTimes = [];
+        let fastCorrectAnswers = [];
 
         function selectRandomQuestions() {
             if (questionPool.length < 10) {
@@ -438,6 +440,8 @@
                 };
             });
             userAnswers = new Array(questions.length).fill(null);
+            answerStartTimes = questions.map(() => Date.now());
+            fastCorrectAnswers = new Array(questions.length).fill(false);
         }
         
         function initQuiz() {
@@ -472,6 +476,11 @@
         }
         
         function selectAnswer(questionIndex, optionIndex) {
+            if (userAnswers[questionIndex] === null &&
+                Date.now() - answerStartTimes[questionIndex] <= 10000 &&
+                optionIndex === questions[questionIndex].correct) {
+                fastCorrectAnswers[questionIndex] = true;
+            }
             userAnswers[questionIndex] = optionIndex;
             
             const question = document.getElementById(`question-${questionIndex}`);
@@ -508,6 +517,12 @@
             showResults(score);
         }
         
+        function awardTestPoints(points) {
+            const total = Number(localStorage.getItem('totalPoints') || 0) + points;
+            localStorage.setItem('totalPoints', String(total));
+            return points;
+        }
+
         function showResults(score) {
             document.getElementById('quizContent').style.display = 'none';
             document.getElementById('submitBtn').style.display = 'none';
@@ -520,14 +535,18 @@
             
             scoreDisplay.textContent = `${score}/${questions.length}`;
             
+            const fastCorrectCount = fastCorrectAnswers.filter(Boolean).length;
+            const earnedPoints = (score * 10) + (fastCorrectCount * 5);
+            awardTestPoints(earnedPoints);
+
             if (percentage >= 80) {
-                scoreMessage.textContent = `🌟 Отличен резултат! Получи +50 точки!`;
+                scoreMessage.textContent = `🌟 Отличен резултат! Получи ${earnedPoints} точки (верни отговори + бързи бонуси)!`;
             } else if (percentage >= 60) {
-                scoreMessage.textContent = `✨ Добър резултат! Получи +30 точки!`;
+                scoreMessage.textContent = `✨ Добър резултат! Получи ${earnedPoints} точки (верни отговори + бързи бонуси)!`;
             } else if (percentage >= 40) {
-                scoreMessage.textContent = `📚 Приемлив резултат. Повтори и опитай пак!`;
+                scoreMessage.textContent = `📚 Приемлив резултат. Получи ${earnedPoints} точки (верни отговори + бързи бонуси).`;
             } else {
-                scoreMessage.textContent = `💪 Не се отказвай! Прегледай въпросите и опитай отново.`;
+                scoreMessage.textContent = `💪 Не се отказвай! Получи ${earnedPoints} точки.`;
             }
             
             renderQuestionReview();

@@ -27,17 +27,19 @@
         
         .header-content {
             display: flex;
-            width: min(1200px, calc(100% - 40px));
+            width: 100%;
+            max-width: none;
             justify-content: space-between;
             align-items: center;
             gap: 20px;
             margin: 0 auto;
+            padding: 0 32px;
         }
         
         .logo {
             flex: 0 0 auto;
-            font-size: 1.6rem;
-            font-weight: 800;
+            font-size: 2rem;
+            font-weight: bold;
             color: #00d4ff;
             text-decoration: none;
         }
@@ -47,16 +49,16 @@
             flex-wrap: wrap;
             align-items: center;
             justify-content: flex-end;
-            gap: 8px;
+            gap: 30px;
         }
         
         .nav a {
             color: #fff;
             text-decoration: none;
-            padding: 9px 12px;
-            border-radius: 7px;
+            padding: 10px 15px;
+            border-radius: 5px;
             transition: background 0.2s, color 0.2s;
-            font-size: 0.93rem;
+            font-size: 0.95rem;
         }
         
         .nav a:hover,
@@ -217,6 +219,7 @@
             }
         }
     </style>
+    <link rel="stylesheet" href="brand-layout.css">
 </head>
 <body>
     <header>
@@ -228,7 +231,7 @@
                 <a href="chemistry.html">Химия</a>
                 <a href="physics.html">Физика</a>
                 <a href="games.html">Игри</a>
-                <a href="quests.html" class="active" aria-current="page">Мисии</a>
+                <a href="quests.html" aria-current="page">Мисии</a>
                 <a href="about.html">За нас</a>
             </nav>
         </div>
@@ -269,22 +272,22 @@
         <div class="quest-grid">
             <div class="quest-card">
                 <span class="difficulty easy">Лесна</span>
-                <h3>Мисия 1: Клетката - Строителният блок</h3>
-                <p>Научи за устройството на животинската клетка. Посети биология симулаторите и завърши викторина.</p>
+                <h3>Мисия 1: Монера и Протиста</h3>
+                <p>Преговори таксономичните категории, прокариотните организми и едноклетъчните еукариоти.</p>
                 <button onclick="startQuest('quest1')">Започни мисия →</button>
             </div>
 
             <div class="quest-card">
                 <span class="difficulty medium">Средна</span>
                 <h3>Мисия 2: Генетика и наследственост</h3>
-                <p>Разбери как се наследяват признаци. Използвай генетичния симулатор и докажи знанията си.</p>
+                <p>Използвай генетичната симулация и преговори основните признаци на наследствеността.</p>
                 <button onclick="startQuest('quest2')">Започни мисия →</button>
             </div>
 
             <div class="quest-card">
                 <span class="difficulty hard">Сложна</span>
                 <h3>Мисия 3: Екосистеми и еволюция</h3>
-                <p>Изследвай екосистемите и естественото подбиране. Работи с екосистемния симулатор.</p>
+                <p>Сравни хранителните вериги и наблюдавай естествения подбор в двете симулации.</p>
                 <button onclick="startQuest('quest3')">Започни мисия →</button>
             </div>
         </div>
@@ -294,22 +297,22 @@
         <div class="quest-grid">
             <div class="quest-card">
                 <span class="difficulty easy">Лесна</span>
-                <h3>Мисия 4: Атоми и молекули</h3>
-                <p>Разбери строението на атомите. Визуализирай молекулите чрез симулатора.</p>
+                <h3>Мисия 4: Формули и валентност</h3>
+                <p>Преговори химичните знаци, формули и определянето на валентност.</p>
                 <button onclick="startQuest('quest4')">Започни мисия →</button>
             </div>
 
             <div class="quest-card">
                 <span class="difficulty medium">Средна</span>
                 <h3>Мисия 5: Периодична таблица</h3>
-                <p>Научи за елементите и техните свойства. Използвай интерактивната периодична таблица.</p>
+                <p>Изучавай елементи и техните свойства чрез интерактивната периодична таблица.</p>
                 <button onclick="startQuest('quest5')">Започни мисия →</button>
             </div>
 
             <div class="quest-card">
                 <span class="difficulty hard">Сложна</span>
-                <h3>Мисия 6: Химични реакции</h3>
-                <p>Овладей химичните реакции. Експериментирай с реакционния симулатор.</p>
+                <h3>Мисия 6: Масите и молекулите</h3>
+                <p>Изчислявай относителна атомна и молекулна маса и изграждай молекули.</p>
                 <button onclick="startQuest('quest6')">Започни мисия →</button>
             </div>
         </div>
@@ -319,22 +322,22 @@
         <div class="quest-grid">
             <div class="quest-card">
                 <span class="difficulty easy">Лесна</span>
-                <h3>Мисия 7: Сили и движение</h3>
-                <p>Разбери Нютоновите закони. Използвай симулатора за сили.</p>
+                <h3>Мисия 7: Ток и напрежение</h3>
+                <p>Преговори сила на ток, напрежение и начина за измерването им.</p>
                 <button onclick="startQuest('quest7')">Започни мисия →</button>
             </div>
 
             <div class="quest-card">
                 <span class="difficulty medium">Средна</span>
-                <h3>Мисия 8: Гравитация и орбити</h3>
-                <p>Научи за гравитацията. Симулирай орбити с планетата симулатор.</p>
+                <h3>Мисия 8: Съпротивление и закон на Ом</h3>
+                <p>Използвай теорията и електрическата симулация за връзката I, U и R.</p>
                 <button onclick="startQuest('quest8')">Започни мисия →</button>
             </div>
 
             <div class="quest-card">
                 <span class="difficulty hard">Сложна</span>
-                <h3>Мисия 9: Електричество</h3>
-                <p>Овладей електричеството. Работи с електричните вериги симулатор.</p>
+                <h3>Мисия 9: Електрическа работа и вериги</h3>
+                <p>Преговори мощност, работа, източници и свързване на консуматорите.</p>
                 <button onclick="startQuest('quest9')">Започни мисия →</button>
             </div>
         </div>
@@ -354,13 +357,13 @@
         // Quest data with links to simulators
         const quests = {
             quest1: {
-                title: 'Мисия 1: Клетката - Строителният блок',
+                title: 'Мисия 1: Монера и Протиста',
                 difficulty: 'easy',
                 points: 50,
                 tasks: [
-                    { text: 'Изучи 3 различни клетъчни органела', link: 'biology.html', linkText: 'Към симулатора на клетката' },
-                    { text: 'Визуализирай животинската клетка', link: 'biology.html', linkText: 'Към визуализацията' },
-                    { text: 'Завърши викторина с 8/10 вярни отговори', link: 'biology-test.html', linkText: 'Към викторината' }
+                    { text: 'Преговори таксономичните категории', link: 'biology.html', linkText: 'Към уроците по биология' },
+                    { text: 'Разгледай общите характеристики на Монера и Протиста', link: 'biology.html', linkText: 'Към теорията по биология' },
+                    { text: 'Реши теста по биология', link: 'biology-test.html', linkText: 'Към теста' }
                 ]
             },
             quest2: {
@@ -378,19 +381,19 @@
                 difficulty: 'hard',
                 points: 150,
                 tasks: [
-                    { text: 'Симулирай екосистема 5 минути', link: 'ecosystem-simulator.html', linkText: 'Към симулатора' },
-                    { text: 'Разбери естествения подбор', link: 'evolution-simulator.html', linkText: 'Към симулатора' },
-                    { text: 'Завърши еволюционния тест', link: 'biology-test.html', linkText: 'Към теста' }
+                    { text: 'Наблюдай хранителни вериги в екосистемния симулатор', link: 'ecosystem-simulator.html', linkText: 'Към екосистемите' },
+                    { text: 'Преговори естествения подбор в еволюционната симулация', link: 'evolution-simulator.html', linkText: 'Към еволюцията' },
+                    { text: 'Реши теста по биология', link: 'biology-test.html', linkText: 'Към теста' }
                 ]
             },
             quest4: {
-                title: 'Мисия 4: Атоми и молекули',
+                title: 'Мисия 4: Формули и валентност',
                 difficulty: 'easy',
                 points: 50,
                 tasks: [
-                    { text: 'Научи за атомната структура', link: 'chemistry.html', linkText: 'Към учебното съдържание' },
-                    { text: 'Визуализирай 5 различни молекули', link: 'molecules-simulator.html', linkText: 'Към симулатора' },
-                    { text: 'Завърши викторина с 7/10 вярни', link: 'chemistry-test.html', linkText: 'Към викторината' }
+                    { text: 'Преговори химичните знаци и формули', link: 'chemistry.html', linkText: 'Към уроците по химия' },
+                    { text: 'Преговори валентността и съставянето на формули', link: 'chemistry-lesson.html', linkText: 'Към химичните формули' },
+                    { text: 'Реши теста по химия', link: 'chemistry-test.html', linkText: 'Към теста' }
                 ]
             },
             quest5: {
@@ -404,43 +407,43 @@
                 ]
             },
             quest6: {
-                title: 'Мисия 6: Химични реакции',
+                title: 'Мисия 6: Масите и молекулите',
                 difficulty: 'hard',
                 points: 150,
                 tasks: [
-                    { text: 'Овладей симулатора на химични реакции', link: 'reactions-simulator.html', linkText: 'Към симулатора' },
-                    { text: 'Експериментирай с 8 реакции', link: 'reactions-simulator.html', linkText: 'Към симулатора' },
-                    { text: 'Разбери баланса на реакциите', link: 'chemistry.html', linkText: 'Към учебното съдържание' }
+                    { text: 'Изчислявай относителна атомна маса и молекулна маса', link: 'reactions-simulator.html', linkText: 'Към симулатора за маси' },
+                    { text: 'Изграждай молекули от химични елементи', link: 'molecules-simulator.html', linkText: 'Към молекулите' },
+                    { text: 'Преговори формули и химични уравнения', link: 'chemistry.html', linkText: 'Към уроците по химия' }
                 ]
             },
             quest7: {
-                title: 'Мисия 7: Сили и движение',
+                title: 'Мисия 7: Ток и напрежение',
                 difficulty: 'easy',
                 points: 50,
                 tasks: [
-                    { text: 'Научи Нютоновите закони', link: 'physics.html', linkText: 'Към учебното съдържание' },
-                    { text: 'Използвай симулатора на силите', link: 'forces-simulator.html', linkText: 'Към симулатора' },
-                    { text: 'Завърши физичния тест', link: 'physics-test.html', linkText: 'Към теста' }
+                    { text: 'Преговори сила на ток и единицата ампер', link: 'physics.html', linkText: 'Към уроците по физика' },
+                    { text: 'Изучи как се измерва напрежение', link: 'physics.html', linkText: 'Към теорията за напрежение' },
+                    { text: 'Реши теста по физика', link: 'physics-test.html', linkText: 'Към теста' }
                 ]
             },
             quest8: {
-                title: 'Мисия 8: Гравитация и орбити',
+                title: 'Мисия 8: Съпротивление и закон на Ом',
                 difficulty: 'medium',
                 points: 100,
                 tasks: [
-                    { text: 'Разбери гравитацията', link: 'physics.html', linkText: 'Към учебното съдържание' },
-                    { text: 'Симулирай 3 различни орбити', link: 'gravity-simulator.html', linkText: 'Към симулатора' },
-                    { text: 'Завърши орбиталния тест', link: 'physics-test.html', linkText: 'Към теста' }
+                    { text: 'Преговори съпротивление и единицата ом', link: 'physics.html', linkText: 'Към уроците по физика' },
+                    { text: 'Изследвай връзката I, U и R във веригите', link: 'circuits-simulator.html', linkText: 'Към електрическите вериги' },
+                    { text: 'Реши задачи от теста по физика', link: 'physics-test.html', linkText: 'Към теста' }
                 ]
             },
             quest9: {
-                title: 'Мисия 9: Електричество',
+                title: 'Мисия 9: Електрическа работа и вериги',
                 difficulty: 'hard',
                 points: 150,
                 tasks: [
-                    { text: 'Овладей електричните вериги', link: 'circuits-simulator.html', linkText: 'Към симулатора' },
-                    { text: 'Експериментирай с 5 вериги', link: 'circuits-simulator.html', linkText: 'Към симулатора' },
-                    { text: 'Разбери съпротивлението и тока', link: 'physics.html', linkText: 'Към учебното съдържание' }
+                    { text: 'Преговори електрична работа и мощност', link: 'physics.html', linkText: 'Към уроците по физика' },
+                    { text: 'Разгледай източници и свързване на консуматори', link: 'physics.html', linkText: 'Към теорията по физика' },
+                    { text: 'Изпробвай електрическа верига в симулатора', link: 'circuits-simulator.html', linkText: 'Към електрическите вериги' }
                 ]
             }
         };

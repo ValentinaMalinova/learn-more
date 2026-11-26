@@ -22,17 +22,19 @@
     }
     .header-content {
       display: flex;
-      width: min(1200px, calc(100% - 40px));
+      width: 100%;
+      max-width: none;
       align-items: center;
       justify-content: space-between;
       gap: 20px;
       margin: 0 auto;
+      padding: 0 32px;
     }
     .logo {
       flex: 0 0 auto;
       color: #00d4ff;
-      font-size: 1.6rem;
-      font-weight: 800;
+      font-size: 2rem;
+      font-weight: bold;
       text-decoration: none;
     }
     .nav {
@@ -40,13 +42,13 @@
       flex-wrap: wrap;
       align-items: center;
       justify-content: flex-end;
-      gap: 8px;
+      gap: 30px;
     }
     .nav a {
-      padding: 9px 12px;
-      border-radius: 7px;
+      padding: 10px 15px;
+      border-radius: 5px;
       color: #fff;
-      font-size: 0.93rem;
+      font-size: 0.95rem;
       text-decoration: none;
       transition: background 0.2s, color 0.2s;
     }
@@ -89,6 +91,9 @@
     .intro-section p, .info-box p {
       margin: 0;
       color: #e2e8f0;
+    }
+    .intro-section p + p {
+      margin-top: 14px;
     }
     .section-title {
       margin: 38px 0 22px;
@@ -159,6 +164,7 @@
       .intro-section, .info-box { padding: 21px; }
     }
   </style>
+  <link rel="stylesheet" href="brand-layout.css">
 </head>
 <body>
   <header>
@@ -171,7 +177,7 @@
         <a href="physics.html">Физика</a>
         <a href="games.html">Игри</a>
         <a href="quests.html">Мисии</a>
-        <a href="about.html" class="active" aria-current="page">За нас</a>
+        <a href="about.html" aria-current="page">За нас</a>
       </nav>
     </div>
   </header>
@@ -180,8 +186,12 @@
     <h1>🔬 За проекта „Научи повече +“</h1>
 
     <section class="intro-section" aria-labelledby="intro-title">
-      <h2 id="intro-title">Любопитството събира света</h2>
-      <p>„Научи повече +“ е образователен проект за природните науки. Той събира уроци за 7. клас, интерактивни симулации и тестове по биология, химия и физика.</p>
+      <h2 id="intro-title">За нас</h2>
+      <p>Ние сме Йордан и Иван – двама седмокласници с големи мечти и любопитство към света! Вместо да създаваме обикновени сайтове, решихме да направим нещо наистина интересно и полезно – сайт, посветен на науката!</p>
+      <p>Да, точно така – биология, физика и химия! Нашата идея е да създадем място, където учениците могат да откриват тайните на човешкото тяло, да разбират законите на физиката и да научават интересни неща за веществата и химичните реакции.</p>
+      <p>Искаме да направим сайт, в който биологията, физиката и химията оживяват! Ще има интересни факти, любопитни експерименти, забавни задачи и игри, чрез които ученето ще се превърне в истинско приключение.</p>
+      <p>Сега сме в 7. клас и искаме да покажем, че науката не е просто учебници, формули и сложни уроци. Тя е навсякъде около нас – в природата, в човешкото тяло, в движението, в светлината и дори в най-малките частици на веществата!</p>
+      <p>Нашата мисия е да направим ученето по-интересно, забавно и достъпно за всички, защото вярваме, че всеки може да бъде откривател, стига да има любопитство и желание да научава нови неща! Добре дошли в нашия свят на науката! 🔬🧬⚡</p>
     </section>
 
     <section class="info-box" aria-labelledby="mission-title">
@@ -218,28 +228,7 @@
         </article>
       </div>
     </section>
-
-    <section aria-labelledby="team-title">
-      <h2 class="section-title" id="team-title">👥 Екипът зад проекта</h2>
-      <div class="team">
-        <article class="team-member">
-          <span class="team-icon" aria-hidden="true">👨‍💻</span>
-          <h3>Йордан Божков и Иван Варников</h3>
-          <p>Автори на „Научи повече +“</p>
-        </article>
-        <article class="team-member">
-          <span class="team-icon" aria-hidden="true">🔬</span>
-          <h3>Образователна идея</h3>
-          <p>Да направим природните науки по-лесни за изследване и разбиране.</p>
-        </article>
-        <article class="team-member">
-          <span class="team-icon" aria-hidden="true">💻</span>
-          <h3>Дигитална платформа</h3>
-          <p>Уроците, тестовете и симулациите са достъпни през уебсайта.</p>
-        </article>
-      </div>
-    </section>
-
+    
     <section class="info-box" aria-labelledby="project-title">
       <h2 id="project-title">🎯 За проекта</h2>
       <p>Проектът е създаден като дигитален образователен ресурс по природни науки. Съдържанието и интерактивните занимания са организирани така, че учениците да могат да учат, да наблюдават и да упражняват наученото.</p>
@@ -251,7 +240,6 @@
         <li><strong>HTML5</strong> — структура на страниците</li>
         <li><strong>CSS3</strong> — оформление и адаптивен дизайн</li>
         <li><strong>JavaScript</strong> — интерактивност и симулации</li>
-        <li><strong>Canvas API</strong> — визуализации и графики</li>
       </ul>
     </section>
   </main>
