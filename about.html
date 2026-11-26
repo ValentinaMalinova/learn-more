@@ -1,289 +1,264 @@
 <!DOCTYPE html>
 <html lang="bg">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Научи повече + | За нас</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-            color: #fff;
-            min-height: 100vh;
-            line-height: 1.6;
-        }
-        
-        header {
-            background: rgba(0, 0, 0, 0.3);
-            padding: 20px 0;
-            border-bottom: 3px solid #0f3460;
-        }
-        
-        .header-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 20px;
-        }
-        
-        .logo {
-            font-size: 2rem;
-            font-weight: bold;
-            color: #00d4ff;
-        }
-        
-        .nav {
-            display: flex;
-            gap: 30px;
-            align-items: center;
-        }
-        
-        .nav a {
-            color: #fff;
-            text-decoration: none;
-            padding: 10px 15px;
-            border-radius: 5px;
-            transition: all 0.3s;
-            font-size: 0.95rem;
-        }
-        
-        .nav a:hover {
-            background: rgba(0, 212, 255, 0.2);
-            color: #00d4ff;
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 40px 20px;
-        }
-        
-        h1 {
-            font-size: 3rem;
-            margin-bottom: 30px;
-            text-align: center;
-            color: #00d4ff;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-        }
-        
-        .intro-section {
-            background: rgba(0, 212, 255, 0.1);
-            padding: 30px;
-            border-radius: 10px;
-            margin-bottom: 50px;
-            border-left: 5px solid #00d4ff;
-        }
-        
-        .info-box {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 25px;
-            border-radius: 12px;
-            margin-bottom: 20px;
-            border: 2px solid rgba(0, 212, 255, 0.3);
-        }
-        
-        .info-box h3 {
-            color: #00d4ff;
-            margin-bottom: 15px;
-            font-size: 1.5rem;
-        }
-        
-        .features {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 25px;
-            margin: 40px 0;
-        }
-        
-        .feature-card {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 25px;
-            border-radius: 12px;
-            border-left: 4px solid #00d4ff;
-            transition: all 0.3s;
-        }
-        
-        .feature-card:hover {
-            background: rgba(0, 212, 255, 0.1);
-            transform: translateY(-5px);
-        }
-        
-        .feature-card h4 {
-            color: #00d4ff;
-            margin-bottom: 10px;
-            font-size: 1.3rem;
-        }
-        
-        .team {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 25px;
-            margin: 40px 0;
-        }
-        
-        .team-member {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 20px;
-            border-radius: 12px;
-            text-align: center;
-            border: 2px solid rgba(0, 212, 255, 0.3);
-        }
-        
-        .team-member .name {
-            color: #00d4ff;
-            font-weight: bold;
-            margin-top: 10px;
-        }
-        
-        .footer {
-            background: rgba(0, 0, 0, 0.5);
-            padding: 20px;
-            text-align: center;
-            margin-top: 50px;
-            border-top: 2px solid #0f3460;
-        }
-    </style>
-    <link rel="stylesheet" href="brand-layout.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Научи повече + е образователен проект с уроци, симулации и тестове по природни науки за 7. клас.">
+  <title>Научи повече + | За нас</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      min-height: 100vh;
+      margin: 0;
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+      color: #fff;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.65;
+    }
+    header {
+      padding: 20px 0;
+      border-bottom: 3px solid #0f3460;
+      background: rgba(0, 0, 0, 0.3);
+    }
+    .header-content {
+      display: flex;
+      width: min(1200px, calc(100% - 40px));
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      margin: 0 auto;
+    }
+    .logo {
+      flex: 0 0 auto;
+      color: #00d4ff;
+      font-size: 1.6rem;
+      font-weight: 800;
+      text-decoration: none;
+    }
+    .nav {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 8px;
+    }
+    .nav a {
+      padding: 9px 12px;
+      border-radius: 7px;
+      color: #fff;
+      font-size: 0.93rem;
+      text-decoration: none;
+      transition: background 0.2s, color 0.2s;
+    }
+    .nav a:hover, .nav a.active, .nav a:focus-visible {
+      background: rgba(0, 212, 255, 0.15);
+      color: #00d4ff;
+    }
+    .container {
+      width: min(1120px, calc(100% - 40px));
+      margin: 0 auto;
+      padding: 42px 0 56px;
+    }
+    h1 {
+      margin: 0 0 30px;
+      color: #00d4ff;
+      font-size: clamp(2rem, 5vw, 3rem);
+      line-height: 1.15;
+      text-align: center;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    }
+    .intro-section {
+      margin-bottom: 28px;
+      padding: 28px;
+      border-left: 5px solid #00d4ff;
+      border-radius: 10px;
+      background: rgba(0, 212, 255, 0.1);
+    }
+    .info-box {
+      margin-bottom: 20px;
+      padding: 24px;
+      border: 2px solid rgba(0, 212, 255, 0.3);
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.07);
+    }
+    .intro-section h2, .info-box h2 {
+      margin: 0 0 12px;
+      color: #00d4ff;
+      font-size: 1.45rem;
+    }
+    .intro-section p, .info-box p {
+      margin: 0;
+      color: #e2e8f0;
+    }
+    .section-title {
+      margin: 38px 0 22px;
+      color: #00d4ff;
+      font-size: 1.75rem;
+    }
+    .features, .team {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 22px;
+      margin: 24px 0 40px;
+    }
+    .feature-card, .team-member {
+      padding: 23px;
+      border: 1px solid rgba(0, 212, 255, 0.3);
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.07);
+    }
+    .feature-card {
+      border-left: 4px solid #00d4ff;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .feature-card:hover {
+      transform: translateY(-4px);
+      background: rgba(0, 212, 255, 0.1);
+    }
+    .feature-card h3, .team-member h3 {
+      margin: 0 0 10px;
+      color: #00d4ff;
+      font-size: 1.15rem;
+    }
+    .feature-card p, .team-member p {
+      margin: 0;
+      color: #e2e8f0;
+    }
+    .team-member { text-align: center; }
+    .team-icon { display: block; margin-bottom: 10px; font-size: 2.4rem; }
+    .tech-list {
+      margin: 14px 0 0;
+      padding-left: 22px;
+      color: #e2e8f0;
+      line-height: 2;
+    }
+    .footer {
+      margin-top: 24px;
+      padding: 22px;
+      border-top: 2px solid #0f3460;
+      background: rgba(0, 0, 0, 0.35);
+      color: #cbd5e1;
+      text-align: center;
+    }
+    .footer p { margin: 0; }
+    @media (max-width: 850px) {
+      .header-content {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .nav { justify-content: flex-start; }
+      .features, .team { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 560px) {
+      .container { width: min(100% - 28px, 480px); padding-top: 30px; }
+      .header-content { width: calc(100% - 28px); }
+      .logo { font-size: 1.45rem; }
+      .nav { gap: 4px; }
+      .nav a { padding: 7px 9px; font-size: 0.86rem; }
+      .features, .team { grid-template-columns: 1fr; }
+      .intro-section, .info-box { padding: 21px; }
+    }
+  </style>
 </head>
 <body>
-    <header>
-        <div class="header-content">
-            <div class="logo">ℹ️ Научи повече +</div>
-            <nav class="nav">
-                <a href="index.html">Начало</a>
-                <a href="biology.html">Биология</a>
-                <a href="chemistry.html">Химия</a>
-                <a href="physics.html">Физика</a>
-                <a href="games.html">Игри</a>
-                <a href="quests.html">Мисии</a>
-                <a href="about.html">За нас</a>
-            </nav>
-        </div>
-    </header>
-
-    <div class="container">
-        <h1>🔬 За проекта Научи повече +</h1>
-
-        <div class="intro-section">
-            <h2 style="color: #00d4ff; margin-bottom: 15px;">Любопитството събира света</h2>
-            <p>
-                Научи повече + е образователен проект, създаден за ученици от прогимназиален етап (7-8 клас). 
-                Комбинира природните науки - биология, химия и физика - със заразителен интерес 
-                и интерактивни виртуални лаборатории.
-            </p>
-        </div>
-
-        <div class="info-box">
-            <h3>📌 Мисията на Научи повече +</h3>
-            <p>
-                Нашата цел е да направим науката достъпна, визуална и забавна. Вярваме, че всеки ученик 
-                може да станат учен, когато са дадени правилните инструменти и вдъхновение. 
-                Чрез интерактивни симулации и викторини, ние помагаме на младежите да разберат 
-                сложните концепции на естественозознанието.
-            </p>
-        </div>
-
-        <h2 style="color: #00d4ff; margin: 40px 0 25px 0;">✨ Защо е специална Научи повече +?</h2>
-
-        <div class="features">
-            <div class="feature-card">
-                <h4>🎮 Интерактивни симулации</h4>
-                <p>Всеки концепт е визуализиран чрез работещи симулатори, където можеш да експериментираш.</p>
-            </div>
-
-            <div class="feature-card">
-                <h4>📚 Образователен съдържаж</h4>
-                <p>Всеки материал е специално адаптиран за 7-8 клас, лесен за разбиране.</p>
-            </div>
-
-            <div class="feature-card">
-                <h4>🏆 Система от награди</h4>
-                <p>Собирай точки, отключвай нива и генерирай свои научни сертификати.</p>
-            </div>
-
-            <div class="feature-card">
-                <h4>🌍 Трите предмета</h4>
-                <p>Биология, химия и физика - всички в един място, със своите симулатори.</p>
-            </div>
-
-            <div class="feature-card">
-                <h4>📖 Забавни факти</h4>
-                <p>Всеки раздел съдържа любопитни факти, които развиват интереса към науката.</p>
-            </div>
-
-            <div class="feature-card">
-                <h4>🔄 Непрекъснато развитие</h4>
-                <p>Регулярно добавяме нови симулатори, тестове и образователни съдържания.</p>
-            </div>
-        </div>
-
-        <h2 style="color: #00d4ff; margin: 40px 0 25px 0;">👥 Екипът зад проекта</h2>
-
-        <div class="team">
-            <div class="team-member">
-                <span style="font-size: 2.5rem;">👨‍💻</span>
-                <div class="name">Всички ученици от 7-8 клас</div>
-                <p>НОИТ, 2024</p>
-            </div>
-            <div class="team-member">
-                <span style="font-size: 2.5rem;">🎓</span>
-                <div class="name">Преподаватели</div>
-                <p>Менторство и одобрение</p>
-            </div>
-            <div class="team-member">
-                <span style="font-size: 2.5rem;">🚀</span>
-                <div class="name">Технология</div>
-                <p>Вебтехнологии: HTML5, CSS, JavaScript</p>
-            </div>
-        </div>
-
-        <div class="info-box">
-            <h3>🎯 Как е разработена Научи повече +?</h3>
-            <p>
-                Проектът е разработен от ученици от НОИТ по време на учебния 2024 год. 
-                Всеки симулатор е внимателно планиран, за да преподаде отделен научен концепт. 
-                Дизайнът е одобрен от учители по природни науки, за да гарантира образователната ценност.
-            </p>
-        </div>
-
-        <div class="info-box">
-            <h3>🌟 Технологиите зад Научи повече +</h3>
-            <ul style="margin-left: 20px; margin-top: 15px; line-height: 2;">
-                <li><strong>HTML5</strong> - Структура и семантика</li>
-                <li><strong>CSS3</strong> - Дизайн и анимации</li>
-                <li><strong>JavaScript</strong> - Интерактивност и симулации</li>
-                <li><strong>Canvas API</strong> - Визуализация и графики</li>
-                <li><strong>Responsive Design</strong> - Работи на всички устройства</li>
-            </ul>
-        </div>
-
-        <div class="info-box">
-            <h3>📧 Свързване с нас</h3>
-            <p>
-                Имаш ли въпроси, предложения или забележки? 
-                Отправи ни съобщение или влез в контакт чрез училищната ни мрежа. 
-                Всяко мнение ни помага да подобрим Научи повече +!
-            </p>
-        </div>
+  <header>
+    <div class="header-content">
+      <a class="logo" href="index.html">ℹ️ Научи повече +</a>
+      <nav class="nav" aria-label="Основна навигация">
+        <a href="index.html">Начало</a>
+        <a href="biology.html">Биология</a>
+        <a href="chemistry.html">Химия</a>
+        <a href="physics.html">Физика</a>
+        <a href="games.html">Игри</a>
+        <a href="quests.html">Мисии</a>
+        <a href="about.html" class="active" aria-current="page">За нас</a>
+      </nav>
     </div>
+  </header>
 
-    <footer class="footer">
-        <p>Любопитството е първата стъпка към откритието.</p>
-        <small style="display: block; margin-top: 15px; border-top: 1px solid rgba(100,113,138,0.3); padding-top: 10px;">
-            Сайтът е създаден за НЕТИТ "Джон Атанасов" София 2026
-        </small>
-        <small style="display: block;">
-            Автори: Йордан Божков и Иван Варников, ПМГ "Константин Величков" Пазарджик
-        </small>
-        <p style="margin-top: 10px; opacity: 0.8;">Развит с любов към науката 🔬</p>
-    </footer>
+  <main class="container">
+    <h1>🔬 За проекта „Научи повече +“</h1>
+
+    <section class="intro-section" aria-labelledby="intro-title">
+      <h2 id="intro-title">Любопитството събира света</h2>
+      <p>„Научи повече +“ е образователен проект за природните науки. Той събира уроци за 7. клас, интерактивни симулации и тестове по биология, химия и физика.</p>
+    </section>
+
+    <section class="info-box" aria-labelledby="mission-title">
+      <h2 id="mission-title">📌 Нашата мисия</h2>
+      <p>Искаме науката да бъде достъпна, ясна и интересна. Комбинираме кратки обяснения с възможност за наблюдение и упражнение, за да помагаме на учениците да разберат темите и да свързват наученото с примери.</p>
+    </section>
+
+    <section aria-labelledby="features-title">
+      <h2 class="section-title" id="features-title">✨ Какво предлага проектът?</h2>
+      <div class="features">
+        <article class="feature-card">
+          <h3>🎮 Интерактивни симулации</h3>
+          <p>Променяй условията, наблюдавай резултата и изследвай научните явления.</p>
+        </article>
+        <article class="feature-card">
+          <h3>📚 Материали за 7. клас</h3>
+          <p>Уроците и обясненията са насочени към учебното съдържание за 7. клас.</p>
+        </article>
+        <article class="feature-card">
+          <h3>📝 Тестове за упражнение</h3>
+          <p>Провери знанията си и отбележи темите, които искаш да преговориш.</p>
+        </article>
+        <article class="feature-card">
+          <h3>🌍 Три природни науки</h3>
+          <p>Биология, химия и физика са събрани на едно място.</p>
+        </article>
+        <article class="feature-card">
+          <h3>🔎 Любопитни факти</h3>
+          <p>Кратки допълнения помагат да откриваш връзки между науката и ежедневието.</p>
+        </article>
+        <article class="feature-card">
+          <h3>⏱️ Учи в удобно темпо</h3>
+          <p>Връщай се към уроците и упражненията, когато имаш нужда от преговор.</p>
+        </article>
+      </div>
+    </section>
+
+    <section aria-labelledby="team-title">
+      <h2 class="section-title" id="team-title">👥 Екипът зад проекта</h2>
+      <div class="team">
+        <article class="team-member">
+          <span class="team-icon" aria-hidden="true">👨‍💻</span>
+          <h3>Йордан Божков и Иван Варников</h3>
+          <p>Автори на „Научи повече +“</p>
+        </article>
+        <article class="team-member">
+          <span class="team-icon" aria-hidden="true">🔬</span>
+          <h3>Образователна идея</h3>
+          <p>Да направим природните науки по-лесни за изследване и разбиране.</p>
+        </article>
+        <article class="team-member">
+          <span class="team-icon" aria-hidden="true">💻</span>
+          <h3>Дигитална платформа</h3>
+          <p>Уроците, тестовете и симулациите са достъпни през уебсайта.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="info-box" aria-labelledby="project-title">
+      <h2 id="project-title">🎯 За проекта</h2>
+      <p>Проектът е създаден като дигитален образователен ресурс по природни науки. Съдържанието и интерактивните занимания са организирани така, че учениците да могат да учат, да наблюдават и да упражняват наученото.</p>
+    </section>
+
+    <section class="info-box" aria-labelledby="technology-title">
+      <h2 id="technology-title">🌟 Технологиите зад „Научи повече +“</h2>
+      <ul class="tech-list">
+        <li><strong>HTML5</strong> — структура на страниците</li>
+        <li><strong>CSS3</strong> — оформление и адаптивен дизайн</li>
+        <li><strong>JavaScript</strong> — интерактивност и симулации</li>
+        <li><strong>Canvas API</strong> — визуализации и графики</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>Любопитството е първата стъпка към откритието.</p>
+    <p>Създадено от Йордан Божков и Иван Варников с интерес към науката 🔬</p>
+  </footer>
 </body>
 </html>

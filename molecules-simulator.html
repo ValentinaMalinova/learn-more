@@ -4,193 +4,241 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Научи повече + | Молекули и атоми</title>
+    <link rel="stylesheet" href="chemistry-theme.css">
+    <link rel="stylesheet" href="brand-layout.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
+        * { box-sizing: border-box; }
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #2d1a3d 0%, #3d2d4d 100%);
-            color: #fff;
+            margin: 0;
             min-height: 100vh;
-            line-height: 1.6;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background:
+                radial-gradient(circle at 12% 8%, rgba(206, 147, 216, .18), transparent 27rem),
+                radial-gradient(circle at 88% 24%, rgba(255, 224, 130, .10), transparent 22rem),
+                linear-gradient(135deg, #28163d, #46305a 58%, #342844);
+            color: #fff;
         }
-        
         header {
-            background: rgba(0, 0, 0, 0.3);
+            background: rgba(30, 13, 43, .82);
+            border-bottom: 3px solid #ba68c8;
+            backdrop-filter: blur(12px);
             padding: 20px 0;
-            border-bottom: 3px solid #9C27B0;
         }
-        
         .header-content {
-            max-width: 1200px;
-            margin: 0 auto;
+            width: 100%;
+            max-width: none;
+            margin: 0;
+            padding: 0 32px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0 20px;
         }
-        
-        .logo {
-            font-size: 2rem;
-            font-weight: bold;
-            color: #9C27B0;
-        }
-        
-        .nav {
-            display: flex;
-            gap: 30px;
-            align-items: center;
-        }
-        
+        .logo { color: #9C27B0; font-size: 2rem; font-weight: bold; }
+        .nav { display: flex; gap: 30px; align-items: center; }
         .nav a {
             color: #fff;
             text-decoration: none;
             padding: 10px 15px;
             border-radius: 5px;
-            transition: all 0.3s;
-            font-size: 0.95rem;
+            transition: .3s;
+            font-size: .95rem;
         }
-        
-        .nav a:hover {
-            background: rgba(156, 39, 176, 0.3);
-            color: #9C27B0;
-        }
-        
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 40px 20px;
-        }
-        
-        h1 {
-            font-size: 2.5rem;
-            margin-bottom: 30px;
-            text-align: center;
-            color: #9C27B0;
-        }
-        
-        .simulator-box {
-            background: rgba(156, 39, 176, 0.1);
-            padding: 30px;
-            border-radius: 15px;
-            border: 2px solid #9C27B0;
-            margin-bottom: 30px;
-        }
-        
-        .molecule-grid {
+        .nav a:hover, .nav a.active { background: rgba(156, 39, 176, .35); color: #ce93d8; }
+        main { max-width: 1180px; margin: auto; padding: 38px 20px 55px; }
+        h1 { margin: 0 0 8px; text-align: center; color: #e1bee7; font-size: clamp(2rem, 5vw, 3.2rem); }
+        .subtitle { margin: 0 0 24px; text-align: center; color: #ead5ef; }
+        .lab {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
-            margin: 20px 0;
+            grid-template-columns: 220px minmax(420px, 1fr) 250px;
+            gap: 16px;
+            padding: 20px;
+            border: 1px solid rgba(225, 190, 231, .38);
+            border-radius: 24px;
+            background: linear-gradient(145deg, rgba(255,255,255,.12), rgba(111,66,139,.24));
+            box-shadow: 0 22px 55px rgba(28, 8, 38, .28);
         }
-        
+        .panel {
+            min-width: 0;
+            padding: 16px;
+            border: 1px solid rgba(225, 190, 231, .28);
+            border-radius: 16px;
+            background: rgba(22, 10, 31, .32);
+        }
+        .panel h2 { margin: 0 0 12px; color: #e1bee7; font-size: 1.05rem; }
+        .molecule-list { display: grid; gap: 8px; }
         .molecule-option {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 20px;
-            border-radius: 10px;
-            border: 2px solid #9C27B0;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        
-        .molecule-option:hover {
-            background: rgba(156, 39, 176, 0.3);
-            transform: scale(1.05);
-        }
-        
-        .molecule-option.active {
-            background: rgba(156, 39, 176, 0.5);
-            border-color: #E91E63;
-        }
-        
-        .molecule-option h3 {
-            color: #9C27B0;
-            margin-bottom: 10px;
-            font-size: 1.3rem;
-        }
-        
-        .molecule-option p {
-            font-size: 0.85rem;
-            margin-bottom: 10px;
-        }
-        
-        canvas {
-            border: 2px solid #9C27B0;
-            border-radius: 10px;
-            background: rgba(0, 0, 0, 0.3);
-            display: block;
-            margin: 20px auto;
             width: 100%;
-            height: auto;
-            max-width: 600px;
-        }
-        
-        .controls {
-            display: flex;
-            gap: 15px;
-            margin: 20px 0;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-        
-        button {
-            background: #9C27B0;
-            color: white;
-            border: none;
-            padding: 12px 25px;
-            border-radius: 5px;
+            display: grid;
+            grid-template-columns: 38px 1fr;
+            gap: 9px;
+            align-items: center;
+            min-height: 58px;
+            border: 1px solid rgba(225, 190, 231, .28);
+            border-radius: 12px;
+            background: rgba(255,255,255,.07);
+            color: #fff;
+            text-align: left;
             cursor: pointer;
-            font-size: 1rem;
-            font-weight: bold;
-            transition: all 0.3s;
+            padding: 8px;
         }
-        
-        button:hover {
-            background: #7B1FA2;
-            transform: scale(1.05);
+        .molecule-option:hover, .molecule-option.active {
+            border-color: #ce93d8;
+            background: rgba(156, 39, 176, .38);
+            transform: translateY(-2px);
         }
-        
-        .info-box {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 20px;
+        .molecule-icon {
+            width: 38px;
+            height: 38px;
+            display: grid;
+            place-items: center;
+            border: 2px solid rgba(255,255,255,.55);
+            border-radius: 50%;
+            background: rgba(206, 147, 216, .22);
+            font-size: 1.1rem;
+        }
+        .molecule-option strong { display: block; color: #fff; }
+        .molecule-option small { color: #dfc8e5; }
+        .stage {
+            position: relative;
+            min-height: 430px;
+            display: grid;
+            place-items: center;
+            overflow: hidden;
+            border: 1px solid rgba(225, 190, 231, .26);
+            border-radius: 18px;
+            background:
+                radial-gradient(circle at 50% 50%, rgba(225, 190, 231, .12), transparent 28%),
+                rgba(22, 10, 31, .38);
+        }
+        #moleculeCanvas {
+            width: 100%;
+            height: 430px;
+            max-width: 620px;
+            display: block;
+        }
+        .mode-bar {
+            position: absolute;
+            left: 12px;
+            right: 12px;
+            bottom: 12px;
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            z-index: 2;
+        }
+        .control-button, .atom-button, .check-button, .clear-button {
+            border: 1px solid rgba(225, 190, 231, .42);
+            border-radius: 999px;
+            background: linear-gradient(135deg, #b54bc6, #7b1fa2);
+            color: #fff;
+            padding: 9px 14px;
+            font-weight: 800;
+            cursor: pointer;
+        }
+        .control-button.secondary { background: rgba(255,255,255,.10); }
+        .controls { display: grid; gap: 10px; }
+        .control-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+        input[type="range"] { width: 120px; accent-color: #ce93d8; }
+        .fact {
+            margin-top: 12px;
+            min-height: 76px;
+            padding: 10px;
+            border-left: 4px solid #ba68c8;
             border-radius: 10px;
-            margin-top: 20px;
-            border-left: 4px solid #9C27B0;
+            background: rgba(255,255,255,.08);
+            color: #ead5ef;
+            line-height: 1.5;
+            font-size: .9rem;
         }
-        
-        .info-box h3 {
-            color: #9C27B0;
-            margin-bottom: 10px;
+        .builder {
+            display: none;
+            grid-template-columns: 220px minmax(420px, 1fr) 250px;
+            gap: 16px;
+            margin-top: 16px;
+            padding: 20px;
+            border: 1px solid rgba(255, 224, 130, .32);
+            border-radius: 24px;
+            background: linear-gradient(145deg, rgba(255,255,255,.10), rgba(111,66,139,.20));
         }
-        
+        .builder.visible { display: grid; }
+        .atom-shelf { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
+        .atom-button {
+            min-height: 72px;
+            border-radius: 50%;
+            background: rgba(156,39,176,.42);
+            font-size: 1.3rem;
+            box-shadow: 0 8px 18px rgba(28,8,38,.22);
+        }
+        .atom-button:hover { border-color: #ffe082; transform: translateY(-3px); }
+        .atom-button[data-element="H"] { background: linear-gradient(145deg, #84d4c5, #428a80); }
+        .atom-button[data-element="O"] { background: linear-gradient(145deg, #ff8a80, #c94a48); }
+        .atom-button[data-element="C"] { background: linear-gradient(145deg, #ffc55c, #b97919); }
+        .atom-button[data-element="N"] { background: linear-gradient(145deg, #74a7ff, #3e64af); }
+        .build-stage {
+            min-height: 320px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            padding: 20px;
+            border: 2px dashed rgba(225, 190, 231, .38);
+            border-radius: 18px;
+            background: rgba(255,255,255,.06);
+        }
+        .built-atom {
+            width: 74px;
+            height: 74px;
+            display: grid;
+            place-items: center;
+            border: 3px solid rgba(255,255,255,.72);
+            border-radius: 50%;
+            color: #fff;
+            font-size: 1.35rem;
+            font-weight: 900;
+            cursor: pointer;
+            box-shadow: 0 12px 24px rgba(28,8,38,.28);
+        }
+        .built-atom[data-element="H"] { background: #4caf50; }
+        .built-atom[data-element="O"] { background: #ef5350; }
+        .built-atom[data-element="C"] { background: #ff9800; }
+        .built-atom[data-element="N"] { background: #5c88dc; }
+        .challenge-title { color: #ffe082; text-align: center; font-size: 1.7rem; margin: 4px 0 12px; }
+        .builder-message {
+            min-height: 68px;
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 12px;
+            background: rgba(255,255,255,.08);
+            color: #ead5ef;
+        }
+        .builder-actions { display: grid; gap: 8px; }
+        .check-button { background: linear-gradient(135deg, #66bb6a, #388e3c); }
+        .clear-button { background: rgba(244,67,54,.35); }
         .info-section {
-            background: rgba(255, 255, 255, 0.05);
+            margin-top: 16px;
             padding: 20px;
-            border-radius: 10px;
-            margin-top: 30px;
-            border-left: 4px solid #9C27B0;
+            border: 1px solid rgba(225,190,231,.28);
+            border-radius: 16px;
+            background: rgba(255,255,255,.06);
         }
-        
-        .info-section h3 {
-            color: #9C27B0;
-            margin-bottom: 15px;
+        .info-section h2 { color: #e1bee7; }
+        .footer { text-align: center; margin-top: 40px; padding: 20px; border-top: 2px solid #ba68c8; background: rgba(18,7,25,.68); }
+        @media (max-width: 980px) {
+            .lab, .builder { grid-template-columns: 180px 1fr; }
+            .lab > .panel:last-child, .builder > .panel:last-child { grid-column: 1 / -1; }
         }
-        
-        .footer {
-            background: rgba(0, 0, 0, 0.5);
-            padding: 20px;
-            text-align: center;
-            margin-top: 50px;
-            border-top: 2px solid #9C27B0;
+        @media (max-width: 900px) {
+            .header-content { flex-direction: column; gap: 12px; }
+            .nav { width: 100%; flex-wrap: wrap; justify-content: center; gap: 4px; }
+            .nav a { padding: 8px 10px; }
+        }
+        @media (max-width: 680px) {
+            .lab, .builder { grid-template-columns: 1fr; }
+            .molecule-list { grid-template-columns: repeat(2, 1fr); }
+            .stage, #moleculeCanvas { min-height: 360px; height: 360px; }
         }
     </style>
-    <link rel="stylesheet" href="chemistry-theme.css">
-    <link rel="stylesheet" href="brand-layout.css">
 </head>
 <body>
     <header>
@@ -208,221 +256,295 @@
         </div>
     </header>
 
-    <div class="container">
-        <h1>🔬 Молекули и атоми</h1>
+    <main>
+        <h1>Молекули и атоми</h1>
+        <p class="subtitle">Изследвай строежа на молекулите и сглобявай собствена формула.</p>
 
-        <div class="simulator-box">
-            <h2 style="margin-bottom: 20px; text-align: center;">Експеримент със молекули</h2>
-            <p style="text-align: center; margin-bottom: 20px;">Визуализирай различни молекули и виж как атомите са свързани заедно.</p>
-            
-            <h3 style="color: #9C27B0; margin: 20px 0;">Избери молекула:</h3>
-            <div class="molecule-grid">
-                <div class="molecule-option active" onclick="selectMolecule('water')">
-                    <h3>💧 Вода</h3>
-                    <p>H₂O</p>
-                    <p style="font-size: 0.75rem;">Два водорода + един кислород</p>
-                </div>
-                <div class="molecule-option" onclick="selectMolecule('oxygen')">
-                    <h3>💨 Кислород</h3>
-                    <p>O₂</p>
-                    <p style="font-size: 0.75rem;">Два кислородни атома</p>
-                </div>
-                <div class="molecule-option" onclick="selectMolecule('methane')">
-                    <h3>🔥 Метан</h3>
-                    <p>CH₄</p>
-                    <p style="font-size: 0.75rem;">Един въглерод + четири водорода</p>
-                </div>
-                <div class="molecule-option" onclick="selectMolecule('co2')">
-                    <h3>🌫️ Въглероден диоксид</h3>
-                    <p>CO₂</p>
-                    <p style="font-size: 0.75rem;">Един въглерод + два кислорода</p>
+        <section class="lab">
+            <aside class="panel">
+                <h2>Избери молекула</h2>
+                <div class="molecule-list" id="moleculeList"></div>
+            </aside>
+
+            <div class="stage">
+                <canvas id="moleculeCanvas" width="620" height="430" aria-label="Визуализация на молекула"></canvas>
+                <div class="mode-bar">
+                    <button class="control-button" id="rotateButton" type="button">Завърти</button>
+                    <button class="control-button secondary" id="pauseButton" type="button">Пауза</button>
+                    <button class="control-button" id="builderButton" type="button">Сглобяване</button>
                 </div>
             </div>
 
-            <canvas id="canvas" width="600" height="400"></canvas>
+            <aside class="panel">
+                <h2 id="detailName">Вода</h2>
+                <div class="controls">
+                    <div class="control-row"><strong>Формула</strong><span id="detailFormula">H₂O</span></div>
+                    <div class="control-row"><strong>Размер</strong><input id="sizeControl" type="range" min="70" max="130" value="100"></div>
+                </div>
+                <div class="fact" id="detailInfo"></div>
+            </aside>
+        </section>
 
-            <div class="info-box">
-                <h3 id="moleculeName">Вода (H₂O)</h3>
-                <p id="moleculeDescription">Вода е един от най-важните молекули на Земята. Съдържа два водородни атома (H) свързани към един кислородни атом (O).</p>
-                <p id="moleculeInfo" style="margin-top: 10px; font-size: 0.9rem;"></p>
+        <section class="builder" id="builder">
+            <aside class="panel">
+                <h2>Атоми</h2>
+                <div class="atom-shelf">
+                    <button class="atom-button" type="button" data-element="H">H</button>
+                    <button class="atom-button" type="button" data-element="O">O</button>
+                    <button class="atom-button" type="button" data-element="C">C</button>
+                    <button class="atom-button" type="button" data-element="N">N</button>
+                </div>
+            </aside>
+            <div>
+                <h2 style="text-align:center;color:#e1bee7">Работна зона</h2>
+                <div class="build-stage" id="buildStage"></div>
             </div>
+            <aside class="panel">
+                <h2>Задача</h2>
+                <div class="challenge-title" id="challengeTitle">Сглобете H₂O</div>
+                <div class="builder-message" id="builderMessage">Натискай атомите отляво. Натисни върху атом в зоната, за да го премахнеш.</div>
+                <div class="builder-actions">
+                    <button class="check-button" id="checkButton" type="button">Провери</button>
+                    <button class="clear-button" id="clearButton" type="button">Изчисти</button>
+                    <button class="control-button secondary" id="nextChallenge" type="button">Следваща задача</button>
+                </div>
+            </aside>
+        </section>
 
-            <div class="controls">
-                <button onclick="rotateMolecule()">🔄 Завърти молекулата</button>
-                <button onclick="increaseBonding()">⚡ Усили връзките</button>
-            </div>
-        </div>
+        <section class="info-section">
+            <h2>Какво е химична връзка?</h2>
+            <p>Химичната връзка е сила, която държи атомите в молекулата. При ковалентната връзка атомите споделят електрони. Индексът в формулата показва броя атоми от даден елемент.</p>
+        </section>
 
-        <div class="info-section">
-            <h3>📚 Строение на молекули</h3>
-            <p><strong>Атом</strong> - Най-малкия строителен блок на вещество. Съдържа протони, неутрони и електрони.</p>
-            <p style="margin-top: 15px;"><strong>Молекула</strong> - Два или повече атома, связани един с друг чрез химични връзки.</p>
-            <p style="margin-top: 15px;"><strong>Химична връзка</strong> - Сила, която държи атомите заедно. Има три основни типа: ковалентна, йонна и хидрогенна.</p>
-            <p style="margin-top: 15px;"><strong>Ковалентна връзка</strong> - Атомите споделят електрони. Това е най-често срещаният тип връзка в молекулите.</p>
-            <p style="margin-top: 15px;"><strong>Йонна връзка</strong> - Един атом отнема електрони от друг, образувайки заредени йони.</p>
-            <p style="margin-top: 15px;"><strong>Вътрешна енергия</strong> - Енергията, която държи молекулата заедно. Колкото по-силни връзките, толкова повече енергия е необходима, за да ги разрушиш.</p>
-        </div>
-    </div>
+        <section class="simulator-instructions">
+            <h2 style="padding:14px 18px 0;margin:0;color:#e1bee7;font-size:1.15rem">Как да използвам тази симулация</h2>
+            <ol>
+                <li>Избери молекула от списъка вляво.</li>
+                <li>Използвай „Завърти“, „Пауза“ и плъзгача за размер.</li>
+                <li>Натисни „Сглобяване“ и добави атоми от лявото поле.</li>
+                <li>Премахни грешен атом като натиснеш върху него в работната зона.</li>
+                <li>Натисни „Провери“, за да провериш формулата.</li>
+            </ol>
+        </section>
+    </main>
 
     <footer class="footer">
-        <p>Любопитството е първата стъпка към откритието.</p>
-        <small style="display: block; margin-top: 15px; border-top: 1px solid rgba(100,113,138,0.3); padding-top: 10px;">
-            Сайтът е създаден за НЕТИТ "Джон Атанасов" София 2026
-        </small>
-        <small style="display: block;">
-            Автори: Йордан Божков и Иван Варников, ПМГ "Константин Величков" Пазарджик
-        </small>
+        Любопитството е първата стъпка към откритието.
+        <br><small>Сайтът е създаден за НЕТИТ „Джон Атанасов“ София 2026</small>
     </footer>
 
     <script>
-        const molecules = {
-            water: {
-                name: 'Вода (H₂O)',
-                description: 'Вода е един от най-важните молекули на Земята. Съдържа два водородни атома (H) свързани към един кислородни атом (O).',
-                info: 'Формула: H₂O | Молекулна маса: 18 g/mol | Състояние: Течност (при стайна температура)',
-                atoms: [
-                    {x: 0, y: 0, element: 'O', size: 20, color: '#FF6B6B'},
-                    {x: -50, y: 50, element: 'H', size: 15, color: '#4CAF50'},
-                    {x: 50, y: 50, element: 'H', size: 15, color: '#4CAF50'}
-                ]
+        const molecules = [
+            {
+                id: 'water', name: 'Вода', formula: 'H₂O', symbol: '💧',
+                info: 'Два водородни атома са свързани с един кислороден атом.',
+                atoms: [{ e:'O', x:0, y:-15 }, { e:'H', x:-78, y:58 }, { e:'H', x:78, y:58 }],
+                bonds: [[0,1],[0,2]]
             },
-            oxygen: {
-                name: 'Кислород (O₂)',
-                description: 'Молекула на кислород, който дишаме. Две кислородни атома, свързани един с друг.',
-                info: 'Формула: O₂ | Молекулна маса: 32 g/mol | Състояние: Газ | Необходим за горене',
-                atoms: [
-                    {x: -30, y: 0, element: 'O', size: 20, color: '#FF6B6B'},
-                    {x: 30, y: 0, element: 'O', size: 20, color: '#FF6B6B'}
-                ]
+            {
+                id: 'oxygen', name: 'Кислород', formula: 'O₂', symbol: '💨',
+                info: 'Два кислородни атома образуват двойна ковалентна връзка.',
+                atoms: [{ e:'O', x:-48, y:0 }, { e:'O', x:48, y:0 }], bonds: [[0,1]]
             },
-            methane: {
-                name: 'Метан (CH₄)',
-                description: 'Метан е газ, който се използва за отопление. Съдържа един въглеродни атом, свързан с четири водородни.',
-                info: 'Формула: CH₄ | Молекулна маса: 16 g/mol | Състояние: Газ | Естествен газ',
-                atoms: [
-                    {x: 0, y: 0, element: 'C', size: 20, color: '#FFA500'},
-                    {x: 0, y: -50, element: 'H', size: 15, color: '#4CAF50'},
-                    {x: 50, y: 0, element: 'H', size: 15, color: '#4CAF50'},
-                    {x: 0, y: 50, element: 'H', size: 15, color: '#4CAF50'},
-                    {x: -50, y: 0, element: 'H', size: 15, color: '#4CAF50'}
-                ]
+            {
+                id: 'methane', name: 'Метан', formula: 'CH₄', symbol: '🔥',
+                info: 'Въглеродният атом е свързан с четири водородни атома.',
+                atoms: [{ e:'C', x:0, y:0 }, { e:'H', x:-80,y:-65 }, { e:'H',x:80,y:-65 }, { e:'H',x:-80,y:75 }, { e:'H',x:80,y:75 }],
+                bonds: [[0,1],[0,2],[0,3],[0,4]]
             },
-            co2: {
-                name: 'Въглероден диоксид (CO₂)',
-                description: 'Въглероден диоксид е газ, който отделяме при дишане. Един въглеродни атом, свързан с два кислородни.',
-                info: 'Формула: CO₂ | Молекулна маса: 44 g/mol | Състояние: Газ | Парникови газ',
-                atoms: [
-                    {x: 0, y: 0, element: 'C', size: 20, color: '#FFA500'},
-                    {x: -40, y: 0, element: 'O', size: 20, color: '#FF6B6B'},
-                    {x: 40, y: 0, element: 'O', size: 20, color: '#FF6B6B'}
-                ]
+            {
+                id: 'co2', name: 'Въглероден диоксид', formula: 'CO₂', symbol: '🌫️',
+                info: 'Линеен газ: въглеродът е свързан с два кислородни атома.',
+                atoms: [{ e:'C', x:0,y:0 }, { e:'O',x:-95,y:0 }, { e:'O',x:95,y:0 }],
+                bonds: [[0,1],[0,2]]
+            },
+            {
+                id: 'ammonia', name: 'Амоняк', formula: 'NH₃', symbol: '🧪',
+                info: 'Един азотен атом е свързан с три водородни атома.',
+                atoms: [{ e:'N',x:0,y:-30 }, { e:'H',x:-85,y:55 }, { e:'H',x:85,y:55 }, { e:'H',x:0,y:85 }],
+                bonds: [[0,1],[0,2],[0,3]]
+            },
+            {
+                id: 'nitrogen', name: 'Азот', formula: 'N₂', symbol: '◉',
+                info: 'Двата азотни атома са свързани с силна тройна връзка.',
+                atoms: [{ e:'N',x:-48,y:0 }, { e:'N',x:48,y:0 }], bonds: [[0,1]]
+            },
+            {
+                id: 'hydrogen', name: 'Водород', formula: 'H₂', symbol: '⚪',
+                info: 'Молекулата е съставена от два водородни атома.',
+                atoms: [{ e:'H',x:-42,y:0 }, { e:'H',x:42,y:0 }], bonds: [[0,1]]
+            },
+            {
+                id: 'ozone', name: 'Озон', formula: 'O₃', symbol: '◌',
+                info: 'Озонът е молекула с три кислородни атома в извита форма.',
+                atoms: [{ e:'O',x:0,y:-55 }, { e:'O',x:-75,y:55 }, { e:'O',x:75,y:55 }],
+                bonds: [[0,1],[0,2]]
             }
-        };
-        
-        let currentMolecule = 'water';
-        let rotationAngle = 0;
-        let bondStrength = 1;
-        const canvas = document.getElementById('canvas');
+        ];
+
+        const colors = { H:'#4caf50', O:'#ef5350', C:'#ff9800', N:'#5c88dc' };
+        const canvas = document.getElementById('moleculeCanvas');
         const ctx = canvas.getContext('2d');
-        
-        function selectMolecule(type) {
-            currentMolecule = type;
-            document.querySelectorAll('.molecule-option').forEach(opt => opt.classList.remove('active'));
-            event.target.closest('.molecule-option').classList.add('active');
-            
-            const mol = molecules[type];
-            document.getElementById('moleculeName').textContent = mol.name;
-            document.getElementById('moleculeDescription').textContent = mol.description;
-            document.getElementById('moleculeInfo').textContent = mol.info;
-            
-            drawMolecule();
+        let current = molecules[0];
+        let angle = 0;
+        let scale = 1;
+        let paused = false;
+        let rotationTarget = null;
+
+        function renderList() {
+            const list = document.getElementById('moleculeList');
+            list.innerHTML = molecules.map(m =>
+                `<button type="button" class="molecule-option${m.id === current.id ? ' active' : ''}" data-id="${m.id}">
+                    <span class="molecule-icon">${m.symbol}</span>
+                    <span><strong>${m.name}</strong><small>${m.formula}</small></span>
+                </button>`
+            ).join('');
         }
-        
-        function drawMolecule() {
+
+        function selectMolecule(id) {
+            current = molecules.find(m => m.id === id) || molecules[0];
+            document.getElementById('detailName').textContent = current.name;
+            document.getElementById('detailFormula').textContent = current.formula;
+            document.getElementById('detailInfo').textContent = current.info;
+            renderList();
+        }
+
+        function draw() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            
-            // Background
-            ctx.fillStyle = 'rgba(0, 0, 0, 0.3)';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-            
-            const mol = molecules[currentMolecule];
-            const centerX = canvas.width / 2;
-            const centerY = canvas.height / 2;
-            
-            // Draw bonds
-            ctx.strokeStyle = `rgba(156, 39, 176, ${0.5 * bondStrength})`;
-            ctx.lineWidth = 3 * bondStrength;
-            
-            if (mol.atoms.length > 1) {
-                for (let i = 1; i < mol.atoms.length; i++) {
-                    const atom = mol.atoms[i];
-                    const central = mol.atoms[0];
-                    
-                    const x1 = centerX + central.x;
-                    const y1 = centerY + central.y;
-                    const x2 = centerX + Math.cos(rotationAngle + i * Math.PI / 2) * atom.x + 
-                               Math.sin(rotationAngle + i * Math.PI / 2) * atom.y;
-                    const y2 = centerY - Math.sin(rotationAngle + i * Math.PI / 2) * atom.x + 
-                               Math.cos(rotationAngle + i * Math.PI / 2) * atom.y;
-                    
-                    ctx.beginPath();
-                    ctx.moveTo(x1, y1);
-                    ctx.lineTo(x2, y2);
-                    ctx.stroke();
-                }
-            }
-            
-            // Draw atoms
-            mol.atoms.forEach((atom, index) => {
-                let x, y;
-                if (index === 0) {
-                    x = centerX + atom.x;
-                    y = centerY + atom.y;
-                } else {
-                    x = centerX + Math.cos(rotationAngle + index * Math.PI / 2) * atom.x + 
-                        Math.sin(rotationAngle + index * Math.PI / 2) * atom.y;
-                    y = centerY - Math.sin(rotationAngle + index * Math.PI / 2) * atom.x + 
-                        Math.cos(rotationAngle + index * Math.PI / 2) * atom.y;
-                }
-                
-                ctx.fillStyle = atom.color;
+            const cx = canvas.width / 2;
+            const cy = canvas.height / 2;
+
+            const projected = current.atoms.map(a => {
+                const ca = Math.cos(angle);
+                const sa = Math.sin(angle);
+                return {
+                    x: cx + (a.x * ca - a.y * sa) * scale,
+                    y: cy + (a.x * sa + a.y * ca) * scale,
+                    e: a.e
+                };
+            });
+
+            ctx.lineWidth = 8 * scale;
+            ctx.lineCap = 'round';
+            ctx.strokeStyle = 'rgba(225, 190, 231, .75)';
+            current.bonds.forEach(([a,b]) => {
                 ctx.beginPath();
-                ctx.arc(x, y, atom.size, 0, Math.PI * 2);
+                ctx.moveTo(projected[a].x, projected[a].y);
+                ctx.lineTo(projected[b].x, projected[b].y);
+                ctx.stroke();
+            });
+
+            projected.forEach(a => {
+                const radius = (a.e === 'C' ? 27 : 24) * scale;
+                ctx.shadowColor = colors[a.e];
+                ctx.shadowBlur = 18;
+                ctx.fillStyle = colors[a.e];
+                ctx.beginPath();
+                ctx.arc(a.x, a.y, radius, 0, Math.PI * 2);
                 ctx.fill();
-                
+                ctx.shadowBlur = 0;
+                ctx.strokeStyle = 'rgba(255,255,255,.8)';
+                ctx.lineWidth = 2;
+                ctx.stroke();
                 ctx.fillStyle = '#fff';
-                ctx.font = 'bold 14px Arial';
+                ctx.font = `bold ${18 * scale}px Segoe UI`;
                 ctx.textAlign = 'center';
                 ctx.textBaseline = 'middle';
-                ctx.fillText(atom.element, x, y);
+                ctx.fillText(a.e, a.x, a.y);
             });
-            
-            // Molecule name
-            ctx.fillStyle = '#9C27B0';
-            ctx.font = 'bold 20px Arial';
-            ctx.textAlign = 'center';
-            ctx.fillText(molecules[currentMolecule].name, canvas.width / 2, 30);
+
+            if (rotationTarget !== null) {
+                const difference = rotationTarget - angle;
+                if (Math.abs(difference) < 0.012) {
+                    angle = rotationTarget;
+                    rotationTarget = null;
+                } else {
+                    angle += difference * 0.14;
+                }
+            } else if (!paused) {
+                angle += 0.012;
+            }
+            requestAnimationFrame(draw);
         }
-        
-        function rotateMolecule() {
-            rotationAngle += Math.PI / 4;
-            drawMolecule();
+
+        document.getElementById('moleculeList').addEventListener('click', e => {
+            const option = e.target.closest('.molecule-option');
+            if (option) selectMolecule(option.dataset.id);
+        });
+        document.getElementById('rotateButton').addEventListener('click', () => {
+            rotationTarget = angle + Math.PI / 2;
+        });
+        document.getElementById('pauseButton').addEventListener('click', e => {
+            paused = !paused;
+            e.target.textContent = paused ? 'Продължи' : 'Пауза';
+        });
+        document.getElementById('sizeControl').addEventListener('input', e => { scale = Number(e.target.value) / 100; });
+
+        const challenges = [
+            { name:'H₂O', count:{H:2,O:1} },
+            { name:'O₂', count:{O:2} },
+            { name:'CO₂', count:{C:1,O:2} },
+            { name:'CH₄', count:{C:1,H:4} },
+            { name:'NH₃', count:{N:1,H:3} }
+        ];
+        let challengeIndex = 0;
+        let built = [];
+
+        function updateBuilt() {
+            const stage = document.getElementById('buildStage');
+            stage.innerHTML = built.map((element, index) =>
+                `<button class="built-atom" type="button" data-element="${element}" data-index="${index}" title="Премахни ${element}">${element}</button>`
+            ).join('');
         }
-        
-        function increaseBonding() {
-            bondStrength = Math.min(2, bondStrength + 0.3);
-            drawMolecule();
-            alert(`Мощност на връзката: ${(bondStrength * 100).toFixed(0)}%`);
+
+        function setChallenge() {
+            const challenge = challenges[challengeIndex];
+            document.getElementById('challengeTitle').textContent = `Сглобете ${challenge.name}`;
+            built = [];
+            updateBuilt();
+            document.getElementById('builderMessage').textContent = 'Натискай атомите отляво. Натисни върху атом в зоната, за да го премахнеш.';
         }
-        
-        // Initialize
-        drawMolecule();
-        
-        // Auto-rotate
-        setInterval(() => {
-            rotationAngle += 0.02;
-            drawMolecule();
-        }, 50);
+
+        document.querySelectorAll('.atom-button').forEach(button => {
+            button.addEventListener('click', () => {
+                if (built.length >= 8) return;
+                built.push(button.dataset.element);
+                updateBuilt();
+            });
+        });
+        document.getElementById('buildStage').addEventListener('click', e => {
+            const atom = e.target.closest('.built-atom');
+            if (!atom) return;
+            built.splice(Number(atom.dataset.index), 1);
+            updateBuilt();
+        });
+        document.getElementById('clearButton').addEventListener('click', () => { built = []; updateBuilt(); });
+        document.getElementById('checkButton').addEventListener('click', () => {
+            const target = challenges[challengeIndex].count;
+            const actual = built.reduce((result, element) => {
+                result[element] = (result[element] || 0) + 1;
+                return result;
+            }, {});
+            const keys = new Set([...Object.keys(target), ...Object.keys(actual)]);
+            const correct = [...keys].every(key => (target[key] || 0) === (actual[key] || 0));
+            document.getElementById('builderMessage').textContent = correct
+                ? 'Правилно! Сглобената формула съответства на молекулата.'
+                : 'Не е точно. Провери броя на атомите и опитай отново.';
+        });
+        document.getElementById('nextChallenge').addEventListener('click', () => {
+            challengeIndex = (challengeIndex + 1) % challenges.length;
+            setChallenge();
+        });
+        document.getElementById('builderButton').addEventListener('click', () => {
+            const builder = document.getElementById('builder');
+            builder.classList.toggle('visible');
+            if (builder.classList.contains('visible')) builder.scrollIntoView({ behavior:'smooth', block:'start' });
+        });
+
+        renderList();
+        selectMolecule('water');
+        setChallenge();
+        draw();
     </script>
 </body>
 </html>

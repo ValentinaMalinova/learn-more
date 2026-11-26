@@ -172,27 +172,17 @@ canvas {
 }
 
 .glossary-grid {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 340px));
     justify-content: center;
+    align-items: stretch;
 }
 
 .glossary-grid .lesson-card {
-    flex: 0 1 340px;
-}
-
-.glossary-grid .glossary-center {
-    flex-basis: 370px;
-    padding: 24px;
-    text-align: center;
-}
-
-.glossary-center h3 {
-    font-size: 1.2rem;
-}
-
-.glossary-center p {
-    font-size: 1.05rem;
+    width: 100%;
+    min-height: 150px;
+    padding: 20px;
+    box-sizing: border-box;
 }
 
 .lesson-card {

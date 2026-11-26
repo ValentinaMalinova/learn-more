@@ -37,7 +37,7 @@
         .logo {
             font-size: 2rem;
             font-weight: bold;
-            color: #FFA500;
+            color: #FF6B6B;
         }
         
         .nav {
@@ -123,6 +123,85 @@
             height: auto;
             max-width: 600px;
         }
+
+        .circuit-stage {
+            position: relative;
+            max-width: 600px;
+            margin: 20px auto;
+        }
+
+        .circuit-stage canvas {
+            margin: 0;
+        }
+
+        .key-hitbox {
+            position: absolute;
+            left: 6.5%;
+            top: 32%;
+            width: 86px;
+            height: 92px;
+            border: 0;
+            background: transparent;
+            cursor: pointer;
+            z-index: 5;
+            outline: none;
+            box-shadow: none;
+        }
+
+        .key-hitbox:hover,
+        .key-hitbox:focus,
+        .key-hitbox:focus-visible,
+        .key-hitbox:active {
+            outline: none;
+            border: 0;
+            background: transparent;
+            box-shadow: none;
+        }
+
+        #circuitSvg {
+            display: block;
+            width: 100%;
+            max-width: 600px;
+            height: auto;
+            margin: 20px auto;
+            border: 2px solid rgba(255, 171, 164, 0.55);
+            border-radius: 16px;
+            background:
+                radial-gradient(circle at 50% 45%, rgba(255, 255, 255, 0.08), transparent 48%),
+                rgba(12, 18, 42, 0.68);
+        }
+
+        #circuitSvg .wire {
+            fill: none;
+            stroke: #ffd36a;
+            stroke-width: 5;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        #circuitSvg .component {
+            fill: rgba(255, 255, 255, 0.08);
+            stroke: #ffd36a;
+            stroke-width: 4;
+        }
+
+        #circuitSvg .label {
+            fill: #fff;
+            font: 700 14px 'Segoe UI', sans-serif;
+            text-anchor: middle;
+        }
+
+        #circuitSvg .small-label {
+            fill: #ffd0cc;
+            font: 700 12px 'Segoe UI', sans-serif;
+            text-anchor: middle;
+        }
+
+        #circuitSvg .bulb-glow {
+            fill: #fff2a8;
+            stroke: #ffe66d;
+            filter: drop-shadow(0 0 10px #ffe66d);
+        }
         
         .controls {
             display: grid;
@@ -186,7 +265,143 @@
             margin-top: 50px;
             border-top: 2px solid #FFA500;
         }
+
+        .lab-toolbar {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+            margin: 18px 0;
+            flex-wrap: wrap;
+        }
+
+        .lab-button {
+            border: 1px solid rgba(255, 171, 164, 0.55);
+            border-radius: 999px;
+            padding: 12px 22px;
+            background: linear-gradient(135deg, #ff7b72, #d75b63);
+            color: #fff;
+            font-weight: 800;
+            cursor: pointer;
+            box-shadow: 0 10px 24px rgba(10, 10, 35, 0.24);
+        }
+
+        .lab-button.secondary {
+            background: rgba(255, 255, 255, 0.10);
+        }
+
+        .lab-status {
+            min-width: 180px;
+            text-align: center;
+            padding: 10px 16px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.09);
+            border: 1px solid rgba(255, 171, 164, 0.28);
+            color: #ffd0cc;
+            font-weight: 700;
+        }
+
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 12px;
+        }
+
+        .challenge-box {
+            margin-top: 24px;
+            padding: 20px;
+            border-radius: 14px;
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.12), rgba(255, 107, 107, 0.12));
+            border: 1px solid rgba(255, 171, 164, 0.32);
+        }
+
+        .challenge-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .challenge-feedback {
+            min-height: 24px;
+            margin-top: 10px;
+            color: #ffd0cc;
+            font-weight: 700;
+        }
+
+        .formula-strip {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 12px;
+            margin: 18px 0 24px;
+        }
+
+        .formula-strip span {
+            display: block;
+            min-height: 72px;
+            padding: 14px 12px;
+            text-align: center;
+            border: 1px solid rgba(255, 171, 164, 0.32);
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .formula-strip strong {
+            display: block;
+            color: #ffd0cc;
+            font-size: 1.15rem;
+            margin-bottom: 4px;
+        }
+
+        .circuit-option.disabled {
+            opacity: 0.45;
+            cursor: not-allowed;
+        }
+
+        @media (max-width: 700px) {
+            .instrument-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .circuit-grid,
+            .controls,
+            .results-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .instrument-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin: 18px 0;
+        }
+
+        .instrument-option {
+            padding: 14px 12px;
+            border: 1px solid rgba(255, 171, 164, 0.38);
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.08);
+            color: #fff;
+            text-align: center;
+            cursor: pointer;
+            transition: 0.25s;
+        }
+
+        .instrument-option strong {
+            display: block;
+            color: #ffd0cc;
+            margin-bottom: 4px;
+        }
+
+        .instrument-option.active {
+            background: rgba(255, 107, 107, 0.28);
+            border-color: #ffd0cc;
+            transform: translateY(-3px);
+        }
     </style>
+    <link rel="stylesheet" href="physics-simulator-theme.css">
     <link rel="stylesheet" href="brand-layout.css">
 </head>
 <body>
@@ -207,10 +422,9 @@
 
     <div class="container">
         <h1>⚙️ Електрически вериги</h1>
-
         <div class="simulator-box">
-            <h2 style="margin-bottom: 20px; text-align: center;">Експеримент с вериги</h2>
-            <p style="text-align: center; margin-bottom: 20px;">Научи как работят електрическите вериги и как тока, напрежението и съпротивлението се влияят взаимно.</p>
+            <h2 style="margin-bottom: 20px; text-align: center;">Експеримент с вериги — 7. клас</h2>
+            <p style="text-align: center; margin-bottom: 20px;">Изследвай електричните вериги и връзката между напрежението, силата на тока и съпротивлението.</p>
             
             <h3 style="color: #FFA500; margin: 20px 0;">Избери вида верига:</h3>
             <div class="circuit-grid">
@@ -224,47 +438,100 @@
                 </div>
             </div>
 
-            <canvas id="canvas" width="600" height="400"></canvas>
+            <h3 style="color: #FFD0CC; margin: 20px 0 10px;">Избери измервателен уред:</h3>
+            <div class="instrument-grid" role="group" aria-label="Измервателни уреди">
+                <button type="button" class="instrument-option active" onclick="selectInstrument('circuit')">
+                    <strong>Основна схема</strong>
+                    Източник и консуматор
+                </button>
+                <button type="button" class="instrument-option" onclick="selectInstrument('ammeter')">
+                    <strong>Амперметър</strong>
+                    Включва се последователно
+                </button>
+                <button type="button" class="instrument-option" onclick="selectInstrument('voltmeter')">
+                    <strong>Волтметър</strong>
+                    Включва се успоредно
+                </button>
+            </div>
+
+            <div class="circuit-stage">
+                <canvas id="canvas" width="600" height="400" tabindex="0" role="button" aria-label="Електрическа схема с ключ. Натисни Enter или Space за включване."></canvas>
+                <button type="button" class="key-hitbox" aria-label="Превключи ключа" onclick="toggleSwitch()"></button>
+            </div>
+
+            <div class="lab-toolbar">
+                <button class="lab-button" id="switchButton" type="button" onclick="toggleSwitch()">Включи веригата</button>
+                <div class="lab-status" id="labStatus">Веригата е изключена</div>
+                <button class="lab-button secondary" type="button" onclick="resetLab()">Нулирай</button>
+            </div>
+
 
             <div class="controls">
                 <div class="control-group">
-                    <label for="voltage">Напрежение (V):</label>
+                    <label for="voltage">Напрежение (U, V):</label>
                     <input type="range" id="voltage" min="1" max="12" value="6" oninput="updateCircuit()">
                     <p id="voltageValue">6 V</p>
                 </div>
                 
                 <div class="control-group">
-                    <label for="resistance">Съпротивление (Ω):</label>
-                    <input type="range" id="resistance" min="10" max="100" value="30" oninput="updateCircuit()">
-                    <p id="resistanceValue">30 Ω</p>
+                    <label for="resistance" id="resistanceLabel">Съпротивление (Ω):</label>
+                    <input type="range" id="resistance" min="12" max="100" value="12" oninput="updateCircuit()">
+                    <p id="resistanceValue">12 Ω</p>
                 </div>
             </div>
 
-            <div class="results">
-                <h3>Резултати (Формула: I = V / R)</h3>
-                <div class="result-item">
-                    <strong>Ток (I):</strong> <span id="current">0.2</span> A
+            <div class="formula-strip" aria-label="Основни формули">
+                <span><strong>I = U / R</strong> Сила на ток</span>
+                <span><strong>P = U × I</strong> Мощност</span>
+                <span><strong>U = I × R</strong> Напрежение</span>
+            </div>
+
+            <div class="results" aria-live="polite">
+                <h3>Измерени и изчислени стойности</h3>
+                <div class="results-grid">
+                    <div class="result-item">Сила на тока: <strong><span id="current">0</span> A</strong></div>
+                    <div class="result-item">Мощност: <strong><span id="power">0</span> W</strong></div>
+                    <div class="result-item">Яркост на лампата: <strong><span id="brightness">0</span>%</strong></div>
+                    <div class="result-item">Измерено напрежение: <strong><span id="voltageReading">0</span> V</strong></div>
                 </div>
-                <div class="result-item">
-                    <strong>Мощност (P):</strong> <span id="power">1.2</span> W
+            </div>
+
+            <div class="challenge-box">
+                <h3 style="color:#ffd0cc;margin-bottom:12px;">Мини-предизвикателство</h3>
+                <div class="challenge-row">
+                    <p id="challengeQuestion">При напрежение 6 V и съпротивление 12 Ω, какъв е токът?</p>
+                    <input id="challengeAnswer" type="number" step="0.01" min="0" aria-label="Отговор в ампери" style="width:110px;padding:10px;border-radius:8px;border:1px solid #ff9a94;background:rgba(0,0,0,.25);color:white;">
+                    <button class="lab-button" type="button" onclick="checkChallenge()">Провери</button>
                 </div>
-                <div class="result-item">
-                    <strong>Светлинен интензитет:</strong> <span id="brightness">20%</span>
-                </div>
+                <div class="challenge-feedback" id="challengeFeedback"></div>
             </div>
         </div>
 
         <div class="info-section">
-            <h3>📚 Основни понятия за електричество</h3>
-            <p><strong>Напрежение (V - Волти)</strong> - Електрическата "тежест", която кара електроните да се движат. Като налягане на вода в тръба.</p>
-            <p style="margin-top: 15px;"><strong>Ток (I - Ампери)</strong> - Скорост на потока на електрони. Колко много електрони преминават през точка всяка секунда.</p>
-            <p style="margin-top: 15px;"><strong>Съпротивление (R - Оми)</strong> - Опозиция на потока на ток. Което повече съпротивление, толкова по-малко ток.</p>
-            <p style="margin-top: 15px;"><strong>Закон на Ом:</strong> V = I × R или I = V / R. Напрежението е равно на ток, умножен по съпротивление.</p>
-            <p style="margin-top: 15px;"><strong>Мощност (P - Вати)</strong> - Количество енергия, което се използва. P = V × I</p>
-            <p style="margin-top: 15px;"><strong>Последователна верига</strong> - Всички компоненти са свързани един след друг. Има един път за тока.</p>
-            <p style="margin-top: 15px;"><strong>Успоредна верига</strong> - Компонентите са в отделни клонове. Токът може да следва различни пътища.</p>
+            <h3>📚 Основни понятия по физика — 7. клас</h3>
+            <p><strong>Напрежение (U, волт V)</strong> — характеризира електричното действие между два края на консуматор.</p>
+            <p style="margin-top: 15px;"><strong>Сила на тока (I, ампер A)</strong> — показва какъв електричен заряд преминава през проводник за определено време.</p>
+            <p style="margin-top: 15px;"><strong>Съпротивление (R, ом Ω)</strong> — показва колко силно проводникът възпрепятства протичането на ток. При едно и също напрежение по-голямото съпротивление означава по-малка сила на тока.</p>
+            <p style="margin-top: 15px;"><strong>Закон на Ом</strong> — при постоянно съпротивление силата на тока е равна на напрежението, разделено на съпротивлението: I = U / R.</p>
+            <p style="margin-top: 15px;"><strong>Мощност (P, ват W)</strong> — характеризира извършената работа за единица време. За електрически консуматор P = U × I.</p>
+            <p style="margin-top: 15px;"><strong>Амперметър</strong> — измерва силата на тока и се включва последователно във веригата.</p>
+            <p style="margin-top: 15px;"><strong>Волтметър</strong> — измерва напрежението и се включва успоредно на консуматора.</p>
+            <p style="margin-top: 15px;"><strong>Последователна верига</strong> — има един път за тока; силата на тока е еднаква във всички нейни части.</p>
+            <p style="margin-top: 15px;"><strong>Успоредна верига</strong> — има разклонения; напрежението е еднакво във всеки клон.</p>
         </div>
     </div>
+
+    <section class="simulator-instructions">
+        <h2 style="padding:14px 18px 0;margin:0;color:#e1bee7;font-size:1.15rem">Как да използвам тази симулация</h2>
+        <ol>
+            <li>Избери последователна или успоредна верига.</li>
+            <li>Избери основна схема, амперметър или волтметър.</li>
+            <li>Промени напрежението и съпротивлението с плъзгачите.</li>
+            <li>Включи или изключи ключа на веригата.</li>
+            <li>Наблюдавай силата на тока и яркостта на лампите.</li>
+            <li>Сравни двата вида вериги при същите стойности.</li>
+        </ol>
+    </section>
 
     <footer class="footer">
         <p>Любопитството е първата стъпка към откритието.</p>
@@ -278,176 +545,451 @@
 
     <script>
         let circuitType = 'series';
-        
+        let switchOn = false;
+        let instrumentType = 'circuit';
+        let lastValues = { voltage: 6, resistance: 12, current: 0 };
+        let particleOffset = 0;
+
         function selectCircuit(type) {
+            if (instrumentType === 'ammeter' && type === 'parallel') {
+                const parallelOption = document.querySelector('.circuit-option:last-child');
+                if (parallelOption) {
+                    parallelOption.setAttribute('aria-disabled', 'true');
+                    parallelOption.classList.add('disabled');
+                }
+                document.getElementById('challengeFeedback').textContent =
+                    'Амперметърът се включва само последователно. Избери последователна верига.';
+                return;
+            }
+            if (instrumentType === 'voltmeter' && type === 'series') {
+                const seriesOption = document.querySelector('.circuit-option:first-child');
+                if (seriesOption) {
+                    seriesOption.setAttribute('aria-disabled', 'true');
+                    seriesOption.classList.add('disabled');
+                }
+                document.getElementById('challengeFeedback').textContent =
+                    'Волтметърът се включва успоредно. Избери успоредна верига.';
+                return;
+            }
             circuitType = type;
             document.querySelectorAll('.circuit-option').forEach(opt => opt.classList.remove('active'));
-            event.target.closest('.circuit-option').classList.add('active');
+            document.querySelector(type === 'series' ? '.circuit-option:first-child' : '.circuit-option:last-child').classList.add('active');
+            document.getElementById('resistanceLabel').textContent =
+                type === 'series' ? 'Съпротивление (Ω):' : 'Съпротивление на клон (Ω):';
             updateCircuit();
         }
-        
+
+        function selectInstrument(type) {
+            instrumentType = type;
+            const parallelOption = document.querySelector('.circuit-option:last-child');
+            const seriesOption = document.querySelector('.circuit-option:first-child');
+            if (parallelOption) {
+                if (type === 'ammeter') {
+                    circuitType = 'series';
+                    document.querySelectorAll('.circuit-option').forEach(opt => opt.classList.remove('active'));
+                    seriesOption.classList.add('active');
+                    parallelOption.classList.add('disabled');
+                    parallelOption.setAttribute('aria-disabled', 'true');
+                    seriesOption.classList.remove('disabled');
+                    seriesOption.removeAttribute('aria-disabled');
+                } else if (type === 'voltmeter') {
+                    circuitType = 'parallel';
+                    document.querySelectorAll('.circuit-option').forEach(opt => opt.classList.remove('active'));
+                    parallelOption.classList.add('active');
+                    seriesOption.classList.add('disabled');
+                    seriesOption.setAttribute('aria-disabled', 'true');
+                    parallelOption.classList.remove('disabled');
+                    parallelOption.removeAttribute('aria-disabled');
+                } else {
+                    parallelOption.classList.remove('disabled');
+                    parallelOption.removeAttribute('aria-disabled');
+                    seriesOption.classList.remove('disabled');
+                    seriesOption.removeAttribute('aria-disabled');
+                }
+            }
+            document.querySelectorAll('.instrument-option').forEach(opt => opt.classList.remove('active'));
+            const buttons = document.querySelectorAll('.instrument-option');
+            const index = type === 'circuit' ? 0 : type === 'ammeter' ? 1 : 2;
+            buttons[index].classList.add('active');
+            updateCircuit();
+        }
+
+        function toggleSwitch() {
+            switchOn = !switchOn;
+            document.getElementById('switchButton').textContent = switchOn ? 'Изключи веригата' : 'Включи веригата';
+            document.getElementById('labStatus').textContent = switchOn ? 'Веригата е включена' : 'Веригата е изключена';
+            updateCircuit();
+        }
+
+        function toggleCircuitFromCanvas(event) {
+            const canvas = document.getElementById('canvas');
+            const rect = canvas.getBoundingClientRect();
+            const px = (event.clientX - rect.left) * (canvas.width / rect.width);
+            const py = (event.clientY - rect.top) * (canvas.height / rect.height);
+            if (px >= 52 && px <= 118 && py >= 118 && py <= 248) {
+                toggleSwitch();
+            }
+        }
+
+        function resetLab() {
+            switchOn = false;
+            circuitType = 'series';
+            instrumentType = 'circuit';
+            document.getElementById('voltage').value = 6;
+            document.getElementById('resistance').value = 12;
+            document.getElementById('challengeAnswer').value = '';
+            document.getElementById('challengeFeedback').textContent = '';
+            document.querySelectorAll('.circuit-option').forEach((opt, index) => opt.classList.toggle('active', index === 0));
+            document.querySelectorAll('.circuit-option').forEach(opt => {
+                opt.classList.remove('disabled');
+                opt.removeAttribute('aria-disabled');
+            });
+            document.querySelectorAll('.instrument-option').forEach((opt, index) => opt.classList.toggle('active', index === 0));
+            document.getElementById('switchButton').textContent = 'Включи веригата';
+            document.getElementById('labStatus').textContent = 'Веригата е изключена';
+            updateCircuit();
+        }
+
+        function checkChallenge() {
+            const answer = parseFloat(document.getElementById('challengeAnswer').value);
+            const correct = lastValues.voltage / (circuitType === 'parallel' ? lastValues.resistance / 2 : lastValues.resistance);
+            const feedback = document.getElementById('challengeFeedback');
+            if (Number.isFinite(answer) && Math.abs(answer - correct) < 0.02) {
+                feedback.textContent = 'Браво! Ти изчисли правилно тока.';
+            } else {
+                feedback.textContent =                 `Опитай пак. Използвай I = U / R. Полученото число е около ${correct.toFixed(2)} A.`;
+            }
+        }
+
         function updateCircuit() {
             const voltage = parseFloat(document.getElementById('voltage').value);
             const resistance = parseFloat(document.getElementById('resistance').value);
-            const current = voltage / resistance;
+            const effectiveResistance = circuitType === 'parallel' ? resistance / 2 : resistance;
+            const current = switchOn ? voltage / effectiveResistance : 0;
             const power = voltage * current;
-            const brightness = Math.min(100, (current * 50));
-            
+            const brightness = switchOn ? Math.min(100, current * 50) : 0;
+
+            lastValues = { voltage, resistance, current };
             document.getElementById('voltageValue').textContent = voltage + ' V';
             document.getElementById('resistanceValue').textContent = resistance + ' Ω';
-            document.getElementById('current').textContent = current.toFixed(3);
-            document.getElementById('power').textContent = power.toFixed(2);
-            document.getElementById('brightness').textContent = brightness.toFixed(0) + '%';
-            
+            const currentOutput = document.getElementById('current');
+            const powerOutput = document.getElementById('power');
+            const brightnessOutput = document.getElementById('brightness');
+            const voltageReadingOutput = document.getElementById('voltageReading');
+            if (currentOutput) currentOutput.textContent = current.toFixed(3);
+            if (powerOutput) powerOutput.textContent = power.toFixed(2);
+            if (brightnessOutput) brightnessOutput.textContent = brightness.toFixed(0);
+            const readingVoltage = switchOn
+                ? (circuitType === 'series' ? current * resistance : voltage)
+                : 0;
+            if (voltageReadingOutput) voltageReadingOutput.textContent = readingVoltage.toFixed(2);
+            document.getElementById('challengeQuestion').textContent =
+                `При напрежение ${voltage} V и съпротивление ${resistance} Ω, какъв е токът в ${circuitType === 'series' ? 'последователна' : 'успоредна'} верига?`;
             drawCircuit(voltage, resistance, current);
         }
-        
+
         function drawCircuit(voltage, resistance, current) {
             const canvas = document.getElementById('canvas');
+            if (!canvas) return;
             const ctx = canvas.getContext('2d');
+            if (!ctx) return;
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            
+            ctx.strokeStyle = switchOn ? '#FFD36A' : '#8B7892';
+            ctx.lineWidth = 5;
+            ctx.lineJoin = 'round';
+            ctx.lineCap = 'round';
+
             if (circuitType === 'series') {
                 drawSeriesCircuit(ctx, voltage, resistance, current);
             } else {
                 drawParallelCircuit(ctx, voltage, resistance, current);
             }
         }
-        
+
+        function drawBattery(ctx, voltage) {
+            ctx.strokeStyle = '#FFD36A';
+            ctx.lineWidth = 4;
+            ctx.beginPath();
+            ctx.moveTo(520, 155);
+            ctx.lineTo(520, 185);
+            ctx.moveTo(520, 215);
+            ctx.lineTo(520, 245);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(502, 185); ctx.lineTo(538, 185);
+            ctx.moveTo(508, 198); ctx.lineTo(534, 198);
+            ctx.moveTo(502, 215); ctx.lineTo(538, 215);
+            ctx.stroke();
+            ctx.fillStyle = '#FFD0CC';
+            ctx.font = '700 18px Segoe UI';
+            ctx.textAlign = 'center';
+            ctx.fillText('+', 520, 178);
+            ctx.fillText('−', 520, 232);
+            ctx.font = '700 16px Segoe UI';
+            ctx.fillText(`${voltage} V`, 520, 145);
+            ctx.font = '700 13px Segoe UI';
+            ctx.fillText('Източник', 520, 278);
+            ctx.textAlign = 'left';
+        }
+
+        function drawBulb(ctx, x, y, brightness) {
+            const glow = brightness / 100;
+            ctx.save();
+            ctx.shadowColor = '#FFE66D';
+            ctx.shadowBlur = switchOn ? 8 + glow * 22 : 0;
+            ctx.fillStyle = switchOn ? `rgba(255, 235, 105, ${0.30 + glow * 0.70})` : 'rgba(180, 180, 180, 0.28)';
+            ctx.beginPath();
+            ctx.arc(x, y, 25, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.strokeStyle = switchOn ? '#FFF0A6' : '#AFAFAF';
+            ctx.lineWidth = 3;
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(x - 10, y - 8);
+            ctx.lineTo(x - 4, y + 8);
+            ctx.lineTo(x + 4, y - 8);
+            ctx.lineTo(x + 10, y + 8);
+            ctx.stroke();
+            ctx.restore();
+            ctx.fillStyle = '#FFD0CC';
+            ctx.font = '700 15px Segoe UI';
+            ctx.textAlign = 'center';
+            ctx.fillText('Лампa', x, y + 43);
+            ctx.textAlign = 'left';
+        }
+
+        function drawResistor(ctx, x, y, resistance) {
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.12)';
+            ctx.strokeStyle = '#FF9A94';
+            ctx.lineWidth = 4;
+            ctx.beginPath();
+            ctx.moveTo(x - 45, y);
+            ctx.lineTo(x - 36, y);
+            ctx.lineTo(x - 28, y - 13);
+            ctx.lineTo(x - 12, y + 13);
+            ctx.lineTo(x + 4, y - 13);
+            ctx.lineTo(x + 20, y + 13);
+            ctx.lineTo(x + 36, y);
+            ctx.lineTo(x + 45, y);
+            ctx.stroke();
+            ctx.fillStyle = '#FFD0CC';
+            ctx.font = '700 15px Segoe UI';
+            ctx.textAlign = 'center';
+            ctx.fillText(`Резистор`, x, y - 30);
+            ctx.fillText(`${resistance} Ω`, x, y + 38);
+            ctx.textAlign = 'left';
+        }
+
+        function drawSwitch(ctx, x, y) {
+            ctx.strokeStyle = switchOn ? '#69E8A6' : '#FF9A94';
+            ctx.lineWidth = 5;
+            ctx.beginPath();
+            ctx.moveTo(x - 35, y);
+            ctx.lineTo(switchOn ? x + 35 : x + 22, switchOn ? y : y - 28);
+            ctx.stroke();
+            ctx.fillStyle = switchOn ? '#69E8A6' : '#FF9A94';
+            ctx.beginPath();
+            ctx.arc(x - 35, y, 6, 0, Math.PI * 2);
+            ctx.arc(switchOn ? x + 35 : x + 22, switchOn ? y : y - 28, 6, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.fillStyle = '#FFD0CC';
+            ctx.font = '700 14px Segoe UI';
+            ctx.fillText('Ключ', x - 20, y + 30);
+        }
+
+        function drawLeftSwitch(ctx, x, y) {
+            ctx.strokeStyle = switchOn ? '#69E8A6' : '#FF9A94';
+            ctx.lineWidth = 5;
+            ctx.beginPath();
+            ctx.moveTo(x, y - 50);
+            ctx.lineTo(x, y - 34);
+            ctx.moveTo(x, y + 34);
+            ctx.lineTo(x, y + 50);
+            if (switchOn) {
+                ctx.moveTo(x, y - 34);
+                ctx.lineTo(x, y + 34);
+            } else {
+                ctx.moveTo(x, y - 34);
+                ctx.lineTo(x + 22, y - 46);
+            }
+            ctx.stroke();
+            ctx.fillStyle = switchOn ? '#69E8A6' : '#FF9A94';
+            ctx.beginPath();
+            ctx.arc(x, y - 34, 6, 0, Math.PI * 2);
+            ctx.arc(switchOn ? x : x + 22, switchOn ? y + 34 : y - 46, 6, 0, Math.PI * 2);
+            ctx.fill();
+        }
+
+        function drawMeter(ctx, x, y, type, reading) {
+            ctx.save();
+            ctx.fillStyle = 'rgba(255,255,255,0.12)';
+            ctx.strokeStyle = type === 'ammeter' ? '#69D7FF' : '#FFB347';
+            ctx.lineWidth = 4;
+            ctx.beginPath();
+            ctx.arc(x, y, 32, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.stroke();
+            ctx.fillStyle = '#FFFFFF';
+            ctx.font = '700 14px Segoe UI';
+            ctx.textAlign = 'center';
+            ctx.fillText(type === 'ammeter' ? 'A' : 'V', x, y - 5);
+            ctx.font = '700 12px Segoe UI';
+            ctx.fillText(reading, x, y + 17);
+            ctx.textAlign = 'left';
+            ctx.restore();
+        }
+
+        function drawLabelChip(ctx, text, x, y, width) {
+            ctx.save();
+            ctx.fillStyle = 'rgba(24, 27, 56, 0.96)';
+            ctx.strokeStyle = 'rgba(255, 171, 164, 0.38)';
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.roundRect(x - width / 2, y - 13, width, 26, 8);
+            ctx.fill();
+            ctx.stroke();
+            ctx.fillStyle = '#FFD0CC';
+            ctx.font = '700 14px Segoe UI';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(text, x, y);
+            ctx.restore();
+        }
+
+        function drawElectronPath(ctx, points, speed) {
+            if (!switchOn) return;
+            ctx.fillStyle = '#69D7FF';
+            ctx.shadowColor = '#69D7FF';
+            ctx.shadowBlur = 10;
+            for (let i = 0; i < 8; i++) {
+                const t = ((particleOffset * speed + i / 8) % 1);
+                const segment = Math.floor(t * (points.length - 1));
+                const local = t * (points.length - 1) - segment;
+                const a = points[segment];
+                const b = points[Math.min(segment + 1, points.length - 1)];
+                const x = a.x + (b.x - a.x) * local;
+                const y = a.y + (b.y - a.y) * local;
+                ctx.beginPath();
+                ctx.arc(x, y, 4, 0, Math.PI * 2);
+                ctx.fill();
+            }
+            ctx.shadowBlur = 0;
+        }
+
         function drawSeriesCircuit(ctx, voltage, resistance, current) {
-            ctx.strokeStyle = '#FFA500';
-            ctx.lineWidth = 3;
-            ctx.fillStyle = 'rgba(255, 165, 0, 0.1)';
-            
-            // Battery
-            ctx.fillRect(50, 150, 40, 100);
-            ctx.strokeRect(50, 150, 40, 100);
-            ctx.fillText('Батерия', 25, 300);
-            
-            // Wires
+            drawBattery(ctx, voltage);
             ctx.beginPath();
-            ctx.moveTo(90, 150);
-            ctx.lineTo(150, 150);
-            ctx.lineTo(150, 50);
-            ctx.lineTo(300, 50);
-            ctx.lineTo(300, 150);
-            ctx.lineTo(360, 150);
+            ctx.moveTo(520,155);
+            ctx.lineTo(520,75);
+            ctx.lineTo(80,75);
+            ctx.lineTo(80,132);
+            ctx.moveTo(80,248);
+            ctx.lineTo(80,325);
+            ctx.lineTo(520,325);
+            ctx.lineTo(520,245);
             ctx.stroke();
-            
-            ctx.beginPath();
-            ctx.moveTo(90, 250);
-            ctx.lineTo(150, 250);
-            ctx.lineTo(150, 350);
-            ctx.lineTo(300, 350);
-            ctx.lineTo(300, 250);
-            ctx.lineTo(360, 250);
-            ctx.stroke();
-            
-            // Resistor
-            ctx.fillStyle = '#FFA500';
-            ctx.fillRect(270, 130, 60, 40);
-            ctx.fillStyle = '#fff';
-            ctx.fillText(`${resistance}Ω`, 275, 160);
-            
-            // LED (Light)
-            const brightness = Math.min(100, (current * 50));
-            ctx.fillStyle = `rgba(255, 255, 0, ${brightness / 100})`;
-            ctx.beginPath();
-            ctx.arc(150, 50, 15, 0, Math.PI * 2);
-            ctx.fill();
-            
-            ctx.strokeStyle = '#FFD700';
-            ctx.lineWidth = 2;
-            ctx.beginPath();
-            ctx.arc(150, 50, 15, 0, Math.PI * 2);
-            ctx.stroke();
-            
-            // Current indicator
-            ctx.fillStyle = '#4CAF50';
-            ctx.font = '14px Arial';
-            ctx.fillText(`Ток: ${current.toFixed(3)} A`, 100, 320);
-            ctx.fillText(`Напрежение: ${voltage} V`, 300, 320);
+
+            drawLeftSwitch(ctx, 80, 190);
+            drawBulb(ctx, 260, 75, switchOn ? Math.min(100, current * 50) : 0);
+            drawResistor(ctx, 300, 325, resistance);
+
+            if (instrumentType === 'ammeter') {
+                drawMeter(ctx, 455, 75, 'ammeter', switchOn ? current.toFixed(2) + ' A' : '0 A');
+            }
+            if (instrumentType === 'voltmeter') {
+                ctx.strokeStyle = '#FFB347';
+                ctx.setLineDash([7, 6]);
+                ctx.beginPath();
+                ctx.moveTo(255,325);
+                ctx.lineTo(255,260);
+                ctx.lineTo(355,260);
+                ctx.lineTo(355,325);
+                ctx.stroke();
+                ctx.setLineDash([]);
+                drawMeter(ctx, 355, 260, 'voltmeter', switchOn ? (current * resistance).toFixed(2) + ' V' : '0 V');
+            }
+
+            drawElectronPath(ctx, [
+                {x:520,y:155},{x:520,y:75},{x:145,y:75},{x:260,y:75},{x:80,y:75},
+                {x:80,y:325},{x:300,y:325},{x:520,y:325},{x:520,y:245}
+            ], 0.35 + current * 0.25);
+
+            drawLabelChip(ctx, 'Лампа', 260, 118, 88);
+            drawLabelChip(ctx, 'Ключ', 80, 245, 76);
+            drawLabelChip(ctx, `Резистор ${resistance} Ω`, 300, 363, 150);
+            drawLabelChip(ctx, `${voltage} V`, 520, 145, 70);
+            drawLabelChip(ctx, 'Източник', 520, 278, 96);
         }
-        
+
         function drawParallelCircuit(ctx, voltage, resistance, current) {
-            ctx.strokeStyle = '#FFA500';
-            ctx.lineWidth = 3;
-            ctx.fillStyle = 'rgba(255, 165, 0, 0.1)';
-            
-            // Battery
-            ctx.fillRect(50, 150, 40, 100);
-            ctx.strokeRect(50, 150, 40, 100);
-            ctx.fillText('Батерия', 25, 300);
-            
-            // Main wires
+            drawBattery(ctx, voltage);
+            const branchCurrent = switchOn ? voltage / resistance : 0;
+            const branchBrightness = switchOn ? Math.min(100, branchCurrent * 50) : 0;
+
             ctx.beginPath();
-            ctx.moveTo(90, 150);
-            ctx.lineTo(150, 150);
-            ctx.lineTo(150, 50);
-            ctx.lineTo(300, 50);
-            ctx.lineTo(300, 150);
-            ctx.lineTo(360, 150);
+            ctx.moveTo(520,155);
+            ctx.lineTo(520,75);
+            ctx.lineTo(80,75);
+            ctx.lineTo(80,132);
+            ctx.moveTo(80,248);
+            ctx.lineTo(80,325);
+            ctx.lineTo(520,325);
+            ctx.lineTo(520,245);
             ctx.stroke();
-            
+
             ctx.beginPath();
-            ctx.moveTo(90, 250);
-            ctx.lineTo(150, 250);
-            ctx.lineTo(150, 350);
-            ctx.lineTo(300, 350);
-            ctx.lineTo(300, 250);
-            ctx.lineTo(360, 250);
+            ctx.moveTo(210,75);
+            ctx.lineTo(210,325);
+            ctx.moveTo(390,75);
+            ctx.lineTo(390,325);
             ctx.stroke();
-            
-            // Branch 1
-            ctx.beginPath();
-            ctx.moveTo(200, 100);
-            ctx.lineTo(200, 80);
-            ctx.lineTo(240, 80);
-            ctx.lineTo(240, 100);
-            ctx.stroke();
-            
-            // Resistor branch 1
-            ctx.fillStyle = '#FFA500';
-            ctx.fillRect(185, 100, 30, 40);
-            ctx.fillStyle = '#fff';
-            ctx.fillText(`${Math.floor(resistance/2)}Ω`, 190, 125);
-            
-            // Branch 2
-            ctx.beginPath();
-            ctx.moveTo(260, 150);
-            ctx.lineTo(260, 180);
-            ctx.lineTo(240, 180);
-            ctx.lineTo(240, 150);
-            ctx.stroke();
-            
-            // Resistor branch 2
-            ctx.fillStyle = '#FFA500';
-            ctx.fillRect(245, 180, 30, 40);
-            ctx.fillStyle = '#fff';
-            ctx.fillText(`${Math.floor(resistance/2)}Ω`, 250, 205);
-            
-            // LED
-            const brightness = Math.min(100, (current * 50));
-            ctx.fillStyle = `rgba(255, 255, 0, ${brightness / 100})`;
-            ctx.beginPath();
-            ctx.arc(150, 50, 15, 0, Math.PI * 2);
-            ctx.fill();
-            
-            ctx.strokeStyle = '#FFD700';
-            ctx.lineWidth = 2;
-            ctx.beginPath();
-            ctx.arc(150, 50, 15, 0, Math.PI * 2);
-            ctx.stroke();
-            
-            // Current indicator
-            ctx.fillStyle = '#4CAF50';
-            ctx.font = '14px Arial';
-            ctx.fillText(`Ток: ${(current * 2).toFixed(3)} A`, 100, 320);
-            ctx.fillText(`Напрежение: ${voltage} V`, 300, 320);
+
+            drawLeftSwitch(ctx, 80, 190);
+            drawBulb(ctx,210,180,branchBrightness);
+            drawBulb(ctx,390,180,branchBrightness);
+            drawResistor(ctx,300,325,resistance);
+
+            if (instrumentType === 'ammeter') {
+                drawMeter(ctx, 305, 75, 'ammeter', switchOn ? current.toFixed(2) + ' A' : '0 A');
+            }
+            if (instrumentType === 'voltmeter') {
+                ctx.strokeStyle = '#FFB347';
+                ctx.setLineDash([7, 6]);
+                ctx.beginPath();
+                ctx.moveTo(210,75);
+                ctx.lineTo(210,135);
+                ctx.lineTo(390,135);
+                ctx.lineTo(390,75);
+                ctx.stroke();
+                ctx.setLineDash([]);
+                drawMeter(ctx,300,135,'voltmeter',switchOn ? voltage.toFixed(2) + ' V' : '0 V');
+            }
+
+            drawElectronPath(ctx, [
+                {x:520,y:155},{x:520,y:75},{x:390,y:75},{x:210,y:75},{x:80,y:75},
+                {x:80,y:325},{x:210,y:325},{x:390,y:325},{x:520,y:325},{x:520,y:245}
+            ], 0.42 + current * 0.25);
+
+            drawLabelChip(ctx, `${voltage} V`, 520, 145, 70);
+            drawLabelChip(ctx, 'Източник', 520, 278, 96);
         }
-        
-        // Initialize
+
+        function animate() {
+            particleOffset = (particleOffset + 0.006) % 1;
+            if (switchOn) drawCircuit(lastValues.voltage, lastValues.resistance, lastValues.current);
+            requestAnimationFrame(animate);
+        }
+
         updateCircuit();
+        animate();
+
+        const canvas = document.getElementById('canvas');
+        canvas.addEventListener('keydown', function (event) {
+            if (event.key === 'Enter' || event.key === ' ') {
+                event.preventDefault();
+                toggleSwitch();
+            }
+        });
     </script>
 </body>
 </html>

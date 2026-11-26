@@ -5,26 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Научи повече + | Сили и движение</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #1a1a3d 0%, #2d2d5f 100%);
+            background:
+                radial-gradient(circle at 15% 10%, rgba(255, 171, 164, 0.20), transparent 28rem),
+                radial-gradient(circle at 85% 25%, rgba(255, 209, 102, 0.10), transparent 24rem),
+                linear-gradient(135deg, #1a1a3d 0%, #2d2d5f 55%, #343453 100%);
             color: #fff;
             min-height: 100vh;
             line-height: 1.6;
         }
-        
+
         header {
-            background: rgba(0, 0, 0, 0.3);
+            background: rgba(18, 18, 48, 0.78);
             padding: 20px 0;
-            border-bottom: 3px solid #FF6B6B;
+            border-bottom: 3px solid #ff9a94;
+            backdrop-filter: blur(12px);
         }
-        
+
         .header-content {
             max-width: 1200px;
             margin: 0 auto;
@@ -33,155 +33,272 @@
             align-items: center;
             padding: 0 20px;
         }
-        
-        .logo {
-            font-size: 2rem;
-            font-weight: bold;
-            color: #FF6B6B;
-        }
-        
-        .nav {
-            display: flex;
-            gap: 30px;
-            align-items: center;
-        }
-        
+
+        .logo { font-size: 2rem; font-weight: bold; color: #ff6b6b; }
+        .nav { display: flex; gap: 30px; align-items: center; }
         .nav a {
             color: #fff;
             text-decoration: none;
             padding: 10px 15px;
             border-radius: 5px;
-            transition: all 0.3s;
+            transition: 0.3s;
             font-size: 0.95rem;
         }
-        
-        .nav a:hover {
-            background: rgba(255, 107, 107, 0.3);
-            color: #FF6B6B;
-        }
-        
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 40px 20px;
-        }
-        
+        .nav a:hover { background: rgba(255, 107, 107, 0.3); color: #ff9a94; }
+
+        .container { max-width: 1100px; margin: 0 auto; padding: 40px 20px; }
         h1 {
-            font-size: 2.5rem;
-            margin-bottom: 30px;
+            font-size: clamp(2rem, 5vw, 3.2rem);
+            margin: 0 0 8px;
             text-align: center;
-            color: #FF6B6B;
+            color: #ffab9f;
+            text-shadow: 0 8px 30px rgba(12, 12, 38, 0.45);
         }
-        
-        .simulator-box {
-            background: rgba(255, 107, 107, 0.1);
-            padding: 30px;
-            border-radius: 15px;
-            border: 2px solid #FF6B6B;
-            margin-bottom: 30px;
+        .page-intro {
+            max-width: 680px;
+            margin: 0 auto 30px;
+            text-align: center;
+            color: #cbcafa;
         }
-        
-        .simulator-controls {
+
+        .simulator-box,
+        .info-section,
+        .simulator-instructions {
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.12), rgba(70, 54, 98, 0.22));
+            border: 1px solid rgba(255, 171, 164, 0.38);
+            border-radius: 22px;
+            box-shadow: 0 22px 55px rgba(10, 10, 35, 0.28);
+        }
+
+        .simulator-box { padding: 30px; margin-bottom: 30px; border-left: 5px solid #ff6b6b; }
+        .simulator-box h2 { color: #ffd0cc; margin-bottom: 16px; text-align: center; }
+
+        .scenario-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            margin-bottom: 30px;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-bottom: 22px;
         }
-        
-        .control-group {
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .control-group label {
-            font-weight: bold;
-            margin-bottom: 8px;
-            color: #FF6B6B;
-            font-size: 1.1rem;
-        }
-        
-        .control-group input {
-            padding: 10px;
-            border-radius: 5px;
-            border: 2px solid #FF6B6B;
-            background: rgba(0, 0, 0, 0.3);
+
+        .scenario {
+            padding: 14px;
+            border: 1px solid rgba(255, 171, 164, 0.28);
+            border-radius: 14px;
+            background: rgba(255, 255, 255, 0.08);
             color: #fff;
-            font-size: 1rem;
+            cursor: pointer;
+            text-align: center;
+            transition: 0.25s;
         }
-        
-        .control-group input::placeholder {
-            color: rgba(255, 255, 255, 0.5);
+        .scenario:hover,
+        .scenario.active {
+            background: rgba(255, 107, 107, 0.25);
+            border-color: #ffb4ad;
+            transform: translateY(-3px);
         }
-        
-        canvas {
-            border: 2px solid #FF6B6B;
-            border-radius: 10px;
-            background: rgba(0, 0, 0, 0.3);
+        .scenario strong { display: block; color: #ffd0cc; margin-bottom: 3px; }
+        .scenario-icon {
             display: block;
-            margin: 20px 0;
+            width: 42px;
+            height: 42px;
+            margin: 0 auto 7px;
+            border-radius: 12px;
+            background: rgba(255,255,255,0.10);
+            font-size: 1.45rem;
+            line-height: 42px;
+        }
+
+        .simulator-layout {
+            display: grid;
+            grid-template-columns: 280px minmax(0, 1fr);
+            gap: 20px;
+            align-items: stretch;
+        }
+
+        .control-panel,
+        .stage-panel {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 171, 164, 0.28);
+            border-radius: 16px;
+        }
+
+        .control-panel { padding: 20px; }
+        .control-group { margin-bottom: 18px; }
+        .control-group label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            color: #ffd0cc;
+            font-weight: 700;
+        }
+        .control-group input[type="range"] {
             width: 100%;
-            height: auto;
+            accent-color: #ff8a84;
         }
-        
-        .results {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 20px;
-            border-radius: 10px;
-            margin-top: 30px;
+        .control-group p {
+            margin-top: 6px;
+            color: #fff;
+            text-align: center;
         }
-        
-        .results h3 {
-            color: #FF6B6B;
-            margin-bottom: 15px;
+
+        .formula {
+            margin-top: 18px;
+            padding: 14px;
+            border-radius: 12px;
+            background: rgba(255, 107, 107, 0.16);
+            border-left: 4px solid #ff6b6b;
+            text-align: center;
         }
-        
-        .result-item {
-            padding: 10px;
-            margin: 10px 0;
-            background: rgba(255, 107, 107, 0.2);
-            border-radius: 5px;
-            border-left: 4px solid #FF6B6B;
+        .formula strong { display: block; color: #fff; font-size: 1.25rem; }
+
+        .stage-panel { padding: 12px; min-width: 0; }
+        .stage-note {
+            margin: 8px 4px 0;
+            color: #cbcafa;
+            font-size: 0.82rem;
+            text-align: center;
         }
-        
+        .canvas-wrap {
+            position: relative;
+        }
+        .motion-status {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 7px 11px;
+            border: 1px solid rgba(255,255,255,0.16);
+            border-radius: 999px;
+            background: rgba(12,14,45,0.78);
+            color: #dfe1ff;
+            font-size: 0.78rem;
+            font-weight: 800;
+            backdrop-filter: blur(8px);
+        }
+        .motion-status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #69e8a6;
+            box-shadow: 0 0 12px #69e8a6;
+        }
+        .motion-status.running .motion-status-dot {
+            animation: pulse 0.8s infinite alternate;
+        }
+        @keyframes pulse {
+            to { transform: scale(1.35); box-shadow: 0 0 18px #69e8a6; }
+        }
+        canvas {
+            display: block;
+            width: 100%;
+            height: 330px;
+            border: 2px solid rgba(255, 171, 164, 0.55);
+            border-radius: 12px;
+            background: #17193b;
+        }
+
+        .action-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-top: 12px;
+        }
+
         button {
-            background: #FF6B6B;
-            color: white;
+            background: linear-gradient(135deg, #ff6b6b, #c84c57);
+            color: #fff;
             border: none;
-            padding: 12px 25px;
-            border-radius: 5px;
+            border-radius: 999px;
+            padding: 12px 18px;
             cursor: pointer;
             font-size: 1rem;
             font-weight: bold;
-            transition: all 0.3s;
-            margin-top: 10px;
+            transition: 0.25s;
         }
-        
-        button:hover {
-            background: #FF5252;
-            transform: scale(1.05);
+        button:hover { transform: translateY(-2px); filter: brightness(1.08); }
+        button.secondary { background: rgba(255, 255, 255, 0.12); border: 1px solid rgba(255, 171, 164, 0.28); }
+
+        .readings {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-top: 16px;
         }
-        
-        .info-section {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 20px;
-            border-radius: 10px;
-            margin-top: 30px;
-            border-left: 4px solid #FF6B6B;
+        .reading {
+            padding: 14px 10px;
+            text-align: center;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 171, 164, 0.22);
         }
-        
-        .info-section h3 {
-            color: #FF6B6B;
-            margin-bottom: 15px;
+        .reading strong { display: block; color: #ffd0cc; font-size: 1.35rem; }
+
+        .motion-progress {
+            margin-top: 12px;
+            height: 8px;
+            border-radius: 999px;
+            background: rgba(255,255,255,0.10);
+            overflow: hidden;
         }
-        
+
+        .motion-progress span {
+            display: block;
+            height: 100%;
+            width: 0;
+            border-radius: inherit;
+            background: linear-gradient(90deg, #69e8a6, #ffb4ad);
+            transition: width 0.12s linear;
+        }
+
+        .reading {
+            position: relative;
+            overflow: hidden;
+        }
+        .reading::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 20%;
+            width: 60%;
+            height: 3px;
+            border-radius: 0 0 999px 999px;
+            background: linear-gradient(90deg, transparent, #ff9a94, transparent);
+        }
+
+        .info-section { padding: 24px; margin-bottom: 30px; border-left: 4px solid #ff9a94; }
+        .info-section h3 { color: #ffd0cc; margin-bottom: 12px; }
+        .info-section p + p { margin-top: 10px; }
+
+        .simulator-instructions { margin: 0 0 30px; overflow: hidden; }
+        .simulator-instructions ol {
+            margin: 0;
+            padding: 4px 28px 18px 44px;
+            line-height: 1.65;
+        }
+
         .footer {
             background: rgba(0, 0, 0, 0.5);
             padding: 20px;
             text-align: center;
             margin-top: 50px;
-            border-top: 2px solid #FF6B6B;
+            border-top: 2px solid #ff6b6b;
+        }
+
+        @media (max-width: 900px) {
+            .header-content { flex-direction: column; gap: 12px; }
+            .nav { width: 100%; flex-wrap: wrap; justify-content: center; gap: 4px; }
+            .nav a { padding: 8px 10px; }
+            .simulator-layout { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 600px) {
+            .scenario-grid, .readings, .action-row { grid-template-columns: 1fr; }
+            canvas { height: 260px; }
         }
     </style>
+    <link rel="stylesheet" href="physics-simulator-theme.css">
     <link rel="stylesheet" href="brand-layout.css">
 </head>
 <body>
@@ -202,141 +319,353 @@
 
     <div class="container">
         <h1>💪 Сили и движение</h1>
+        <p class="page-intro">Изследвай връзката между сила, маса и ускорение — наблюдавай как всяка промяна поема движението.</p>
 
         <div class="simulator-box">
-            <h2 style="margin-bottom: 20px; text-align: center;">Експеримент със сили и маса</h2>
-            
-            <div class="simulator-controls">
-                <div class="control-group">
-                    <label for="force">Сила (N - Нютони):</label>
-                    <input type="range" id="force" min="0" max="50" value="10" oninput="updateSimulation()">
-                    <p id="forceValue">10 N</p>
-                </div>
-                
-                <div class="control-group">
-                    <label for="mass">Маса (kg - килограма):</label>
-                    <input type="range" id="mass" min="1" max="20" value="5" oninput="updateSimulation()">
-                    <p id="massValue">5 kg</p>
+            <h2>Изследвай движението</h2>
+
+            <div class="scenario-grid">
+                <button type="button" class="scenario active" data-force="10" data-mass="5">
+                    <span class="scenario-icon">📦</span>
+                    <strong>Кутия</strong>
+                    Лека маса
+                </button>
+                <button type="button" class="scenario" data-force="20" data-mass="10">
+                    <span class="scenario-icon">🛒</span>
+                    <strong>Количка</strong>
+                    Средна маса
+                </button>
+                <button type="button" class="scenario" data-force="30" data-mass="15">
+                    <span class="scenario-icon">🏋️</span>
+                    <strong>Тежък товар</strong>
+                    Голяма маса
+                </button>
+            </div>
+
+            <div class="simulator-layout">
+                <aside class="control-panel">
+                    <div class="control-group">
+                        <label for="force"><span>Сила</span><span id="forceValue">10 N</span></label>
+                        <input type="range" id="force" min="0" max="50" value="10" oninput="updateValues()">
+                    </div>
+                    <div class="control-group">
+                        <label for="mass"><span>Маса</span><span id="massValue">5 kg</span></label>
+                        <input type="range" id="mass" min="1" max="20" value="5" oninput="updateValues()">
+                    </div>
+                    <div class="formula">
+                        <strong>Сила и движение</strong>
+                        По-голямата сила ускорява тялото, а по-голямата маса затруднява движението.
+                    </div>
+                </aside>
+
+                <div class="stage-panel">
+                    <div class="canvas-wrap">
+                        <div class="motion-status" id="motionStatus">
+                            <span class="motion-status-dot"></span>
+                            <span id="motionStatusText">Готово за старт</span>
+                        </div>
+                        <canvas id="canvas" width="760" height="330" aria-label="Анимация на тяло, което се движи под действие на сила"></canvas>
+                    </div>
+                    <p class="stage-note">Разстоянието е визуално мащабирано, за да се сравняват силата и масата.</p>
+                    <div class="action-row">
+                        <button type="button" id="startButton" onclick="startMotion()">▶ Старт</button>
+                        <button type="button" class="secondary" id="pauseButton" onclick="pauseMotion()">⏸ Пауза</button>
+                        <button type="button" class="secondary" onclick="resetMotion()">↺ Рестарт</button>
+                    </div>
                 </div>
             </div>
 
-            <h3 style="text-align: center; color: #FF6B6B; margin-bottom: 15px;">Визуализация на движението</h3>
-            <canvas id="canvas" width="800" height="300"></canvas>
-
-            <div class="results">
-                <h3>Резултати (Формула: F = m × a)</h3>
-                <div class="result-item">
-                    <strong>Ускорение (a):</strong> <span id="acceleration">2.0</span> m/s²
-                </div>
-                <div class="result-item">
-                    <strong>Скорост след 2 секунди:</strong> <span id="velocity">4.0</span> m/s
-                </div>
-                <div class="result-item">
-                    <strong>Преместване след 2 секунди:</strong> <span id="displacement">4.0</span> метра
-                </div>
+            <div class="readings">
+                <div class="reading"><strong id="acceleration">2.00 m/s²</strong>Ускорение</div>
+                <div class="reading"><strong id="velocity">0.00 m/s</strong>Скорост</div>
+                <div class="reading"><strong id="position">0.00 m</strong>Преместване</div>
             </div>
-
-            <button onclick="resetSimulation()">🔄 Рестарт</button>
+            <div class="motion-progress" aria-label="Прогрес на движението"><span id="motionProgress"></span></div>
         </div>
 
         <div class="info-section">
-            <h3>📚 Законите на Нютон</h3>
-            <p><strong>1-ви закон (Инертност):</strong> Обект в движение остава в движение, обект в покой остава в покой, освен ако някоя сила не го действува.</p>
-            <p style="margin-top: 15px;"><strong>2-ри закон (Сила и маса):</strong> Силата е равна на маса умножена по ускорение (F = m × a). По-тежкия обект изисква повече сила, за да се придвижи.</p>
-            <p style="margin-top: 15px;"><strong>3-ти закон (Действие и противодействие):</strong> За всяка действие, има равна и противоположна противодействие. Когато скачаш нагоре, земята те натиска нагоре с същата сила, която ти натискаш земята надолу.</p>
-            <p style="margin-top: 15px;"><strong>Ускорение:</strong> Когато Нютон е казал a = F/m, той имал предвид, че колкото по-голяма сила и по-малка маса, толкова по-голямо ускорение.</p>
+            <h3>📚 Как силата влияе на движението</h3>
+            <p><strong>Сила:</strong> Силата е натиск или издърпване, което може да изменя движението или скоростта на тялото.</p>
+            <p><strong>Маса:</strong> Масата показва количеството материя и колко трудно е да се промени движението на тялото.</p>
+            <p><strong>Ускорение:</strong> По-голямата сила увеличава ускорението, а по-голямата маса го намалява. В последните секунди симулацията прилага спиране, докато скоростта стане нула.</p>
         </div>
+
+        <section class="simulator-instructions">
+            <h2 style="padding:14px 18px 0;margin:0;color:#ffd0cc;font-size:1.15rem">Как да използвам симулацията</h2>
+            <ol>
+                <li>Избери готов сценарий или променяй силата и масата.</li>
+                <li>Натисни „Старт“ и наблюдавай движението.</li>
+                <li>Използвай „Пауза“, за да видиш стойностите в даден момент.</li>
+                <li>Натисни „Рестарт“ и сравни друг набор от стойности.</li>
+            </ol>
+        </section>
     </div>
 
     <footer class="footer">
         <p>Любопитството е първата стъпка към откритието.</p>
-        <small style="display: block; margin-top: 15px; border-top: 1px solid rgba(100,113,138,0.3); padding-top: 10px;">
-            Сайтът е създаден за НЕТИТ "Джон Атанасов" София 2026
-        </small>
-        <small style="display: block;">
-            Автори: Йордан Божков и Иван Варников, ПМГ "Константин Величков" Пазарджик
-        </small>
     </footer>
 
     <script>
         const canvas = document.getElementById('canvas');
         const ctx = canvas.getContext('2d');
-        let time = 0;
+        let elapsed = 0;
+        let running = false;
         let animationId = null;
+        let lastTimestamp = null;
+        const driveDuration = 5;
+        const brakingDuration = 3;
+        const motionDuration = driveDuration + brakingDuration;
+        const maxVisualPosition = 1000;
 
-        function updateSimulation() {
-            const force = parseFloat(document.getElementById('force').value);
-            const mass = parseFloat(document.getElementById('mass').value);
-            const acceleration = force / mass;
-            
-            document.getElementById('forceValue').textContent = force + ' N';
-            document.getElementById('massValue').textContent = mass + ' kg';
-            document.getElementById('acceleration').textContent = acceleration.toFixed(2);
-            
-            const timeElapsed = 2;
-            const velocity = acceleration * timeElapsed;
-            const displacement = 0.5 * acceleration * timeElapsed * timeElapsed;
-            
-            document.getElementById('velocity').textContent = velocity.toFixed(2);
-            document.getElementById('displacement').textContent = displacement.toFixed(2);
-            
-            drawSimulation(acceleration, displacement);
+        function getValues() {
+            const force = Number(document.getElementById('force').value);
+            const mass = Number(document.getElementById('mass').value);
+            return { force, mass, acceleration: force / mass };
         }
 
-        function drawSimulation(acceleration, maxDisplacement) {
+        function updateValues() {
+            const values = getValues();
+            document.getElementById('forceValue').textContent = values.force + ' N';
+            document.getElementById('massValue').textContent = values.mass + ' kg';
+            document.getElementById('acceleration').textContent = values.acceleration.toFixed(2) + ' m/s²';
+
+            if (!running) {
+                elapsed = 0;
+                updateLiveReadings(values);
+                drawScene(values, 0);
+                setMotionStatus('Параметрите са готови');
+            }
+            document.querySelectorAll('.scenario').forEach(item => item.classList.remove('active'));
+        }
+
+        function updateLiveReadings(values) {
+            const state = getMotionState(values, elapsed);
+            document.getElementById('acceleration').textContent = state.acceleration.toFixed(2) + ' m/s²';
+            document.getElementById('velocity').textContent = state.velocity.toFixed(2) + ' m/s';
+            document.getElementById('position').textContent = state.position.toFixed(2) + ' m';
+            const progress = Math.min(100, elapsed / motionDuration * 100);
+            document.getElementById('motionProgress').style.width = progress + '%';
+        }
+
+        function getMotionState(values, time) {
+            const t = Math.max(0, Math.min(time, motionDuration));
+            const acceleration = values.acceleration;
+
+            if (acceleration === 0) {
+                return { position: 0, velocity: 0, acceleration: 0, phase: 'stopped' };
+            }
+
+            if (t <= driveDuration) {
+                return {
+                    position: 0.5 * acceleration * t * t,
+                    velocity: acceleration * t,
+                    acceleration,
+                    phase: 'accelerating'
+                };
+            }
+
+            const brakingTime = t - driveDuration;
+            const velocityAtBrake = acceleration * driveDuration;
+            const brakingAcceleration = velocityAtBrake / brakingDuration;
+            const positionAtBrake = 0.5 * acceleration * driveDuration * driveDuration;
+
+            return {
+                position: positionAtBrake + velocityAtBrake * brakingTime -
+                    0.5 * brakingAcceleration * brakingTime * brakingTime,
+                velocity: Math.max(0, velocityAtBrake - brakingAcceleration * brakingTime),
+                acceleration: brakingTime >= brakingDuration ? 0 : -brakingAcceleration,
+                phase: brakingTime >= brakingDuration ? 'stopped' : 'braking'
+            };
+        }
+
+        function setMotionStatus(text, isRunning = false) {
+            document.getElementById('motionStatusText').textContent = text;
+            document.getElementById('motionStatus').classList.toggle('running', isRunning);
+        }
+
+        function drawScene(values, position) {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            
-            // Draw ground
-            ctx.fillStyle = '#666';
-            ctx.fillRect(0, canvas.height - 20, canvas.width, 20);
-            
-            // Draw box position
-            const posX = 50 + (maxDisplacement / 10) * 100;
-            ctx.fillStyle = '#FF6B6B';
-            ctx.fillRect(Math.min(posX, canvas.width - 60), canvas.height - 80, 50, 50);
-            
-            // Draw arrow for force
-            ctx.strokeStyle = '#4CAF50';
-            ctx.fillStyle = '#4CAF50';
-            ctx.lineWidth = 3;
+
+            const sky = ctx.createLinearGradient(0, 0, 0, canvas.height);
+            sky.addColorStop(0, '#252958');
+            sky.addColorStop(1, '#17193b');
+            ctx.fillStyle = sky;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.save();
+            ctx.strokeStyle = 'rgba(197,202,255,0.08)';
+            ctx.lineWidth = 1;
+            for (let x = 0; x <= canvas.width; x += 38) {
+                ctx.beginPath();
+                ctx.moveTo(x, 0);
+                ctx.lineTo(x, 270);
+                ctx.stroke();
+            }
+            for (let y = 35; y < 270; y += 38) {
+                ctx.beginPath();
+                ctx.moveTo(0, y);
+                ctx.lineTo(canvas.width, y);
+                ctx.stroke();
+            }
+            ctx.restore();
+
+            ctx.fillStyle = 'rgba(255,255,255,0.08)';
+            for (let i = 0; i < 12; i++) {
+                ctx.beginPath();
+                ctx.arc(55 + i * 63, 44 + (i % 3) * 16, 2, 0, Math.PI * 2);
+                ctx.fill();
+            }
+
+            ctx.fillStyle = '#52586f';
+            ctx.fillRect(0, 270, canvas.width, 60);
+            ctx.fillStyle = '#7f879f';
+            ctx.fillRect(0, 270, canvas.width, 5);
+
+            const startX = 75;
+            const boxWidth = 48 + values.mass * 2;
+            const boxHeight = 48 + values.mass;
+            const travelLimit = Math.max(0, canvas.width - startX - boxWidth - 160);
+            const travelProgress = Math.min(
+                Math.log1p(Math.max(0, position)) / Math.log1p(maxVisualPosition),
+                1
+            );
+            const boxX = startX + travelLimit * travelProgress;
+
+            ctx.save();
+            ctx.fillStyle = 'rgba(105,232,166,0.16)';
             ctx.beginPath();
-            ctx.moveTo(100, canvas.height - 55);
-            ctx.lineTo(150, canvas.height - 55);
-            ctx.stroke();
-            
-            // Draw arrow head
-            ctx.beginPath();
-            ctx.moveTo(150, canvas.height - 55);
-            ctx.lineTo(140, canvas.height - 50);
-            ctx.lineTo(140, canvas.height - 60);
-            ctx.closePath();
+            ctx.ellipse(startX + boxWidth / 2, 275, Math.max(10, boxX - startX) + 35, 12, 0, 0, Math.PI * 2);
             ctx.fill();
-            
-            ctx.fillStyle = '#4CAF50';
-            ctx.font = 'bold 16px Arial';
-            ctx.fillText('Сила', 115, canvas.height - 70);
-            
-            // Draw displacement indicator
-            ctx.strokeStyle = '#FFC107';
-            ctx.setLineDash([5, 5]);
+            ctx.restore();
+
+            ctx.fillStyle = 'rgba(255,255,255,0.12)';
+            ctx.font = '700 11px Segoe UI';
+            ctx.textAlign = 'center';
+            ctx.fillText('начало', startX + 20, 300);
+            ctx.textAlign = 'left';
+
+            ctx.save();
+            ctx.shadowColor = 'rgba(255,107,107,0.35)';
+            ctx.shadowBlur = 18;
+            ctx.fillStyle = '#ff7d76';
+            ctx.fillRect(boxX, 270 - boxHeight, boxWidth, boxHeight);
+            ctx.restore();
+
+            ctx.fillStyle = '#ffd0cc';
+            ctx.font = '700 14px Segoe UI';
+            ctx.textAlign = 'center';
+            ctx.fillText(values.mass + ' kg', boxX + boxWidth / 2, 270 - boxHeight - 10);
+            ctx.textAlign = 'left';
+
+            if (values.force > 0) {
+                const arrowStart = boxX + boxWidth + 12;
+                const arrowEnd = Math.min(canvas.width - 25, arrowStart + 35 + values.force * 2);
+                ctx.strokeStyle = '#69e8a6';
+                ctx.fillStyle = '#69e8a6';
+                ctx.lineWidth = 5;
+                ctx.beginPath();
+                ctx.moveTo(arrowStart, 270 - boxHeight / 2);
+                ctx.lineTo(arrowEnd, 270 - boxHeight / 2);
+                ctx.stroke();
+                ctx.beginPath();
+                ctx.moveTo(arrowEnd, 270 - boxHeight / 2);
+                ctx.lineTo(arrowEnd - 14, 270 - boxHeight / 2 - 8);
+                ctx.lineTo(arrowEnd - 14, 270 - boxHeight / 2 + 8);
+                ctx.closePath();
+                ctx.fill();
+                ctx.fillStyle = '#a8edbd';
+                ctx.font = '700 14px Segoe UI';
+                ctx.fillText(values.force + ' N', arrowEnd - 22, 270 - boxHeight / 2 - 14);
+            }
+
+            ctx.strokeStyle = 'rgba(255,255,255,0.18)';
+            ctx.setLineDash([6, 8]);
             ctx.beginPath();
-            ctx.moveTo(50, canvas.height - 100);
-            ctx.lineTo(Math.min(posX, canvas.width - 60), canvas.height - 100);
+            ctx.moveTo(startX, 255);
+            ctx.lineTo(boxX, 255);
             ctx.stroke();
             ctx.setLineDash([]);
-            
-            ctx.fillStyle = '#FFC107';
-            ctx.fillText(`${maxDisplacement.toFixed(1)} m`, Math.min(posX / 2, canvas.width - 80), canvas.height - 110);
         }
 
-        function resetSimulation() {
-            document.getElementById('force').value = 10;
-            document.getElementById('mass').value = 5;
-            updateSimulation();
+        function startMotion() {
+            if (running) return;
+            if (elapsed >= motionDuration) {
+                elapsed = 0;
+                const values = getValues();
+                updateLiveReadings(values);
+                drawScene(values, 0);
+            }
+            running = true;
+            lastTimestamp = null;
+            document.getElementById('startButton').textContent = '▶ Движи се';
+            setMotionStatus('Тялото се ускорява', true);
+            animationId = requestAnimationFrame(animate);
         }
 
-        // Initialize
-        updateSimulation();
+        function pauseMotion() {
+            running = false;
+            lastTimestamp = null;
+            if (animationId) cancelAnimationFrame(animationId);
+            document.getElementById('startButton').textContent = '▶ Продължи';
+            setMotionStatus('Движението е на пауза');
+        }
+
+        function resetMotion() {
+            running = false;
+            elapsed = 0;
+            lastTimestamp = null;
+            if (animationId) cancelAnimationFrame(animationId);
+            document.getElementById('startButton').textContent = '▶ Старт';
+            setMotionStatus('Готово за старт');
+            const values = getValues();
+            updateLiveReadings(values);
+            drawScene(values, 0);
+        }
+
+        function animate(timestamp) {
+            if (!running) return;
+            if (lastTimestamp === null) lastTimestamp = timestamp;
+            const delta = Math.min((timestamp - lastTimestamp) / 1000, 0.05);
+            lastTimestamp = timestamp;
+
+            const values = getValues();
+            elapsed += delta;
+
+            if (elapsed >= motionDuration) {
+                elapsed = motionDuration;
+                running = false;
+                document.getElementById('startButton').textContent = '▶ Старт';
+                setMotionStatus('Тялото спря плавно');
+            }
+
+            const state = getMotionState(values, elapsed);
+            if (running) {
+                const status = state.phase === 'braking'
+                    ? 'Плавно спиране'
+                    : state.phase === 'stopped'
+                        ? 'Тялото е неподвижно'
+                        : 'Тялото се ускорява';
+                setMotionStatus(status, true);
+            }
+            updateLiveReadings(values);
+            drawScene(values, state.position);
+
+            if (running) animationId = requestAnimationFrame(animate);
+        }
+
+        document.querySelectorAll('.scenario').forEach(button => {
+            button.addEventListener('click', () => {
+                document.querySelectorAll('.scenario').forEach(item => item.classList.remove('active'));
+                button.classList.add('active');
+                document.getElementById('force').value = button.dataset.force;
+                document.getElementById('mass').value = button.dataset.mass;
+                resetMotion();
+                updateValues();
+                button.classList.add('active');
+            });
+        });
+
+        updateValues();
     </script>
 </body>
 </html>

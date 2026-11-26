@@ -10,7 +10,7 @@
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, #1a1a3d 0%, #2d2d5f 100%);
@@ -18,13 +18,13 @@
             min-height: 100vh;
             line-height: 1.6;
         }
-        
+
         header {
             background: rgba(0, 0, 0, 0.3);
             padding: 20px 0;
             border-bottom: 3px solid #FF6B6B;
         }
-        
+
         .header-content {
             max-width: 1200px;
             margin: 0 auto;
@@ -33,19 +33,19 @@
             align-items: center;
             padding: 0 20px;
         }
-        
+
         .logo {
             font-size: 2rem;
             font-weight: bold;
             color: #FF6B6B;
         }
-        
+
         .nav {
             display: flex;
             gap: 30px;
             align-items: center;
         }
-        
+
         .nav a {
             color: #fff;
             text-decoration: none;
@@ -54,18 +54,18 @@
             transition: all 0.3s;
             font-size: 0.95rem;
         }
-        
+
         .nav a:hover {
             background: rgba(255, 107, 107, 0.3);
             color: #FF6B6B;
         }
-        
+
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 40px 20px;
         }
-        
+
         h1 {
             font-size: 3rem;
             margin-bottom: 20px;
@@ -73,7 +73,7 @@
             color: #FF6B6B;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
         }
-        
+
         .intro-section {
             background: rgba(255, 107, 107, 0.1);
             padding: 30px;
@@ -81,20 +81,54 @@
             margin-bottom: 50px;
             border-left: 5px solid #FF6B6B;
         }
-        
+
         .intro-section p {
             font-size: 1.1rem;
             line-height: 1.8;
             margin-bottom: 15px;
+            text-align: center;
         }
-        
+
+        .lessons-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 18px;
+            margin: 24px 0 40px;
+        }
+
+        .lesson-card {
+            padding: 20px;
+            background: rgba(255, 107, 107, 0.14);
+            border: 1px solid rgba(255, 171, 164, 0.45);
+            border-left: 4px solid #FF6B6B;
+            border-radius: 10px;
+        }
+
+        .lesson-card h3 {
+            margin-bottom: 10px;
+            color: #FFAB9F;
+        }
+
+        .lesson-card h4 {
+            margin-bottom: 10px;
+            color: #FFAB9F;
+        }
+
+        .lesson-card p {
+            line-height: 1.65;
+        }
+
+        .lesson-card p + p {
+            margin-top: 8px;
+        }
+
         .simulators-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 30px;
             margin: 40px 0;
         }
-        
+
         .simulator-card {
             background: rgba(255, 255, 255, 0.1);
             padding: 25px;
@@ -106,30 +140,30 @@
             cursor: pointer;
             backdrop-filter: blur(10px);
         }
-        
+
         .simulator-card:hover {
             background: rgba(255, 107, 107, 0.3);
             border-color: #FF6B6B;
             transform: translateY(-10px);
             box-shadow: 0 10px 30px rgba(255, 107, 107, 0.3);
         }
-        
+
         .simulator-icon {
             font-size: 2.5rem;
             margin-bottom: 10px;
         }
-        
+
         .simulator-card h3 {
             margin: 10px 0;
             font-size: 1.5rem;
         }
-        
+
         .simulator-card p {
             font-size: 0.9rem;
             margin: 0;
             opacity: 0.9;
         }
-        
+
         .section-title {
             font-size: 2rem;
             margin: 50px 0 30px 0;
@@ -137,7 +171,7 @@
             border-bottom: 2px solid #FF6B6B;
             padding-bottom: 15px;
         }
-        
+
         .footer {
             background: rgba(0, 0, 0, 0.5);
             padding: 20px;
@@ -145,7 +179,26 @@
             margin-top: 50px;
             border-top: 2px solid #FF6B6B;
         }
+
+        @media (max-width: 760px) {
+            .header-content {
+                align-items: flex-start;
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .nav {
+                width: 100%;
+                flex-wrap: wrap;
+                gap: 6px;
+            }
+
+            .nav a {
+                padding: 8px 10px;
+            }
+        }
     </style>
+    <link rel="stylesheet" href="physics-theme.css">
     <link rel="stylesheet" href="brand-layout.css">
 </head>
 <body>
@@ -166,12 +219,11 @@
 
     <div class="container">
         <h1>⚡ Физика</h1>
-        
+
         <div class="intro-section">
             <p>
-                Физиката изучава как работи света на нас! От движението на обекти, до силите, което ги придвижват, 
-                до енергията, което ги захранва. В тази секция ще изучаваш основните концепции на физиката чрез 
-                интерактивни симулации, които показват реални явления.
+                Физиката изучава явленията около нас. Уроците по-долу са съсредоточени върху електричните явления,
+                изучавани в 7. клас. Интерактивните симулации са допълнителен начин да изследваш и други теми.
             </p>
         </div>
 
@@ -194,50 +246,104 @@
             </a>
         </div>
 
+        <h2 class="section-title">📚 Уроци по физика — 7. клас</h2>
+        <p style="margin: 0 0 24px; color: #f1d5d2; text-align: center;">Уроците и теорията са подбрани по темите за електрични явления в 7. клас.</p>
+        <div class="lessons-grid">
+            <article class="lesson-card">
+                <h3>1. Електрически ток</h3>
+                <p>Електрическият ток е насочено движение на свободни заряди през проводник. За посока на тока се приема посоката от по-висок към по-нисък потенциал.</p>
+                <p>Силата на тока I се определя като количество заряд q, преминало за време t: I = q / t. Единицата е ампер (A); 1 A = 1 C / 1 s.</p>
+            </article>
+            <article class="lesson-card">
+                <h3>2. Измерване на сила на ток</h3>
+                <p>За измерване на сила на ток се използва амперметър. Амперметърът се включва последователно във веригата.</p>
+                <p>Амперметърът трябва да има малко вътрешно съпротивление, защото не бива значително да изменя тока във веригата.</p>
+            </article>
+            <article class="lesson-card">
+                <h3>3. Електрично напрежение</h3>
+                <p>Електричното напрежение е отношение на извършената работа за преместване на заряд към големината на заряда: U = A / q.</p>
+                <p>Напрежението се измерва във волт (V). 1 V = 1 J / 1 C. Напрежението на двата края на консуматор показва каква е разликата на потенциалите.</p>
+            </article>
+            <article class="lesson-card">
+                <h3>4. Измерване на напрежение</h3>
+                <p>Напрежението се измерва с волтметър. Волтметърът се включва успоредно към консуматора или участъка, чийто потенциален спад се търси.</p>
+                <p>Волтметърът има голямо вътрешно съпротивление, за да преминава през него възможно най-малък ток.</p>
+            </article>
+            <article class="lesson-card">
+                <h3>5. Съпротивление</h3>
+                <p>Съпротивлението на проводник показва колко силно той възпрепятства движението на електрическия заряд. Единицата е ом (Ω).</p>
+                <p>Съпротивлението се измерва в омове (Ω). За даден проводник то може да се определи чрез измерените напрежение и сила на тока.</p>
+            </article>
+            <article class="lesson-card">
+                <h3>6. Закон на Ом</h3>
+                <p>При постоянно съпротивление силата на тока е правопропорционална на приложеното напрежение: I = U / R.</p>
+                <p>От същата формула следват U = I × R и R = U / I. Увеличаването на съпротивлението при неизменено напрежение намалява тока.</p>
+            </article>
+            <article class="lesson-card">
+                <h3>7. Електрична работа и мощност</h3>
+                <p>Електричната работа се изразява чрез формулата A = U × I × t. Единицата е джоул (J).</p>
+                <p>Мощността е извършена работа за единица време: P = A / t = U × I. Единицата е ват (W).</p>
+            </article>
+            <article class="lesson-card">
+                <h3>8. Източници на напрежение</h3>
+                <p>Източникът създава и поддържа разлика на потенциали и предизвиква протичане на ток в затворена верига.</p>
+                <p>Батериите са постоянни източници за относително малки напрежения. Съединяването им в две последователни напрежения увеличава общото напрежение на съединението.</p>
+            </article>
+            <article class="lesson-card">
+                <h3>9. Свързване на консуматори</h3>
+                <p><strong>Последователно свързване:</strong> консуматорите са свързани един след друг и има един път за тока. Токът е еднакъв във всички участъци: I = I₁ = I₂. Общото напрежение е сбор: U = U₁ + U₂, а общото съпротивление е R = R₁ + R₂.</p>
+                <p><strong>Успоредно свързване:</strong> консуматорите са свързани към общите точки и са под едно и също напрежение: U = U₁ = U₂. Общият ток е сбор: I = I₁ + I₂. Общото съпротивление се намира от 1/R = 1/R₁ + 1/R₂.</p>
+            </article>
+        </div>
+
         <h2 class="section-title">📖 Теория и информация</h2>
         <div style="background: rgba(255, 255, 255, 0.1); padding: 30px; border-radius: 10px; border-left: 5px solid #FF6B6B;">
-            <h3 style="color: #FF6B6B; margin-bottom: 20px;">Основни концепции на физиката</h3>
-            
+            <h3 style="color: #FF6B6B; margin-bottom: 20px;">Основни концепции по физика за 7. клас</h3>
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin: 20px 0;">
                 <div style="background: rgba(255, 107, 107, 0.2); padding: 20px; border-radius: 8px;">
-                    <h4 style="color: #FF6B6B; margin-bottom: 10px;">💨 Движение и скорост</h4>
-                    <p>Движението е промяна на позицията. Скоростта е колко бързо се изменя позицията. Ускорението е колко бързо се изменя скоростта.</p>
+                    <h4 style="color: #FF6B6B; margin-bottom: 10px;">⚡ Електричен ток</h4>
+                    <p>Електричният ток е насочено движение на електрични заряди. За да протича ток в проста електрична верига, тя трябва да е затворена.</p>
                 </div>
-                
                 <div style="background: rgba(255, 107, 107, 0.2); padding: 20px; border-radius: 8px;">
-                    <h4 style="color: #FF6B6B; margin-bottom: 10px;">💪 Сила и маса</h4>
-                    <p>Силата е натиск или издърпване на обект. Законите на Нютон описват как силите влияят на движението. F = m × a</p>
+                    <h4 style="color: #FF6B6B; margin-bottom: 10px;">📏 Сила на тока и амперметър</h4>
+                    <p>Силата на тока показва колко електричен заряд преминава за определено време. Измерва се в ампери с амперметър, включен последователно във веригата.</p>
                 </div>
-                
                 <div style="background: rgba(255, 107, 107, 0.2); padding: 20px; border-radius: 8px;">
-                    <h4 style="color: #FF6B6B; margin-bottom: 10px;">⚡ Енергия</h4>
-                    <p>Енергията е способност за извършване на работа. Има много видове: кинетична (движение), потенциална (позиция), топлина, светлина.</p>
+                    <h4 style="color: #FF6B6B; margin-bottom: 10px;">🔋 Напрежение и волтметър</h4>
+                    <p>Електричното напрежение между два края на консуматор се измерва във волтове. Волтметърът се включва успоредно на консуматора.</p>
                 </div>
-                
                 <div style="background: rgba(255, 107, 107, 0.2); padding: 20px; border-radius: 8px;">
-                    <h4 style="color: #FF6B6B; margin-bottom: 10px;">🌍 Гравитация</h4>
-                    <p>Гравитацията е сила, която привлича всички обекти с маса. Земята те привлича надолу с сила, която называме тегло.</p>
+                    <h4 style="color: #FF6B6B; margin-bottom: 10px;">🧩 Съпротивление и закон на Ом</h4>
+                    <p>Съпротивлението характеризира преченето на проводника срещу електричния ток. При постоянно съпротивление по-голямото напрежение води до по-голяма сила на тока.</p>
+                </div>
+                <div style="background: rgba(255, 107, 107, 0.2); padding: 20px; border-radius: 8px;">
+                    <h4 style="color: #FF6B6B; margin-bottom: 10px;">🔋 Електрична работа и мощност</h4>
+                    <p>Електричната работа се намира по формулата A = U × I × t. Мощността показва работата за единица време: P = A / t = U × I. Работата се измерва в джаули, а мощността — във ватове.</p>
+                </div>
+                <div style="background: rgba(255, 107, 107, 0.2); padding: 20px; border-radius: 8px;">
+                    <h4 style="color: #FF6B6B; margin-bottom: 10px;">🔀 Последователно и успоредно свързване</h4>
+                    <p>При последователно свързване токът е еднакъв във всички консуматори, а напреженията се събират. При успоредно свързване напрежението е еднакво във всеки клон, а токовете се събират.</p>
                 </div>
             </div>
         </div>
 
-        <h2 class="section-title">🎯 Забавни факти за физиката</h2>
+        <h2 class="section-title">🎯 Важни напомняния по физика — 7. клас</h2>
         <div style="background: rgba(255, 255, 255, 0.05); padding: 30px; border-radius: 10px;">
             <ul style="list-style: none; display: grid; gap: 15px;">
                 <li style="padding: 15px; background: rgba(255, 107, 107, 0.1); border-radius: 8px; border-left: 4px solid #FF6B6B;">
-                    <strong>🚀 Космическа скорост</strong> - Трябват ти поне 11.2 км/сек, за да излетиш от Земята!
+                    <strong>🔌 Затворена верига</strong> — ток протича, когато електричната верига е затворена и има източник.
                 </li>
                 <li style="padding: 15px; background: rgba(255, 107, 107, 0.1); border-radius: 8px; border-left: 4px solid #FF6B6B;">
-                    <strong>💡 Светлина</strong> - Светлината е най-бързият обект във вселената, 300,000 км/сек!
+                    <strong>📐 Амперметър</strong> — включва се последователно, така че токът да преминава през уреда.
                 </li>
                 <li style="padding: 15px; background: rgba(255, 107, 107, 0.1); border-radius: 8px; border-left: 4px solid #FF6B6B;">
-                    <strong>🌊 Вълни</strong> - Звукът е вълна, която пътува през воздуха. Светлината е също вълна!
+                    <strong>🔋 Волтметър</strong> — свързва се успоредно към елемента, чието напрежение измерваме.
                 </li>
                 <li style="padding: 15px; background: rgba(255, 107, 107, 0.1); border-radius: 8px; border-left: 4px solid #FF6B6B;">
-                    <strong>❄️ Температура</strong> - Абсолютна нула е -273.15 градуса по Целзий, където всички молекули спират да се движат!
+                    <strong>🔁 Последователно свързване</strong> — през всички консуматори в една последователна верига протича една и съща сила на тока.
                 </li>
                 <li style="padding: 15px; background: rgba(255, 107, 107, 0.1); border-radius: 8px; border-left: 4px solid #FF6B6B;">
-                    <strong>⚡ Електричество</strong> - Молнията е огромна искра електричество, която пътува с 1/3 скоростта на светлината!
+                    <strong>🪢 Успоредно свързване</strong> — напрежението върху всеки консуматор е еднакво, а общият ток се разпределя по клоновете.
                 </li>
             </ul>
         </div>
@@ -245,7 +351,7 @@
         <h2 class="section-title">✅ Тест по Физика</h2>
         <div style="background: rgba(255, 107, 107, 0.15); padding: 30px; border-radius: 10px; text-align: center; border: 2px solid #FF6B6B;">
             <p style="font-size: 1.1rem; margin-bottom: 20px;">Провери своите знания с интерактивния тест! Отговори на 10 въпроса и виж резултата си.</p>
-            <a href="physics-test.html" style="display: inline-block; background: linear-gradient(135deg, #FF6B6B, #FF5252); color: white; padding: 15px 40px; border-radius: 8px; text-decoration: none; font-size: 1.1rem; font-weight: bold; transition: all 0.3s; cursor: pointer;">
+            <a href="physics-test.html" style="display: inline-block; background: linear-gradient(135deg, #FF6B6B, #FF5252); color: white; padding: 15px 40px; border-radius: 8px; text-decoration: none; font-size: 1.1rem; font-weight: bold;">
                 📝 Започни теста
             </a>
         </div>

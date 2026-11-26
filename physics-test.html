@@ -13,16 +13,20 @@
         
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #1a2a4d 0%, #2d3f6d 100%);
+            background:
+                radial-gradient(circle at 15% 10%, rgba(255, 171, 164, 0.18), transparent 28rem),
+                radial-gradient(circle at 85% 25%, rgba(255, 209, 102, 0.10), transparent 24rem),
+                linear-gradient(135deg, #1a1a3d 0%, #2d2d5f 55%, #343453 100%);
             color: #fff;
             min-height: 100vh;
             line-height: 1.6;
         }
         
         header {
-            background: rgba(0, 0, 0, 0.3);
+            background: rgba(18, 18, 48, 0.78);
             padding: 20px 0;
-            border-bottom: 3px solid #00a8ff;
+            border-bottom: 3px solid #ff9a94;
+            backdrop-filter: blur(12px);
         }
         
         .header-content {
@@ -37,7 +41,7 @@
         .logo {
             font-size: 2rem;
             font-weight: bold;
-            color: #00a8ff;
+            color: #ff6b6b;
         }
         
         .nav {
@@ -56,49 +60,65 @@
         }
         
         .nav a:hover {
-            background: rgba(0, 168, 255, 0.3);
-            color: #00a8ff;
+            background: rgba(255, 107, 107, 0.3);
+            color: #ff9a94;
         }
         
         .container {
-            max-width: 900px;
+            max-width: 1000px;
             margin: 0 auto;
             padding: 40px 20px;
         }
         
         h1 {
             text-align: center;
-            color: #00a8ff;
-            margin-bottom: 30px;
-            font-size: 2.5rem;
+            color: #ffab9f;
+            margin-bottom: 12px;
+            font-size: clamp(2rem, 5vw, 3.2rem);
+            text-shadow: 0 8px 30px rgba(12, 12, 38, 0.45);
         }
         
         .quiz-container {
-            background: rgba(0, 168, 255, 0.1);
-            padding: 30px;
-            border-radius: 15px;
-            border: 2px solid #00a8ff;
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.12), rgba(70, 54, 98, 0.22));
+            padding: clamp(18px, 3vw, 30px);
+            border-radius: 22px;
+            border: 1px solid rgba(255, 171, 164, 0.38);
+            border-left: 5px solid #ff6b6b;
+            box-shadow: 0 22px 55px rgba(10, 10, 35, 0.28);
         }
 
         .quiz-description {
-            margin: -12px 0 24px;
+            max-width: 620px;
+            margin: 0 auto 26px;
             text-align: center;
-            color: rgba(255, 255, 255, 0.85);
+            color: #cbcafa;
+            font-family: inherit;
+            font-size: 1.1rem;
+            font-weight: normal;
+            line-height: 1.6;
         }
         
         .question {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 25px;
-            border-radius: 12px;
-            margin-bottom: 25px;
-            border-left: 5px solid #00a8ff;
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.12), rgba(20, 20, 55, 0.25));
+            padding: clamp(16px, 2.5vw, 25px);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-left: 4px solid #ff9a94;
+            border-radius: 16px;
+            margin-bottom: 18px;
+            box-shadow: 0 12px 28px rgba(10, 10, 35, 0.16);
         }
         
         .question-number {
-            font-size: 0.9rem;
-            color: #00a8ff;
-            font-weight: bold;
-            margin-bottom: 10px;
+            display: inline-block;
+            margin-bottom: 12px;
+            padding: 5px 11px;
+            border: 1px solid rgba(255, 154, 148, 0.35);
+            border-radius: 999px;
+            background: rgba(255, 107, 107, 0.12);
+            color: #ffd0cc;
+            font-size: 0.82rem;
+            font-weight: 800;
+            letter-spacing: 0.03em;
         }
         
         .question-text {
@@ -111,27 +131,37 @@
         .options {
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 9px;
         }
         
         .option {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 15px 20px;
-            border-radius: 8px;
+            width: 100%;
+            min-width: 0;
+            flex: 0 0 auto;
+            background: rgba(255, 255, 255, 0.06);
+            padding: 13px 16px;
+            border-radius: 12px;
             cursor: pointer;
-            transition: all 0.3s;
-            border: 2px solid transparent;
+            transition: background 0.2s, border-color 0.2s, transform 0.2s;
+            border: 1px solid rgba(255, 255, 255, 0.14);
             font-size: 1rem;
+            font-family: inherit;
+            font-weight: normal;
+            color: #fff;
+            text-align: left;
+            line-height: 1.5;
         }
         
         .option:hover {
-            background: rgba(0, 168, 255, 0.3);
-            border-color: #00a8ff;
+            background: rgba(255, 107, 107, 0.15);
+            border-color: rgba(255, 154, 148, 0.7);
+            transform: translateX(3px);
         }
         
         .option.selected {
-            background: rgba(0, 168, 255, 0.5);
-            border-color: #00a8ff;
+            background: rgba(255, 107, 107, 0.26);
+            border-color: #ff9a94;
+            box-shadow: inset 0 0 0 1px rgba(255, 154, 148, 0.2);
         }
         
         .option.correct {
@@ -147,11 +177,11 @@
         }
         
         .explanation {
-            background: rgba(0, 168, 255, 0.2);
-            padding: 15px;
-            border-radius: 8px;
+            background: rgba(255, 107, 107, 0.12);
+            padding: 15px 16px;
+            border-radius: 12px;
             margin-top: 15px;
-            border-left: 4px solid #00a8ff;
+            border-left: 4px solid #ff9a94;
             display: none;
             font-size: 0.95rem;
         }
@@ -162,18 +192,19 @@
         
         .button-group {
             display: flex;
-            gap: 15px;
-            margin-top: 20px;
+            gap: 12px;
+            margin-top: 22px;
             flex-wrap: wrap;
         }
         
         button {
-            background: linear-gradient(135deg, #00a8ff, #0088cc);
+            background: linear-gradient(135deg, #ff6b6b, #c84c57);
             color: #fff;
             border: none;
-            padding: 12px 25px;
-            border-radius: 8px;
+            padding: 13px 20px;
+            border-radius: 999px;
             cursor: pointer;
+            font-family: inherit;
             font-size: 1rem;
             font-weight: bold;
             transition: all 0.3s;
@@ -183,7 +214,16 @@
         
         button:hover {
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0, 168, 255, 0.4);
+            box-shadow: 0 8px 20px rgba(200, 76, 87, 0.35);
+        }
+
+        button.secondary {
+            background: rgba(255, 255, 255, 0.10);
+            border: 1px solid rgba(255, 171, 164, 0.3);
+        }
+
+        button.secondary:hover {
+            background: rgba(255, 107, 107, 0.18);
         }
         
         button:disabled {
@@ -192,13 +232,14 @@
         }
         
         .results {
-            background: rgba(0, 168, 255, 0.2);
-            padding: 30px;
-            border-radius: 12px;
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.12), rgba(70, 54, 98, 0.24));
+            padding: clamp(20px, 3vw, 30px);
+            border-radius: 18px;
             text-align: center;
             margin-top: 30px;
             display: none;
-            border: 2px solid #00a8ff;
+            border: 1px solid rgba(255, 171, 164, 0.4);
+            box-shadow: 0 16px 38px rgba(10, 10, 35, 0.2);
         }
         
         .results.show {
@@ -206,10 +247,11 @@
         }
         
         .score-display {
-            font-size: 3rem;
-            color: #00a8ff;
+            font-size: clamp(2.5rem, 8vw, 4rem);
+            color: #ffd0cc;
             font-weight: bold;
-            margin: 20px 0;
+            margin: 12px 0;
+            text-shadow: 0 8px 30px rgba(255, 107, 107, 0.2);
         }
 
         .review-controls {
@@ -227,10 +269,11 @@
         .review-controls select {
             width: 100%;
             padding: 12px;
-            border: 2px solid #00a8ff;
-            border-radius: 8px;
-            background: #102b3b;
+            border: 1px solid rgba(255, 171, 164, 0.45);
+            border-radius: 10px;
+            background: #211d42;
             color: #fff;
+            font-family: inherit;
             font-size: 1rem;
             cursor: pointer;
         }
@@ -251,8 +294,9 @@
         .review-empty {
             padding: 16px;
             background: rgba(255, 255, 255, 0.08);
-            border-radius: 8px;
-            border-left: 4px solid #00a8ff;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-left: 4px solid #ff9a94;
+            border-radius: 12px;
         }
 
         .review-question.incorrect {
@@ -269,11 +313,77 @@
         }
         
         .footer {
-            background: rgba(0, 0, 0, 0.3);
+            background: rgba(0, 0, 0, 0.35);
             padding: 20px;
             text-align: center;
             margin-top: 50px;
-            border-top: 2px solid #00a8ff;
+            border-top: 2px solid #ff6b6b;
+        }
+
+        .quiz-progress {
+            margin-bottom: 22px;
+            padding: 14px 16px;
+            border: 1px solid rgba(255, 171, 164, 0.24);
+            border-radius: 14px;
+            background: rgba(16, 16, 48, 0.38);
+        }
+
+        .quiz-progress-label {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 9px;
+            color: #e8e8fa;
+            font-size: 0.9rem;
+        }
+
+        .quiz-progress-label strong { color: #ffd0cc; }
+
+        .quiz-progress-track {
+            height: 9px;
+            overflow: hidden;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.12);
+        }
+
+        .quiz-progress-track span {
+            display: block;
+            width: 0;
+            height: 100%;
+            border-radius: inherit;
+            background: linear-gradient(90deg, #69e8a6, #ff9a94);
+            transition: width 0.25s ease;
+        }
+
+        .option:focus-visible,
+        button:focus-visible,
+        a:focus-visible,
+        select:focus-visible {
+            outline: 3px solid #ffd0cc;
+            outline-offset: 3px;
+        }
+
+        @media (max-width: 900px) {
+            .header-content { flex-direction: column; gap: 12px; }
+            .nav { width: 100%; flex-wrap: wrap; justify-content: center; gap: 4px; }
+            .nav a { padding: 8px 10px; }
+        }
+
+        @media (max-width: 600px) {
+            .container { padding: 28px 14px; }
+            .button-group { flex-direction: column; }
+            .button-group button { width: 100%; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                scroll-behavior: auto !important;
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
         }
     </style>
     <link rel="stylesheet" href="brand-layout.css">
@@ -296,16 +406,25 @@
 
     <div class="container">
         <h1>⚡ Тест по Физика</h1>
-        <p class="quiz-description">Всеки опит включва 10 случайни въпроса от общо 30.</p>
+        <p class="quiz-description">Готов ли си да провериш знанията си?</p>
         
         <div class="quiz-container">
+            <div class="quiz-progress">
+                <div class="quiz-progress-label">
+                    <span>Твоят напредък</span>
+                    <strong id="answeredCount" aria-live="polite">0 от 10</strong>
+                </div>
+                <div class="quiz-progress-track" role="progressbar" aria-label="Отговорени въпроси" aria-valuemin="0" aria-valuemax="10" aria-valuenow="0">
+                    <span id="answerProgress"></span>
+                </div>
+            </div>
             <div id="quizContent">
                 <!-- Въпросите ще бъдат добавени тук от JavaScript -->
             </div>
             
             <div class="button-group">
                 <button id="submitBtn" onclick="checkAnswers()">Преглед отговори</button>
-                <button id="resetBtn" onclick="resetQuiz()" style="background: linear-gradient(135deg, #666, #555);">Нов тест</button>
+                <button id="resetBtn" class="secondary" onclick="resetQuiz()">Нов тест</button>
             </div>
             
             <div id="results" class="results">
@@ -321,7 +440,7 @@
                     </select>
                 </div>
                 <div id="questionReview" class="question-review" aria-live="polite"></div>
-                <button onclick="goBack()" style="margin-top: 20px;">Обратно към физиката</button>
+                <button class="secondary" onclick="goBack()" style="margin-top: 20px;">Обратно към физиката</button>
             </div>
         </div>
     </div>
@@ -367,7 +486,25 @@
             ["Кое твърдение за гравитацията е вярно?", ["Тя привлича обекти с маса", "Тя действа само на светлината", "Тя отблъсква всички тела", "Тя премахва ускорението"], 0, "Гравитацията привлича обекти, които имат маса."],
             ["Защо предмет, пуснат близо до Земята, пада към земята?", ["Земята го привлича чрез гравитация", "Предметът губи масата си", "Скоростта се превръща в светлина", "Позицията му става енергия"], 0, "Гравитационната сила на Земята привлича предмета надолу."],
             ["Кое енергийно понятие е свързано с позицията, а не с движението?", ["Потенциална енергия", "Кинетична енергия", "Скорост", "Ускорение"], 0, "Потенциалната енергия е свързана с позицията на обекта."],
-            ["Кое енергийно понятие е свързано с движението, а не с позицията?", ["Кинетична енергия", "Потенциална енергия", "Маса", "Гравитация"], 0, "Кинетичната енергия е свързана с движението на обекта."]
+            ["Кое енергийно понятие е свързано с движението, а не с позицията?", ["Кинетична енергия", "Потенциална енергия", "Маса", "Гравитация"], 0, "Кинетичната енергия е свързана с движението на обекта."],
+            ["Какво е сила на електрическия ток?", ["Количество заряд, преминало за единица време", "Разлика на потенциалите", "Дължината на проводника", "Количество светлина"], 0, "Силата на тока се пресмята като I = q / t."],
+            ["Коя е единицата за сила на ток?", ["Ампер", "Волт", "Ом", "Ват"], 0, "Силата на ток се измерва в ампери."],
+            ["Коя е връзката между кулон и ампер?", ["1 A = 1 C / 1 s", "1 A = 1 V / 1 Ω", "1 A = 1 J / 1 s", "1 A = 1 Ω / 1 V"], 0, "Един ампер е един кулон заряд за една секунда."],
+            ["Кое устройство се включва последователно за измерване на ток?", ["Амперметър", "Волтметър", "Термометър", "Секундомер"], 0, "Амперметърът се включва последователно във веригата."],
+            ["Какво характеризира амперметъра?", ["Малко вътрешно съпротивление", "Много голямо съпротивление", "Измерва мощност", "Измерва температура"], 0, "Амперметърът има малко вътрешно съпротивление."],
+            ["Как се изчислява електрично напрежение?", ["U = A / q", "U = q / t", "U = R / I", "U = P / t"], 0, "Напрежението е извършената работа за единица заряд: U = A / q."],
+            ["Коя е единицата за напрежение?", ["Волт", "Ампер", "Ом", "Джоул"], 0, "Напрежението се измерва във волтове."],
+            ["Кое устройство се включва успоредно към участъка?", ["Волтметър", "Амперметър", "Секундомер", "Батерия"], 0, "Волтметърът се включва успоредно към измервания участък."],
+            ["С какво е свързано съпротивлението на метален проводник?", ["С неговата дължина и напречно сечение", "Само с времето", "Само с температурната скала", "С броя проводници в стаята"], 0, "Съпротивлението е правопропорционално на дължината и обратнопропорционално на напречното сечение."],
+            ["Какъв е законът на Ом?", ["I = U / R", "I = U × R", "I = R / U", "I = U + R"], 0, "Законът на Ом гласи I = U / R."],
+            ["Ако напрежението е 12 V и съпротивлението е 6 Ω, силата на тока е:", ["2 A", "72 A", "0.5 A", "18 A"], 0, "I = U / R = 12 / 6 = 2 A."],
+            ["Как се изчислява електричната работа?", ["A = U × I × t", "A = U / I", "A = R × t", "A = I / t"], 0, "Електричната работа се пресмята като A = U × I × t."],
+            ["Как се изчислява електричната мощност?", ["P = U × I", "P = U / t", "P = R × t", "P = I / U"], 0, "Мощността е P = U × I."],
+            ["Каква е силата на тока при последователно свързване?", ["Еднаква във всички участъци", "Различна във всяка лампа", "Винаги нулева", "Равна на напрежението"], 0, "При последователно свързване един и същ ток преминава през всички консуматорите."],
+            ["Как се намира общото напрежение при последователно свързване?", ["Като сбор от напреженията на консуматорите", "Като произведение", "Като разлика с нулата", "Като средно на токовете"], 0, "Общото напрежение е сбор от напреженията върху отделните консуматори."],
+            ["Как се намира общото съпротивление при последователно свързване?", ["R = R₁ + R₂", "R = R₁ × R₂", "1/R = R₁ + R₂", "R = R₁ − R₂"], 0, "При последователно свързване съпротивленията се събират."],
+            ["Какво е характерно за успоредно свързване на консуматорите?", ["Съвпадат напреженията върху клоновете", "Токът е еднакъв за всички клонове винаги", "Съпротивленията винаги се събират", "Токът няма общо значение"], 0, "При успоредно свързване консуматорите са под едно и също напрежение."],
+            ["Как се намира общият ток при успоредно свързване?", ["I = I₁ + I₂", "I = I₁ − I₂", "I = I₁ × I₂", "I = I₁ / I₂"], 0, "Общият ток е сбор от токовете през отделните успоредни клонове."]
         ].map(([question, options, correct, explanation]) => ({
             question,
             options,
@@ -425,9 +562,9 @@
                 let optionsHTML = '';
                 q.options.forEach((option, optIndex) => {
                     optionsHTML += `
-                        <div class="option" onclick="selectAnswer(${index}, ${optIndex})">
+                        <button type="button" class="option" aria-pressed="false" onclick="selectAnswer(${index}, ${optIndex})">
                             ${String.fromCharCode(65 + optIndex)}. ${option}
-                        </div>
+                        </button>
                     `;
                 });
                 
@@ -442,6 +579,15 @@
                 
                 quizContent.appendChild(questionDiv);
             });
+            updateProgress();
+        }
+
+        function updateProgress() {
+            const answered = userAnswers.filter(answer => answer !== null).length;
+            document.getElementById('answeredCount').textContent = `${answered} от ${questions.length}`;
+            const progress = document.getElementById('answerProgress');
+            progress.style.width = `${answered / questions.length * 100}%`;
+            progress.parentElement.setAttribute('aria-valuenow', String(answered));
         }
         
         function selectAnswer(questionIndex, optionIndex) {
@@ -449,8 +595,13 @@
             
             const question = document.getElementById(`question-${questionIndex}`);
             const options = question.querySelectorAll('.option');
-            options.forEach(opt => opt.classList.remove('selected'));
+            options.forEach(opt => {
+                opt.classList.remove('selected');
+                opt.setAttribute('aria-pressed', 'false');
+            });
             options[optionIndex].classList.add('selected');
+            options[optionIndex].setAttribute('aria-pressed', 'true');
+            updateProgress();
         }
         
         function checkAnswers() {
