@@ -171,18 +171,38 @@ canvas {
     margin: 24px 0 32px;
 }
 
-.glossary-grid {
+.chemistry-glossary {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 340px));
-    justify-content: center;
-    align-items: stretch;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 12px;
+    margin: 0;
 }
 
-.glossary-grid .lesson-card {
+.chemistry-glossary > div:last-child {
+    grid-column: 1 / -1;
     width: 100%;
-    min-height: 150px;
-    padding: 20px;
-    box-sizing: border-box;
+    text-align: center;
+}
+
+@media (max-width: 1035px) {
+    .chemistry-glossary {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+}
+
+@media (max-width: 783px) {
+    .chemistry-glossary {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+}
+
+@media (max-width: 531px) {
+    .chemistry-glossary {
+        grid-template-columns: 1fr;
+    }
+
 }
 
 .lesson-card {

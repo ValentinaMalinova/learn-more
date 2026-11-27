@@ -89,6 +89,41 @@
             font-weight: normal;
             line-height: 1.6;
         }
+
+        .quiz-progress {
+            margin-bottom: 22px;
+            padding: 14px 16px;
+            border: 1px solid rgba(255, 171, 164, 0.24);
+            border-radius: 14px;
+            background: rgba(16, 16, 48, 0.38);
+        }
+
+        .quiz-progress-label {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 9px;
+            color: #e8e8fa;
+            font-size: 0.9rem;
+        }
+
+        .quiz-progress-label strong { color: #4CAF50; }
+
+        .quiz-progress-track {
+            height: 9px;
+            overflow: hidden;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.12);
+        }
+
+        .quiz-progress-track span {
+            display: block;
+            width: 0;
+            height: 100%;
+            border-radius: inherit;
+            background: linear-gradient(90deg, #69e8a6, #ff9a94);
+            transition: width 0.25s ease;
+        }
         
         .question {
             background: rgba(255, 255, 255, 0.1);
@@ -286,7 +321,7 @@
 <body>
     <header>
         <div class="header-content">
-            <div class="logo">🧬 Научи повече +</div>
+            <a class="logo" href="index.html" style="text-decoration: none;">🧬 Научи повече +</a>
             <nav class="nav">
                 <a href="index.html">Начало</a>
                 <a href="biology.html">Биология</a>
@@ -304,6 +339,15 @@
         <p class="quiz-description">Готов ли си да провериш знанията си?</p>
         
         <div class="quiz-container">
+            <div class="quiz-progress">
+                <div class="quiz-progress-label">
+                    <span>Твоят напредък</span>
+                    <strong id="answeredCount" aria-live="polite">0 от 10</strong>
+                </div>
+                <div class="quiz-progress-track" role="progressbar" aria-label="Отговорени въпроси" aria-valuemin="0" aria-valuemax="10" aria-valuenow="0">
+                    <span id="answerProgress"></span>
+                </div>
+            </div>
             <div id="quizContent">
                 <!-- Въпросите ще бъдат добавени тук от JavaScript -->
             </div>
@@ -447,6 +491,15 @@
                 
                 quizContent.appendChild(questionDiv);
             });
+            updateProgress();
+        }
+
+        function updateProgress() {
+            const answered = userAnswers.filter(answer => answer !== null).length;
+            document.getElementById('answeredCount').textContent = `${answered} от ${questions.length}`;
+            const progress = document.getElementById('answerProgress');
+            progress.style.width = `${answered / questions.length * 100}%`;
+            progress.parentElement.setAttribute('aria-valuenow', String(answered));
         }
         
         function selectAnswer(questionIndex, optionIndex) {
@@ -456,6 +509,7 @@
             const options = question.querySelectorAll('.option');
             options.forEach(opt => opt.classList.remove('selected'));
             options[optionIndex].classList.add('selected');
+            updateProgress();
         }
         
         function checkAnswers() {
